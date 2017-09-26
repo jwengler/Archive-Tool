@@ -121,8 +121,11 @@ namespace Archive_repo_tool
                 ok = true;
             }
             else
+            {
                 ok = false;
-            MessageBox.Show("Please Fill All Fields in accurately", "Error"); //if there is an error generate this message box
+                MessageBox.Show("Please Fill All Fields in accurately", "Error"); //if there is an error generate this message box
+
+            }
             return ok;
         }
 
@@ -132,6 +135,8 @@ namespace Archive_repo_tool
 
             if (ok)
             {
+                RepoTool.Archive_Reprocess();
+                RepoTool.DeleteTempArc();
                 DisplayResults(); //calculate and display results
             }
         }

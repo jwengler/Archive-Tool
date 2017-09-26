@@ -92,8 +92,8 @@ namespace Archive_repo_tool
                 System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
                 startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = "/ C cd /d %piserver%\adm " +
-                    "&piarchss -if " + corrupt_file_path + " -of " + archive_file_path + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"";
+                startInfo.Arguments = "/C cd /d %piserver%\adm " +
+                    "&piarchss -if " + corrupt_file_path + " -of " + archive_file_path + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + "> C:\output.txt";
                 process.StartInfo = startInfo;
                 process.Start();
                 process.WaitForExit();
