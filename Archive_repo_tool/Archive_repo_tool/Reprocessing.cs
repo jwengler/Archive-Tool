@@ -12,6 +12,7 @@ namespace Archive_repo_tool
         private string archive_file_path = string.Empty;
         private string start_time = string.Empty;
         private string end_time = string.Empty;
+        private int BIGexitCode;
 
 
         public string GetCorrupt()
@@ -96,7 +97,7 @@ namespace Archive_repo_tool
                 process.StartInfo = startInfo;
                 process.Start();
                 process.WaitForExit();
-                int exitCode = process.ExitCode;
+                int BIGexitCode = process.ExitCode;
 
             }
             else
@@ -110,7 +111,7 @@ namespace Archive_repo_tool
                 process.StartInfo = startInfo;
                 process.Start();
                 process.WaitForExit();
-                int exitCode = process.ExitCode;
+                int BIGexitCode = process.ExitCode;
                 DeleteTempArc();
             }
 
@@ -130,6 +131,16 @@ namespace Archive_repo_tool
             int exitCode = process.ExitCode;
         }
 
+        public string SuccessorFail()
+        {
+            if (BIGexitCode == 0)
+            {
+                return "success";
+
+            }
+            else
+                return "failure";
+        }
 
     }
 }

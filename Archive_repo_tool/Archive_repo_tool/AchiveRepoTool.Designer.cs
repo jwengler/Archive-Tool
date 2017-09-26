@@ -39,10 +39,7 @@
             this.StartTimetxt = new System.Windows.Forms.TextBox();
             this.EndTimelbl = new System.Windows.Forms.Label();
             this.StartTimelbl = new System.Windows.Forms.Label();
-            this.OutputFilelbl = new System.Windows.Forms.Label();
-            this.OutputFiletxt = new System.Windows.Forms.TextBox();
             this.ReprecoessQueuebtn = new System.Windows.Forms.Button();
-            this.ReprocessArchivebtn = new System.Windows.Forms.Button();
             this.Successtxt = new System.Windows.Forms.Label();
             this.TimeFrameGrp.SuspendLayout();
             this.SuspendLayout();
@@ -80,7 +77,7 @@
             // 
             this.Queuefiletxt.Location = new System.Drawing.Point(124, 72);
             this.Queuefiletxt.Name = "Queuefiletxt";
-            this.Queuefiletxt.Size = new System.Drawing.Size(307, 20);
+            this.Queuefiletxt.Size = new System.Drawing.Size(341, 20);
             this.Queuefiletxt.TabIndex = 3;
             // 
             // ArchFilelbl
@@ -88,16 +85,15 @@
             this.ArchFilelbl.AutoSize = true;
             this.ArchFilelbl.Location = new System.Drawing.Point(18, 110);
             this.ArchFilelbl.Name = "ArchFilelbl";
-            this.ArchFilelbl.Size = new System.Drawing.Size(90, 13);
+            this.ArchFilelbl.Size = new System.Drawing.Size(146, 13);
             this.ArchFilelbl.TabIndex = 4;
-            this.ArchFilelbl.Text = "Archive File Path:";
-          
+            this.ArchFilelbl.Text = "Destination Archive File Path:";
             // 
             // ArchFiletxt
             // 
-            this.ArchFiletxt.Location = new System.Drawing.Point(110, 110);
+            this.ArchFiletxt.Location = new System.Drawing.Point(163, 107);
             this.ArchFiletxt.Name = "ArchFiletxt";
-            this.ArchFiletxt.Size = new System.Drawing.Size(321, 20);
+            this.ArchFiletxt.Size = new System.Drawing.Size(302, 20);
             this.ArchFiletxt.TabIndex = 5;
             // 
             // TimeFrameGrp
@@ -111,7 +107,7 @@
             this.TimeFrameGrp.Size = new System.Drawing.Size(200, 115);
             this.TimeFrameGrp.TabIndex = 6;
             this.TimeFrameGrp.TabStop = false;
-            this.TimeFrameGrp.Text = "Time";
+            this.TimeFrameGrp.Text = "Time of Target Archive";
             // 
             // EndTimetxt
             // 
@@ -145,45 +141,21 @@
             this.StartTimelbl.TabIndex = 0;
             this.StartTimelbl.Text = "Start Time:";
             // 
-            // OutputFilelbl
-            // 
-            this.OutputFilelbl.AutoSize = true;
-            this.OutputFilelbl.Location = new System.Drawing.Point(21, 286);
-            this.OutputFilelbl.Name = "OutputFilelbl";
-            this.OutputFilelbl.Size = new System.Drawing.Size(86, 13);
-            this.OutputFilelbl.TabIndex = 7;
-            this.OutputFilelbl.Text = "Output File Path:";
-            // 
-            // OutputFiletxt
-            // 
-            this.OutputFiletxt.Location = new System.Drawing.Point(114, 286);
-            this.OutputFiletxt.Name = "OutputFiletxt";
-            this.OutputFiletxt.Size = new System.Drawing.Size(317, 20);
-            this.OutputFiletxt.TabIndex = 8;
-            // 
             // ReprecoessQueuebtn
             // 
             this.ReprecoessQueuebtn.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ReprecoessQueuebtn.Location = new System.Drawing.Point(325, 162);
+            this.ReprecoessQueuebtn.Location = new System.Drawing.Point(280, 162);
             this.ReprecoessQueuebtn.Name = "ReprecoessQueuebtn";
-            this.ReprecoessQueuebtn.Size = new System.Drawing.Size(106, 23);
+            this.ReprecoessQueuebtn.Size = new System.Drawing.Size(151, 32);
             this.ReprecoessQueuebtn.TabIndex = 9;
-            this.ReprecoessQueuebtn.Text = "ReprocessQueue";
+            this.ReprecoessQueuebtn.Text = "Reprocess";
             this.ReprecoessQueuebtn.UseVisualStyleBackColor = false;
-            // 
-            // ReprocessArchivebtn
-            // 
-            this.ReprocessArchivebtn.Location = new System.Drawing.Point(325, 205);
-            this.ReprocessArchivebtn.Name = "ReprocessArchivebtn";
-            this.ReprocessArchivebtn.Size = new System.Drawing.Size(106, 23);
-            this.ReprocessArchivebtn.TabIndex = 10;
-            this.ReprocessArchivebtn.Text = "ReprocessArchive";
-            this.ReprocessArchivebtn.UseVisualStyleBackColor = true;
+            this.ReprecoessQueuebtn.Click += new System.EventHandler(this.ReprecoessQueuebtn_Click);
             // 
             // Successtxt
             // 
             this.Successtxt.AutoSize = true;
-            this.Successtxt.Location = new System.Drawing.Point(277, 255);
+            this.Successtxt.Location = new System.Drawing.Point(277, 226);
             this.Successtxt.Name = "Successtxt";
             this.Successtxt.Size = new System.Drawing.Size(0, 13);
             this.Successtxt.TabIndex = 11;
@@ -192,12 +164,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(490, 324);
+            this.ClientSize = new System.Drawing.Size(490, 273);
             this.Controls.Add(this.Successtxt);
-            this.Controls.Add(this.ReprocessArchivebtn);
             this.Controls.Add(this.ReprecoessQueuebtn);
-            this.Controls.Add(this.OutputFiletxt);
-            this.Controls.Add(this.OutputFilelbl);
             this.Controls.Add(this.TimeFrameGrp);
             this.Controls.Add(this.ArchFiletxt);
             this.Controls.Add(this.ArchFilelbl);
@@ -227,10 +196,7 @@
         private System.Windows.Forms.TextBox StartTimetxt;
         private System.Windows.Forms.Label EndTimelbl;
         private System.Windows.Forms.Label StartTimelbl;
-        private System.Windows.Forms.Label OutputFilelbl;
-        private System.Windows.Forms.TextBox OutputFiletxt;
         private System.Windows.Forms.Button ReprecoessQueuebtn;
-        private System.Windows.Forms.Button ReprocessArchivebtn;
         private System.Windows.Forms.Label Successtxt;
     }
 }
