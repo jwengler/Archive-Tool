@@ -100,11 +100,11 @@ namespace Archive_repo_tool
 
             DateTime EndTime;
 
-            bool goodNumber = DateTime.TryParse(StartTimetxt.Text, out EndTime); //make sure its a valid number
+            bool goodNumber = DateTime.TryParse(EndTimetxt.Text, out EndTime); //make sure its a valid number
             if (goodNumber) //true or false
             {
 
-                RepoTool.SetStart(EndTimetxt.Text); //send weight to BMI object
+                RepoTool.SetEnd(EndTimetxt.Text); //send weight to BMI object
             }
             if (!goodNumber)
                 MessageBox.Show("Invalid End Time Date", "Error"); //if there is an error generate this message box
@@ -136,7 +136,6 @@ namespace Archive_repo_tool
             if (ok)
             {
                 RepoTool.Archive_Reprocess();
-                RepoTool.DeleteTempArc();
                 DisplayResults(); //calculate and display results
             }
         }

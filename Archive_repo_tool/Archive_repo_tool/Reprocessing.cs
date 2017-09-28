@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Archive_repo_tool
@@ -63,72 +65,31 @@ namespace Archive_repo_tool
                 end_time = value;
         }
 
-        public void DatToArc()
+        public void Archive_Reprocess()
         {
             if (corrupt_file_path.Contains(".dat"))
             {
-                //string strCmdText;
-                //strCmdText = "/C piarchss.exe -evq -if " + corrupt_file_path + " -of C:\Temp.arc";
-
-                System.Diagnostics.Process process = new System.Diagnostics.Process();
-                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = "/ C cd /d %piserver%\adm " +
-                    "&piarchss.exe - evq -if " + corrupt_file_path + " - of C:\\Temp.arc";
-                process.StartInfo = startInfo;
-                process.Start();
-                process.WaitForExit();
-                int exitCode = process.ExitCode; 
+                string command = "piarchss -evq -evqpath " + corrupt_file_path + " -of " + archive_file_path;
+                BIGexitCode = runCommands(command);
             }
-          
-        }
-
-        public void Archive_Reprocess()
-        {
-            if (corrupt_file_path.Contains(".arc"))
+            else if (corrupt_file_path.Contains(".arc"))
             {
-                System.Diagnostics.Process process = new System.Diagnostics.Process();
-                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = "/C cd /d %piserver%\adm " +
-                    "&piarchss -if " + corrupt_file_path + " -of " + archive_file_path + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + "> C:\output.txt";
-                process.StartInfo = startInfo;
-                process.Start();
-                process.WaitForExit();
-                int BIGexitCode = process.ExitCode;
-
+                string command = "piarchss -if " + corrupt_file_path + " -of " + archive_file_path + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"";
+                BIGexitCode = runCommands(command);
+                
             }
             else
             {
-                System.Diagnostics.Process process = new System.Diagnostics.Process();
-                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-                startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = "/ C  cd /d %piserver%\adm " +
-                    "&piarchss -if C:\\Temp.arc -of " + archive_file_path + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"";
-                process.StartInfo = startInfo;
-                process.Start();
-                process.WaitForExit();
-                int BIGexitCode = process.ExitCode;
+                string command = "piarchss -if C:\\Temp.arc -of " + archive_file_path + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"";
+                BIGexitCode = runCommands(command);
                 DeleteTempArc();
             }
-
-
         }
 
         public void DeleteTempArc()
         {
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/ C  del /f C:\\Temp.arc";
-            process.StartInfo = startInfo;
-            process.Start();
-            process.WaitForExit();
-            int exitCode = process.ExitCode;
+            string command = "/ C  del /f C:\\Temp.arc";
+            BIGexitCode = runCommands(command);
         }
 
         public string SuccessorFail()
@@ -136,10 +97,31 @@ namespace Archive_repo_tool
             if (BIGexitCode == 0)
             {
                 return "success";
-
             }
             else
                 return "failure";
+        }
+        
+        public int runCommands(string commandToRun)
+        {
+            string outputString = "Command Didnt Run";
+            int exitCode = -1;
+            ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd.exe");
+            processStartInfo.RedirectStandardInput = true;
+            processStartInfo.RedirectStandardOutput = true;
+            processStartInfo.UseShellExecute = false;
+            Process process = Process.Start(processStartInfo);
+
+            if (process != null)
+            {
+                process.StandardInput.WriteLine(@"cd /d %piserver%\bin");
+                process.StandardInput.WriteLine(commandToRun);
+                process.StandardInput.Close(); // line added to stop process from hanging on ReadToEnd()
+                outputString = process.StandardOutput.ReadToEnd();
+                exitCode = process.ExitCode;
+            }
+            return exitCode;
+
         }
 
     }
