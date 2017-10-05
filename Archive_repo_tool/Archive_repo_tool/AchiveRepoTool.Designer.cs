@@ -41,7 +41,12 @@
             this.StartTimelbl = new System.Windows.Forms.Label();
             this.ReprecoessQueuebtn = new System.Windows.Forms.Button();
             this.Successtxt = new System.Windows.Forms.Label();
+            this.Browsebtn = new System.Windows.Forms.Button();
+            this.VersionBox = new System.Windows.Forms.GroupBox();
+            this.NewVersionBtn = new System.Windows.Forms.RadioButton();
+            this.OldVersionBtn = new System.Windows.Forms.RadioButton();
             this.TimeFrameGrp.SuspendLayout();
+            this.VersionBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // Inputs
@@ -77,7 +82,7 @@
             // 
             this.Queuefiletxt.Location = new System.Drawing.Point(124, 72);
             this.Queuefiletxt.Name = "Queuefiletxt";
-            this.Queuefiletxt.Size = new System.Drawing.Size(341, 20);
+            this.Queuefiletxt.Size = new System.Drawing.Size(253, 20);
             this.Queuefiletxt.TabIndex = 3;
             // 
             // ArchFilelbl
@@ -144,7 +149,7 @@
             // ReprecoessQueuebtn
             // 
             this.ReprecoessQueuebtn.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ReprecoessQueuebtn.Location = new System.Drawing.Point(280, 162);
+            this.ReprecoessQueuebtn.Location = new System.Drawing.Point(42, 288);
             this.ReprecoessQueuebtn.Name = "ReprecoessQueuebtn";
             this.ReprecoessQueuebtn.Size = new System.Drawing.Size(151, 32);
             this.ReprecoessQueuebtn.TabIndex = 9;
@@ -155,16 +160,61 @@
             // Successtxt
             // 
             this.Successtxt.AutoSize = true;
-            this.Successtxt.Location = new System.Drawing.Point(277, 226);
+            this.Successtxt.Location = new System.Drawing.Point(262, 298);
             this.Successtxt.Name = "Successtxt";
             this.Successtxt.Size = new System.Drawing.Size(0, 13);
             this.Successtxt.TabIndex = 11;
+            // 
+            // Browsebtn
+            // 
+            this.Browsebtn.Location = new System.Drawing.Point(390, 65);
+            this.Browsebtn.Name = "Browsebtn";
+            this.Browsebtn.Size = new System.Drawing.Size(75, 23);
+            this.Browsebtn.TabIndex = 12;
+            this.Browsebtn.Text = "Browse";
+            this.Browsebtn.UseVisualStyleBackColor = true;
+            this.Browsebtn.Click += new System.EventHandler(this.Browsebtn_Click);
+            // 
+            // VersionBox
+            // 
+            this.VersionBox.Controls.Add(this.OldVersionBtn);
+            this.VersionBox.Controls.Add(this.NewVersionBtn);
+            this.VersionBox.Location = new System.Drawing.Point(265, 153);
+            this.VersionBox.Name = "VersionBox";
+            this.VersionBox.Size = new System.Drawing.Size(200, 115);
+            this.VersionBox.TabIndex = 13;
+            this.VersionBox.TabStop = false;
+            this.VersionBox.Text = "Buffer Subsystem Version";
+            // 
+            // NewVersionBtn
+            // 
+            this.NewVersionBtn.AutoSize = true;
+            this.NewVersionBtn.Location = new System.Drawing.Point(22, 29);
+            this.NewVersionBtn.Name = "NewVersionBtn";
+            this.NewVersionBtn.Size = new System.Drawing.Size(131, 17);
+            this.NewVersionBtn.TabIndex = 0;
+            this.NewVersionBtn.TabStop = true;
+            this.NewVersionBtn.Text = "Versions 4.3 and Later";
+            this.NewVersionBtn.UseVisualStyleBackColor = true;
+            // 
+            // OldVersionBtn
+            // 
+            this.OldVersionBtn.AutoSize = true;
+            this.OldVersionBtn.Location = new System.Drawing.Point(22, 64);
+            this.OldVersionBtn.Name = "OldVersionBtn";
+            this.OldVersionBtn.Size = new System.Drawing.Size(117, 17);
+            this.OldVersionBtn.TabIndex = 1;
+            this.OldVersionBtn.TabStop = true;
+            this.OldVersionBtn.Text = "Versions Before 4.3";
+            this.OldVersionBtn.UseVisualStyleBackColor = true;
             // 
             // AchiveRepoTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(490, 273);
+            this.ClientSize = new System.Drawing.Size(490, 351);
+            this.Controls.Add(this.VersionBox);
+            this.Controls.Add(this.Browsebtn);
             this.Controls.Add(this.Successtxt);
             this.Controls.Add(this.ReprecoessQueuebtn);
             this.Controls.Add(this.TimeFrameGrp);
@@ -178,6 +228,8 @@
             this.Text = "Archive Reprocessing Tool";
             this.TimeFrameGrp.ResumeLayout(false);
             this.TimeFrameGrp.PerformLayout();
+            this.VersionBox.ResumeLayout(false);
+            this.VersionBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -198,6 +250,10 @@
         private System.Windows.Forms.Label StartTimelbl;
         private System.Windows.Forms.Button ReprecoessQueuebtn;
         private System.Windows.Forms.Label Successtxt;
+        private System.Windows.Forms.Button Browsebtn;
+        private System.Windows.Forms.GroupBox VersionBox;
+        private System.Windows.Forms.RadioButton OldVersionBtn;
+        private System.Windows.Forms.RadioButton NewVersionBtn;
     }
 }
 
