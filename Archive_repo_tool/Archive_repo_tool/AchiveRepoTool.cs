@@ -31,14 +31,51 @@ namespace Archive_repo_tool
             ArchFiletxt.Text = string.Empty;
             Queuefiletxt.Text = string.Empty;
 
-            StartTimetxt.Text = "01-Jan-1900 HH:MM:SS";
-            EndTimetxt.Text = "01-Jan-1900 HH:MM:SS";
+            StartTimetxt.Format = DateTimePickerFormat.Custom;
+            EndTimetxt.Format = DateTimePickerFormat.Custom;
+            repoTypeBox.SelectedIndex = 0;
 
 
             //output controls
             Successtxt.Text = string.Empty;
-
-
+        }
+        /// <summary>
+        /// Checks to see which radio button for version is checked
+        /// </summary>
+        /// <returns></returns>
+        private bool ReadRepoType()
+        {
+            bool success;
+            if (repoTypeBox.SelectedIndex > -1)
+            {                
+                //1 = archive
+                //2 = event queue
+                //3 = buffer queue
+                if (repoTypeBox.GetItemText(repoTypeBox.SelectedItem) == "Corrupt Archive")
+                {
+                    VersionBox.Visible = false;
+                    RepoTool.SetRepoType(1);
+                    success = true;
+                }
+                else if (repoTypeBox.GetItemText(repoTypeBox.SelectedItem) == "Corrupt Event Queue")
+                {
+                    VersionBox.Visible = false;
+                    RepoTool.SetRepoType(2);
+                    success = true;
+                }
+                else //buffer queue selected
+                {
+                    VersionBox.Visible = true;
+                    RepoTool.SetRepoType(3);
+                    success = true;
+                }
+                return success;
+            }
+            else
+            {
+                success = false;
+                return success;
+            }      
         }
         /// <summary>
         /// Send the Corrupte file path on to the Reprocessing.cs
@@ -78,8 +115,14 @@ namespace Archive_repo_tool
                 return false;
             }
             else
-                RepoTool.SetArchive(path);
-
+            {
+                if (ArchFiletxt.Text != Queuefiletxt.Text)
+                {
+                    RepoTool.SetArchive(path);
+                }
+                else
+                    MessageBox.Show("Destination Archive path cannot match Corrupt Filename!", "Error"); //if there is an error generate this message box
+            }
             return okay;
         }
         /// <summary>
@@ -88,20 +131,9 @@ namespace Archive_repo_tool
         /// <returns></returns>
         private bool ReadStart()
         {
-
-            DateTime StartTime;
-
-            bool goodNumber = DateTime.TryParse(StartTimetxt.Text, out StartTime); //make sure its a valid number
-            if (goodNumber) //true or false
-            {
-
-                RepoTool.SetStart(StartTimetxt.Text); //send start time to the backend 
-            }
-            if (!goodNumber)
-                MessageBox.Show("Invalid Start Time Date", "Error"); //if there is an error generate this message box
-
-
-            return goodNumber;
+            String startTimeString = StartTimetxt.Value.ToString("dd-MMM-yyyy HH:mm:ss");         
+            RepoTool.SetStart(startTimeString); //send start time to the backend 
+            return true;
         }
         /// <summary>
         /// Read the end time of the input archive file
@@ -109,39 +141,38 @@ namespace Archive_repo_tool
         /// <returns></returns>
         private bool ReadEnd()
         {
-
-            DateTime EndTime;
-
-            bool goodNumber = DateTime.TryParse(EndTimetxt.Text, out EndTime); //make sure its a valid number
-            if (goodNumber) //true or false
-            {
-
-                RepoTool.SetEnd(EndTimetxt.Text); //send endtime
-            }
-            if (!goodNumber)
-                MessageBox.Show("Invalid End Time Date", "Error"); //if there is an error generate this message box
-
-
-            return goodNumber;
+            String endTimeString = EndTimetxt.Value.ToString("dd-MMM-yyyy HH:mm:ss");
+            RepoTool.SetEnd(endTimeString); //send start time to the backend 
+            return true;
         }
         /// <summary>
-        /// This method checks all inputs to make sure that they are valid
+        /// Checks to see which radio button for version is checked
         /// </summary>
         /// <returns></returns>
-        private bool ReadInputRepo()
+        private bool ReadVersion()
         {
-            bool ok;
-            if (ReadCorruptQueuePath() && ReadDestinationArchvePath() && ReadStart() && ReadEnd())
+            bool success;
+            if (repoTypeBox.GetItemText(repoTypeBox.SelectedItem) == "Corrupt Buffer Queue")
             {
-                ok = true;
+                if (OldVersionBtn.Checked == true && NewVersionBtn.Checked == false) //Versions before 4.3 
+                {
+                    RepoTool.setVersion(1);                    
+                    success = true;
+                }
+                else if (OldVersionBtn.Checked == false && NewVersionBtn.Checked == true) //Version 4.3 and later
+                {
+                    RepoTool.setVersion(2);
+                    MessageBox.Show("All Corrupt Buffer files in this folder will be reprocessed!");
+                    success = true;
+                }
+                else //no radio button selected
+                {
+                    RepoTool.setVersion(0);
+                    success = true;
+                }
+                return success;
             }
-            else
-            {
-                ok = false;
-                MessageBox.Show("Please Fill All Fields in accurately", "Error"); //if there is an error generate this message box
-
-            }
-            return ok;
+            else return false;
         }
         /// <summary>
         /// Does the reprocessing in the backend after the inputs are all checked 
@@ -149,14 +180,57 @@ namespace Archive_repo_tool
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ReprecoessQueuebtn_Click(object sender, EventArgs e)
-        {
-            bool ok = ReadInputRepo(); //make sure that all of the inputs are valid
+        {      
+            //1 = archive
+            //2 = event queue
+            //3 = buffer queue
 
-            if (ok)
+            if (repoTypeBox.SelectedIndex > -1)
             {
-                RepoTool.DatToArc();
-                RepoTool.Archive_Reprocess();
-                DisplayResults(); //calculate and display results
+                if (repoTypeBox.GetItemText(repoTypeBox.SelectedItem) == "Corrupt Archive")
+                {
+                    if (ReadCorruptQueuePath() && ReadDestinationArchvePath() && ReadStart() && ReadEnd())
+                    {
+                        RepoTool.setVersion(0); //Not a buffer queue
+                        RepoTool.Archive_Reprocess();
+                        DisplayResults();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please ensure fields are filled in correctly.");
+                    }
+                }
+                else if (repoTypeBox.GetItemText(repoTypeBox.SelectedItem) == "Corrupt Event Queue")
+                {
+                    if (ReadCorruptQueuePath() && ReadDestinationArchvePath() && ReadStart() && ReadEnd())
+                    {
+                        RepoTool.setVersion(0); //Not a buffer queue
+                        RepoTool.DatToArc();
+                        DisplayResults();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please ensure fields are filled in correctly.");
+                    }
+
+                }
+                else //buffer queue selected
+                {
+                    if (ReadCorruptQueuePath() && ReadDestinationArchvePath() && ReadStart() && ReadEnd() && ReadVersion())
+                    {
+                       RepoTool.DatToArc();
+                    
+                       DisplayResults();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please ensure fields are filled in correctly.");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please Select what you are reprocessing!"); //RepoType not selected
             }
         }
         /// <summary>
@@ -196,6 +270,24 @@ namespace Archive_repo_tool
                 Queuefiletxt.Text = value;
             }
         }
-        //Need to add code for the radio button. Need to figure out how to parse the buffer GUID from the file path. 
+
+        private void repoTypeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ReadRepoType();
+        }
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NewVersionBtn_CheckedChanged(object sender, EventArgs e)
+        {
+            ReadVersion();
+        }
+
+        private void StartTimetxt_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
