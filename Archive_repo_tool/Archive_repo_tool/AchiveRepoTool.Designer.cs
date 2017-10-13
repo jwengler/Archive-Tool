@@ -35,6 +35,8 @@
             this.ArchFilelbl = new System.Windows.Forms.Label();
             this.ArchFiletxt = new System.Windows.Forms.TextBox();
             this.TimeFrameGrp = new System.Windows.Forms.GroupBox();
+            this.EndTimetxt = new System.Windows.Forms.DateTimePicker();
+            this.StartTimetxt = new System.Windows.Forms.DateTimePicker();
             this.EndTimelbl = new System.Windows.Forms.Label();
             this.StartTimelbl = new System.Windows.Forms.Label();
             this.ReprecoessQueuebtn = new System.Windows.Forms.Button();
@@ -45,8 +47,7 @@
             this.NewVersionBtn = new System.Windows.Forms.RadioButton();
             this.repoTypeBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.StartTimetxt = new System.Windows.Forms.DateTimePicker();
-            this.EndTimetxt = new System.Windows.Forms.DateTimePicker();
+            this.piVersion = new System.Windows.Forms.Label();
             this.TimeFrameGrp.SuspendLayout();
             this.VersionBox.SuspendLayout();
             this.SuspendLayout();
@@ -124,6 +125,24 @@
             this.TimeFrameGrp.TabIndex = 6;
             this.TimeFrameGrp.TabStop = false;
             this.TimeFrameGrp.Text = "Time of Target Archive";
+            // 
+            // EndTimetxt
+            // 
+            this.EndTimetxt.CustomFormat = "\"dd-MMM-yyyy HH:mm:ss\"";
+            this.EndTimetxt.Location = new System.Drawing.Point(98, 76);
+            this.EndTimetxt.Name = "EndTimetxt";
+            this.EndTimetxt.Size = new System.Drawing.Size(209, 22);
+            this.EndTimetxt.TabIndex = 17;
+            // 
+            // StartTimetxt
+            // 
+            this.StartTimetxt.CustomFormat = "\"dd-MMM-yyyy HH:mm:ss\"";
+            this.StartTimetxt.Location = new System.Drawing.Point(98, 36);
+            this.StartTimetxt.Name = "StartTimetxt";
+            this.StartTimetxt.Size = new System.Drawing.Size(209, 22);
+            this.StartTimetxt.TabIndex = 16;
+            this.StartTimetxt.Value = new System.DateTime(2017, 10, 19, 0, 0, 0, 0);
+            this.StartTimetxt.ValueChanged += new System.EventHandler(this.StartTimetxt_ValueChanged);
             // 
             // EndTimelbl
             // 
@@ -241,29 +260,20 @@
             this.label1.Text = "What are you Reprocessing?";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // StartTimetxt
+            // piVersion
             // 
-            this.StartTimetxt.CustomFormat = "\"dd-MMM-yyyy HH:mm:ss\"";
-            this.StartTimetxt.Location = new System.Drawing.Point(98, 36);
-            this.StartTimetxt.Name = "StartTimetxt";
-            this.StartTimetxt.Size = new System.Drawing.Size(209, 22);
-            this.StartTimetxt.TabIndex = 16;
-            this.StartTimetxt.Value = new System.DateTime(2017, 10, 19, 0, 0, 0, 0);
-            this.StartTimetxt.ValueChanged += new System.EventHandler(this.StartTimetxt_ValueChanged);
-            // 
-            // EndTimetxt
-            // 
-            this.EndTimetxt.CustomFormat = "\"dd-MMM-yyyy HH:mm:ss\"";
-            this.EndTimetxt.Location = new System.Drawing.Point(98, 76);
-            this.EndTimetxt.Name = "EndTimetxt";
-            this.EndTimetxt.Size = new System.Drawing.Size(209, 22);
-            this.EndTimetxt.TabIndex = 17;
+            this.piVersion.AutoSize = true;
+            this.piVersion.Location = new System.Drawing.Point(163, 9);
+            this.piVersion.Name = "piVersion";
+            this.piVersion.Size = new System.Drawing.Size(0, 17);
+            this.piVersion.TabIndex = 16;
             // 
             // AchiveRepoTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(653, 432);
+            this.Controls.Add(this.piVersion);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.repoTypeBox);
             this.Controls.Add(this.VersionBox);
@@ -310,6 +320,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker StartTimetxt;
         private System.Windows.Forms.DateTimePicker EndTimetxt;
+        private System.Windows.Forms.Label piVersion;
     }
 }
 

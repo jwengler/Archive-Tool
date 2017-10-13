@@ -209,13 +209,25 @@ namespace Archive_repo_tool
                 return "failure";
         }
         /// <summary>
+        /// Get PI Server Version
+        /// </summary>
+        /// <returns></returns>
+        public string piVersion()
+        {
+            string version;
+            string command = "pidiag -v";
+            version = runCommandadm(command);
+            version = version.Substring(version.IndexOf("Version:"), version.IndexOf("Program:") - version.IndexOf("Version:")-4);
+            return version;
+        }
+        /// <summary>
         /// Create a command line with the %piserver%\adm directory already navigated to
         /// </summary>
         /// <param name="commandToRun"></param>
         /// <returns></returns>
         public int runCommands(string commandToRun)
         {
-            string outputString = "Command Didnt Run";
+            string commandOutput = "Command Didnt Run";
             int exitCode = -1;
             ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd.exe");
             processStartInfo.RedirectStandardInput = true;
@@ -228,10 +240,31 @@ namespace Archive_repo_tool
                 process.StandardInput.WriteLine(@"cd /d %piserver%\bin");
                 process.StandardInput.WriteLine(commandToRun);
                 process.StandardInput.Close(); // line added to stop process from hanging on ReadToEnd()
-                outputString = process.StandardOutput.ReadToEnd();
+                commandOutput = process.StandardOutput.ReadToEnd();
                 exitCode = process.ExitCode;
             }
             return exitCode;
+
+        }
+        public string runCommandadm(string commandToRun)
+        {
+            string commandOutput = "Command Didnt Run";
+            int exitCode = -1;
+            ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd.exe");
+            processStartInfo.RedirectStandardInput = true;
+            processStartInfo.RedirectStandardOutput = true;
+            processStartInfo.UseShellExecute = false;
+            Process process = Process.Start(processStartInfo);
+
+            if (process != null)
+            {
+                process.StandardInput.WriteLine(@"cd /d %piserver%\adm");
+                process.StandardInput.WriteLine(commandToRun);
+                process.StandardInput.Close(); // line added to stop process from hanging on ReadToEnd()
+                commandOutput = process.StandardOutput.ReadToEnd();
+                exitCode = process.ExitCode;
+            }
+            return commandOutput;
 
         }
 

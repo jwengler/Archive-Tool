@@ -35,7 +35,7 @@ namespace Archive_repo_tool
             EndTimetxt.Format = DateTimePickerFormat.Custom;
             repoTypeBox.SelectedIndex = 0;
 
-
+            piVersion.Text = RepoTool.piVersion();
             //output controls
             Successtxt.Text = string.Empty;
         }
