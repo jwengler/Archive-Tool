@@ -61,12 +61,16 @@ namespace Archive_repo_tool
                 {
                     VersionBox.Visible = false;
                     RepoTool.SetRepoType(2);
+                    StartTimetxt.Enabled = true;
+                    EndTimetxt.Enabled = true;
                     success = true;
                 }
                 else //buffer queue selected
                 {
                     VersionBox.Visible = true;
                     RepoTool.SetRepoType(3);
+                    StartTimetxt.Enabled = true;
+                    EndTimetxt.Enabled = true;
                     success = true;
                 }
                 return success;
@@ -87,15 +91,20 @@ namespace Archive_repo_tool
             string path = string.Empty;
             //Get the contents of the textbox
 
-            path = Queuefiletxt.Text; 
+            path = Queuefiletxt.Text;
 
             if (string.IsNullOrEmpty(path))
             {
                 return false;
-                    }
+            }
             else
+            {
                 RepoTool.SetCorrupt(path);
+                RepoTool.parseArchiveStartEnd();
+                StartTimetxt.Value = Convert.ToDateTime(RepoTool.GetStart());
+                EndTimetxt.Value = Convert.ToDateTime(RepoTool.GetEnd());
 
+            }
             return okay;
         }
         /// <summary>
@@ -250,10 +259,13 @@ namespace Archive_repo_tool
         {
             LoadNewFile();
         }
+        //ADD FILE TYPES//
         private void LoadNewFile() //www.dreamincode.net/forums/topic/241079-browsing-for-a-file-using-openfiledialog
         {
             OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Archive Files|*.arc|All Files|*.*";
             System.Windows.Forms.DialogResult dr = ofd.ShowDialog();
+           
             if (dr == DialogResult.OK)
             {
                 userSelectedFilePath = ofd.FileName;
@@ -288,6 +300,16 @@ namespace Archive_repo_tool
         private void StartTimetxt_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void warning_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Queuefiletxt_TextChanged(object sender, EventArgs e)
+        {
+            ReadCorruptQueuePath();
         }
     }
 }

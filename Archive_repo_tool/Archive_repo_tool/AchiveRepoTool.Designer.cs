@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Inputs = new System.Windows.Forms.Label();
             this.warning = new System.Windows.Forms.Label();
             this.QueueFilelbl = new System.Windows.Forms.Label();
             this.Queuefiletxt = new System.Windows.Forms.TextBox();
@@ -52,27 +51,17 @@
             this.VersionBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Inputs
-            // 
-            this.Inputs.AutoSize = true;
-            this.Inputs.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Inputs.Location = new System.Drawing.Point(17, 16);
-            this.Inputs.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.Inputs.Name = "Inputs";
-            this.Inputs.Size = new System.Drawing.Size(99, 35);
-            this.Inputs.TabIndex = 0;
-            this.Inputs.Text = "Inputs";
-            // 
             // warning
             // 
             this.warning.AutoSize = true;
             this.warning.ForeColor = System.Drawing.Color.Red;
-            this.warning.Location = new System.Drawing.Point(20, 52);
+            this.warning.Location = new System.Drawing.Point(153, 41);
             this.warning.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.warning.Name = "warning";
             this.warning.Size = new System.Drawing.Size(189, 17);
             this.warning.TabIndex = 1;
             this.warning.Text = "Remember to take a backup!";
+            this.warning.Click += new System.EventHandler(this.warning_Click);
             // 
             // QueueFilelbl
             // 
@@ -92,6 +81,7 @@
             this.Queuefiletxt.ReadOnly = true;
             this.Queuefiletxt.Size = new System.Drawing.Size(336, 22);
             this.Queuefiletxt.TabIndex = 3;
+            this.Queuefiletxt.TextChanged += new System.EventHandler(this.Queuefiletxt_TextChanged);
             // 
             // ArchFilelbl
             // 
@@ -129,6 +119,7 @@
             // EndTimetxt
             // 
             this.EndTimetxt.CustomFormat = "\"dd-MMM-yyyy HH:mm:ss\"";
+            this.EndTimetxt.Enabled = false;
             this.EndTimetxt.Location = new System.Drawing.Point(98, 76);
             this.EndTimetxt.Name = "EndTimetxt";
             this.EndTimetxt.Size = new System.Drawing.Size(209, 22);
@@ -137,6 +128,7 @@
             // StartTimetxt
             // 
             this.StartTimetxt.CustomFormat = "\"dd-MMM-yyyy HH:mm:ss\"";
+            this.StartTimetxt.Enabled = false;
             this.StartTimetxt.Location = new System.Drawing.Point(98, 36);
             this.StartTimetxt.Name = "StartTimetxt";
             this.StartTimetxt.Size = new System.Drawing.Size(209, 22);
@@ -242,9 +234,9 @@
             "Corrupt Archive",
             "Corrupt Event Queue",
             "Corrupt Buffer Queue"});
-            this.repoTypeBox.Location = new System.Drawing.Point(437, 29);
+            this.repoTypeBox.Location = new System.Drawing.Point(349, 24);
             this.repoTypeBox.Name = "repoTypeBox";
-            this.repoTypeBox.Size = new System.Drawing.Size(183, 24);
+            this.repoTypeBox.Size = new System.Drawing.Size(187, 24);
             this.repoTypeBox.TabIndex = 14;
             this.repoTypeBox.SelectedIndexChanged += new System.EventHandler(this.repoTypeBox_SelectedIndexChanged);
             // 
@@ -252,7 +244,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(238, 32);
+            this.label1.Location = new System.Drawing.Point(153, 24);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(192, 17);
@@ -286,7 +278,6 @@
             this.Controls.Add(this.Queuefiletxt);
             this.Controls.Add(this.QueueFilelbl);
             this.Controls.Add(this.warning);
-            this.Controls.Add(this.Inputs);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AchiveRepoTool";
             this.Text = "Archive Reprocessing Tool";
@@ -300,8 +291,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label Inputs;
         private System.Windows.Forms.Label warning;
         private System.Windows.Forms.Label QueueFilelbl;
         private System.Windows.Forms.TextBox Queuefiletxt;

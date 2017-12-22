@@ -17,6 +17,8 @@ namespace Archive_repo_tool
         private string start_time = string.Empty;
         private string end_time = string.Empty;
         private int version;
+        private DateTime archiveStart;
+        private DateTime archiveEnd;
         private int BIGexitCode;
         private string GUID = string.Empty;
         private int repoType;
@@ -130,6 +132,18 @@ namespace Archive_repo_tool
                 version = value;
         }
         /// <summary>
+        /// Get Archive Start and End Time 
+        /// </summary>
+        public void parseArchiveStartEnd()
+        {
+            string version;
+            string command = "pidiag -ahd " + "\""+ corrupt_file_path + "\"";
+            version = runCommandadm(command);
+            start_time = version.Substring(version.IndexOf("Start Time:")+12, version.IndexOf("End Time:") - version.IndexOf("Start Time:")-23);
+            end_time = version.Substring(version.IndexOf("End Time:") + 10, version.IndexOf("Backup Time:") - version.IndexOf("End Time:") - 18);
+            
+        }
+        /// <summary>
         /// Reprocess the Buffer queue file into a temporary arc file located on the C:\ drive 
         /// </summary>
         public void DatToArc()
@@ -218,6 +232,7 @@ namespace Archive_repo_tool
             string command = "pidiag -v";
             version = runCommandadm(command);
             version = version.Substring(version.IndexOf("Version:"), version.IndexOf("Program:") - version.IndexOf("Version:")-4);
+            version = "Current Data Archive " + version;
             return version;
         }
         /// <summary>
