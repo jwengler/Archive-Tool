@@ -151,9 +151,9 @@ namespace Archive_repo_tool
             if (corrupt_file_path.Contains(".dat"))
             {
                 //Buffer < 4.3 and event queues step 1
-                if (version == 2 || version == 0)
+                if (version == 1)
                 {
-                    string command = "piarchss -evq -evqpath " + corrupt_file_path + " -of "+ userDesktopPath + "\\Temp.arc" + " >" + userDesktopPath + "\\DatToArcLog.txt";
+                    string command = "piarchss -evq -evqpath " + "\"" + corrupt_file_path + "\"" + " -of "+ userDesktopPath  + "\\Temp.arc" + " >" + userDesktopPath + "\\DatToArcLog.txt";
                     Archive_Reprocess(); //reprocess temp archive into destination archive
                     BIGexitCode = runCommands(command);
                 }
@@ -161,7 +161,7 @@ namespace Archive_repo_tool
                 //Parse GUID
                 //[‎10/‎5/‎2017 3:58 PM]  Harry Markley:  
                 //Buffer > 4.3 first step
-                else if (version == 1)
+                else if (version == 2 || version == 0)
                 {
                     string strRegex = @"[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}";
                     string input = Path.GetFileName(corrupt_file_path);
@@ -175,9 +175,10 @@ namespace Archive_repo_tool
                     {
                         MessageBox.Show("Cant find buffer queue guid in filename!", "Error"); //if there is an error generate this message box
                     }
-                    truncatedPath = corrupt_file_path.Substring(corrupt_file_path.Length-52);
-                    string command = "piarchss -evq -evqpath " + truncatedPath + " -bufss "+GUID+" -of " + userDesktopPath + "\\Temp.arc" + " >" + userDesktopPath+ "\\DatToArcLog.txt";
+                    truncatedPath = corrupt_file_path.Substring(0, corrupt_file_path.Length-52);
+                    string command = "piarchss -evq -evqpath " + "\"" + truncatedPath + "\\" + "\"" + " -bufss "+GUID+" -of " + userDesktopPath + "\\Temp.arc" + " >" + userDesktopPath+ "\\DatToArcLog.txt";
                     BIGexitCode = runCommands(command);
+                    Archive_Reprocess();
 
                 }
             }
@@ -190,13 +191,13 @@ namespace Archive_repo_tool
             //Corrupt Archive
            if (corrupt_file_path.Contains(".arc"))
             {
-                string command = "piarchss -if " + corrupt_file_path + " -of " + archive_file_path + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + " >" + userDesktopPath + "\\Reprocess.txt";
+                string command = "piarchss -if " + corrupt_file_path + " -of " + "\"" + archive_file_path + "\"" + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + " >" + userDesktopPath + "\\Reprocess.txt";
                 BIGexitCode = runCommands(command);                
             }
            //Buffer and Event Queue second step 
             else
             {
-                string command = "piarchss -if "+userDesktopPath + "\\Temp.arc -of " + archive_file_path + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + " >" + userDesktopPath + "\\Reprocess.txt";
+                string command = "piarchss -if "+userDesktopPath + "\\Temp.arc -of " + "\"" + archive_file_path + "\"" + "\\Temp.arc" + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + " >" + userDesktopPath + "\\Reprocess.txt";
                 BIGexitCode = runCommands(command);
                 DeleteTempArc();
             }
@@ -248,6 +249,7 @@ namespace Archive_repo_tool
             processStartInfo.RedirectStandardInput = true;
             processStartInfo.RedirectStandardOutput = true;
             processStartInfo.UseShellExecute = false;
+            processStartInfo.Verb = "runas"; //Run CMD as Admin
             Process process = Process.Start(processStartInfo);
 
             if (process != null)
@@ -269,6 +271,7 @@ namespace Archive_repo_tool
             processStartInfo.RedirectStandardInput = true;
             processStartInfo.RedirectStandardOutput = true;
             processStartInfo.UseShellExecute = false;
+            processStartInfo.Verb = "runas"; //Run CMD as Admin
             Process process = Process.Start(processStartInfo);
 
             if (process != null)

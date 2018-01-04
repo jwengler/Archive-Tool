@@ -25,3 +25,4 @@ C:\Users\jengler.OSI\Documents\GitHubRepository\Archive-Tool\Archive_repo_tool\A
 C:\Users\jengler.OSI\Documents\GitHubRepository\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Debug\Archive_repo_tool.csproj.GenerateResource.Cache
 C:\Users\jengler.OSI\Documents\GitHubRepository\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Debug\Archive_repo_tool.exe
 C:\Users\jengler.OSI\Documents\GitHubRepository\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Debug\Archive_repo_tool.pdb
+C:\Users\hpatel\Documents\Archive Repo Tool\Archive_repo_tool\Archive-Tool\Archive_repo_tool\Archive_repo_tool\bin\Debug\Resources\osisoftLogo.png

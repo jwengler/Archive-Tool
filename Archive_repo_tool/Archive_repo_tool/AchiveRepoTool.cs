@@ -55,6 +55,8 @@ namespace Archive_repo_tool
                 {
                     VersionBox.Visible = false;
                     RepoTool.SetRepoType(1);
+                    StartTimetxt.Enabled = false;
+                    EndTimetxt.Enabled = false;
                     success = true;
                 }
                 else if (repoTypeBox.GetItemText(repoTypeBox.SelectedItem) == "Corrupt Event Queue")
@@ -100,9 +102,12 @@ namespace Archive_repo_tool
             else
             {
                 RepoTool.SetCorrupt(path);
-                RepoTool.parseArchiveStartEnd();
-                StartTimetxt.Value = Convert.ToDateTime(RepoTool.GetStart());
-                EndTimetxt.Value = Convert.ToDateTime(RepoTool.GetEnd());
+                if (RepoTool.GetRepoType() == 1)
+                {
+                    RepoTool.parseArchiveStartEnd();
+                    StartTimetxt.Value = Convert.ToDateTime(RepoTool.GetStart());
+                    EndTimetxt.Value = Convert.ToDateTime(RepoTool.GetEnd());
+                }
 
             }
             return okay;
@@ -263,7 +268,7 @@ namespace Archive_repo_tool
         private void LoadNewFile() //www.dreamincode.net/forums/topic/241079-browsing-for-a-file-using-openfiledialog
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Archive Files|*.arc|All Files|*.*";
+            ofd.Filter = "Archive Files|*.arc|Queues|*.dat|All Files|*.*";
             System.Windows.Forms.DialogResult dr = ofd.ShowDialog();
            
             if (dr == DialogResult.OK)

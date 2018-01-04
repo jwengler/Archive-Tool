@@ -238,7 +238,7 @@
             this.repoTypeBox.Name = "repoTypeBox";
             this.repoTypeBox.Size = new System.Drawing.Size(187, 24);
             this.repoTypeBox.TabIndex = 14;
-            this.repoTypeBox.SelectedIndexChanged += new System.EventHandler(this.repoTypeBox_SelectedIndexChanged);
+            this.repoTypeBox.SelectedIndexChanged += new System.EventHandler(repoTypeBox_SelectedIndexChanged);
             // 
             // label1
             // 
