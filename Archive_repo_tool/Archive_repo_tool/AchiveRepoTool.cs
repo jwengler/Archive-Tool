@@ -7,10 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Forms;
+
 
 namespace Archive_repo_tool
 {
-    public partial class AchiveRepoTool : Form
+    public partial class AchiveRepoTool : MetroForm
     {
         //create an instane of teh GUI
         private Reprocessing RepoTool = new Reprocessing();
@@ -315,6 +317,33 @@ namespace Archive_repo_tool
         private void Queuefiletxt_TextChanged(object sender, EventArgs e)
         {
             ReadCorruptQueuePath();
+        }
+
+        private void AchiveRepoTool_Load(object sender, EventArgs e)
+        {
+            //Init metro theme
+            this.StyleManager = metroStyleManager1;
+            metroStyleManager1.Theme = MetroFramework.MetroThemeStyle.Light;
+        }
+
+        private void Warning_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void metroLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void metroTabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
