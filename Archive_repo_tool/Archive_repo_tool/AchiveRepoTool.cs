@@ -36,7 +36,12 @@ namespace Archive_repo_tool
             StartTimetxt.Format = DateTimePickerFormat.Custom;
             EndTimetxt.Format = DateTimePickerFormat.Custom;
             repoTypeBox.SelectedIndex = 0;
-
+            if (RepoTool.piVersion() == "false")
+            {
+                MetroFramework.MetroMessageBox.Show(this, "Data Archive is NOT Installed.","OSISoft Reprocessing Tool",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                this.Close();
+            }
+            else
             piVersion.Text = RepoTool.piVersion();
             //output controls
             Successtxt.Text = string.Empty;
@@ -55,7 +60,6 @@ namespace Archive_repo_tool
                 //3 = buffer queue
                 if (repoTypeBox.GetItemText(repoTypeBox.SelectedItem) == "Corrupt Archive")
                 {
-                    VersionBox.Visible = false;
                     RepoTool.SetRepoType(1);
                     StartTimetxt.Enabled = false;
                     EndTimetxt.Enabled = false;
@@ -63,7 +67,6 @@ namespace Archive_repo_tool
                 }
                 else if (repoTypeBox.GetItemText(repoTypeBox.SelectedItem) == "Corrupt Event Queue")
                 {
-                    VersionBox.Visible = false;
                     RepoTool.SetRepoType(2);
                     StartTimetxt.Enabled = true;
                     EndTimetxt.Enabled = true;
@@ -71,7 +74,6 @@ namespace Archive_repo_tool
                 }
                 else //buffer queue selected
                 {
-                    VersionBox.Visible = true;
                     RepoTool.SetRepoType(3);
                     StartTimetxt.Enabled = true;
                     EndTimetxt.Enabled = true;
@@ -173,7 +175,7 @@ namespace Archive_repo_tool
                 if (OldVersionBtn.Checked == true && NewVersionBtn.Checked == false) //Versions before 4.3 
                 {
                     RepoTool.setVersion(1);                    
-                    success = true;
+                    success = true;                    
                 }
                 else if (OldVersionBtn.Checked == false && NewVersionBtn.Checked == true) //Version 4.3 and later
                 {
@@ -341,7 +343,24 @@ namespace Archive_repo_tool
 
         }
 
-        private void label1_Click_1(object sender, EventArgs e)
+
+
+        private void metroTabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NewVersionBtn_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void VersionBox_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void piVersion_Click(object sender, EventArgs e)
         {
 
         }

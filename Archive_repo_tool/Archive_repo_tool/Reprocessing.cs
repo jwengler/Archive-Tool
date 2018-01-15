@@ -231,9 +231,19 @@ namespace Archive_repo_tool
         {
             string version;
             string command = "pidiag -v";
-            version = runCommandadm(command);
-            version = version.Substring(version.IndexOf("Version:"), version.IndexOf("Program:") - version.IndexOf("Version:")-4);
-            version = "Current Data Archive " + version;
+            try
+            {
+                version = runCommandadm(command);
+                version = version.Substring(version.IndexOf("Version:"), version.IndexOf("\r\nProgram:") - version.IndexOf("Version:"));
+                version = "Current Data Archive " + version;
+            }
+            catch(Exception ex)
+            {
+
+                version = "false";
+
+            }
+           
             return version;
         }
         /// <summary>
