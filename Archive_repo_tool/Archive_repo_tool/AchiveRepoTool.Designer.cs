@@ -46,8 +46,6 @@
             this.Browsebtn = new MetroFramework.Controls.MetroButton();
             this.Queuefiletxt = new MetroFramework.Controls.MetroTextBox();
             this.QueueFilelbl = new MetroFramework.Controls.MetroLabel();
-            this.label1 = new MetroFramework.Controls.MetroLabel();
-            this.repoTypeBox = new MetroFramework.Controls.MetroComboBox();
             this.eventQueueTab = new MetroFramework.Controls.MetroTabPage();
             this.VersionBox = new MetroFramework.Controls.MetroPanel();
             this.OldVersionBtn = new MetroFramework.Controls.MetroRadioButton();
@@ -83,7 +81,7 @@
             this.metroTabControl1.Location = new System.Drawing.Point(53, 91);
             this.metroTabControl1.Name = "metroTabControl1";
             this.metroTabControl1.SelectedIndex = 0;
-            this.metroTabControl1.Size = new System.Drawing.Size(784, 410);
+            this.metroTabControl1.Size = new System.Drawing.Size(784, 351);
             this.metroTabControl1.TabIndex = 17;
             this.metroTabControl1.UseSelectable = true;
             // 
@@ -97,40 +95,44 @@
             this.archiveTab.Controls.Add(this.Browsebtn);
             this.archiveTab.Controls.Add(this.Queuefiletxt);
             this.archiveTab.Controls.Add(this.QueueFilelbl);
-            this.archiveTab.Controls.Add(this.label1);
-            this.archiveTab.Controls.Add(this.repoTypeBox);
             this.archiveTab.HorizontalScrollbarBarColor = true;
             this.archiveTab.HorizontalScrollbarHighlightOnWheel = false;
             this.archiveTab.HorizontalScrollbarSize = 1;
             this.archiveTab.Location = new System.Drawing.Point(4, 38);
             this.archiveTab.Name = "archiveTab";
-            this.archiveTab.Size = new System.Drawing.Size(776, 368);
+            this.archiveTab.Size = new System.Drawing.Size(776, 309);
             this.archiveTab.TabIndex = 0;
             this.archiveTab.Text = "Corrupt Archive";
             this.archiveTab.VerticalScrollbarBarColor = true;
             this.archiveTab.VerticalScrollbarHighlightOnWheel = false;
             this.archiveTab.VerticalScrollbarSize = 2;
+            this.archiveTab.Click += new System.EventHandler(this.archiveTab_Click);
             // 
             // mtrolblWarning
             // 
             this.mtrolblWarning.AutoSize = true;
-            this.mtrolblWarning.Location = new System.Drawing.Point(507, 22);
+            this.mtrolblWarning.FontWeight = MetroFramework.MetroLabelWeight.Bold;
+            this.mtrolblWarning.Location = new System.Drawing.Point(515, 14);
             this.mtrolblWarning.Name = "mtrolblWarning";
-            this.mtrolblWarning.Size = new System.Drawing.Size(243, 19);
+            this.mtrolblWarning.Size = new System.Drawing.Size(265, 19);
+            this.mtrolblWarning.Style = MetroFramework.MetroColorStyle.Blue;
             this.mtrolblWarning.TabIndex = 28;
             this.mtrolblWarning.Text = "NOTE: REMEMBER TO TAKE A BACKUP!";
-            this.mtrolblWarning.Click += new System.EventHandler(this.metroLabel1_Click);
+            this.mtrolblWarning.UseStyleColors = true;
             // 
             // ReprecoessQueuebtn
             // 
             this.ReprecoessQueuebtn.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ReprecoessQueuebtn.Location = new System.Drawing.Point(422, 257);
+            this.ReprecoessQueuebtn.Location = new System.Drawing.Point(501, 197);
             this.ReprecoessQueuebtn.Margin = new System.Windows.Forms.Padding(4);
             this.ReprecoessQueuebtn.Name = "ReprecoessQueuebtn";
             this.ReprecoessQueuebtn.Size = new System.Drawing.Size(201, 47);
+            this.ReprecoessQueuebtn.Style = MetroFramework.MetroColorStyle.Blue;
             this.ReprecoessQueuebtn.TabIndex = 27;
             this.ReprecoessQueuebtn.Text = "Reprocess";
             this.ReprecoessQueuebtn.UseSelectable = true;
+            this.ReprecoessQueuebtn.UseStyleColors = true;
+            this.ReprecoessQueuebtn.Click += new System.EventHandler(this.ReprecoessQueuebtn_Click);
             // 
             // TimeFrameGrp
             // 
@@ -138,45 +140,50 @@
             this.TimeFrameGrp.Controls.Add(this.StartTimetxt);
             this.TimeFrameGrp.Controls.Add(this.EndTimelbl);
             this.TimeFrameGrp.Controls.Add(this.StartTimelbl);
+            this.TimeFrameGrp.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.TimeFrameGrp.HorizontalScrollbarBarColor = true;
             this.TimeFrameGrp.HorizontalScrollbarHighlightOnWheel = false;
-            this.TimeFrameGrp.HorizontalScrollbarSize = 3;
-            this.TimeFrameGrp.Location = new System.Drawing.Point(0, 196);
+            this.TimeFrameGrp.HorizontalScrollbarSize = 1;
+            this.TimeFrameGrp.Location = new System.Drawing.Point(19, 147);
             this.TimeFrameGrp.Margin = new System.Windows.Forms.Padding(4);
             this.TimeFrameGrp.Name = "TimeFrameGrp";
             this.TimeFrameGrp.Padding = new System.Windows.Forms.Padding(4);
-            this.TimeFrameGrp.Size = new System.Drawing.Size(344, 168);
+            this.TimeFrameGrp.Size = new System.Drawing.Size(344, 147);
             this.TimeFrameGrp.TabIndex = 26;
             this.TimeFrameGrp.Text = "Time of Target Archive";
             this.TimeFrameGrp.VerticalScrollbarBarColor = true;
             this.TimeFrameGrp.VerticalScrollbarHighlightOnWheel = false;
-            this.TimeFrameGrp.VerticalScrollbarSize = 4;
+            this.TimeFrameGrp.VerticalScrollbarSize = 2;
             // 
             // EndTimetxt
             // 
             this.EndTimetxt.CustomFormat = "\"dd-MMM-yyyy HH:mm:ss\"";
             this.EndTimetxt.Enabled = false;
-            this.EndTimetxt.Location = new System.Drawing.Point(99, 91);
+            this.EndTimetxt.Location = new System.Drawing.Point(105, 82);
             this.EndTimetxt.MinimumSize = new System.Drawing.Size(0, 29);
             this.EndTimetxt.Name = "EndTimetxt";
             this.EndTimetxt.Size = new System.Drawing.Size(209, 29);
+            this.EndTimetxt.Style = MetroFramework.MetroColorStyle.Blue;
             this.EndTimetxt.TabIndex = 17;
+            this.EndTimetxt.UseStyleColors = true;
             // 
             // StartTimetxt
             // 
             this.StartTimetxt.CustomFormat = "\"dd-MMM-yyyy HH:mm:ss\"";
             this.StartTimetxt.Enabled = false;
-            this.StartTimetxt.Location = new System.Drawing.Point(99, 42);
+            this.StartTimetxt.Location = new System.Drawing.Point(105, 33);
             this.StartTimetxt.MinimumSize = new System.Drawing.Size(0, 29);
             this.StartTimetxt.Name = "StartTimetxt";
             this.StartTimetxt.Size = new System.Drawing.Size(209, 29);
+            this.StartTimetxt.Style = MetroFramework.MetroColorStyle.Blue;
             this.StartTimetxt.TabIndex = 16;
+            this.StartTimetxt.UseStyleColors = true;
             this.StartTimetxt.Value = new System.DateTime(2017, 10, 19, 0, 0, 0, 0);
             // 
             // EndTimelbl
             // 
             this.EndTimelbl.AutoSize = true;
-            this.EndTimelbl.Location = new System.Drawing.Point(16, 94);
+            this.EndTimelbl.Location = new System.Drawing.Point(19, 87);
             this.EndTimelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.EndTimelbl.Name = "EndTimelbl";
             this.EndTimelbl.Size = new System.Drawing.Size(67, 19);
@@ -186,7 +193,7 @@
             // StartTimelbl
             // 
             this.StartTimelbl.AutoSize = true;
-            this.StartTimelbl.Location = new System.Drawing.Point(13, 42);
+            this.StartTimelbl.Location = new System.Drawing.Point(19, 38);
             this.StartTimelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StartTimelbl.Name = "StartTimelbl";
             this.StartTimelbl.Size = new System.Drawing.Size(73, 19);
@@ -209,7 +216,7 @@
             this.ArchFiletxt.CustomButton.UseSelectable = true;
             this.ArchFiletxt.CustomButton.Visible = false;
             this.ArchFiletxt.Lines = new string[0];
-            this.ArchFiletxt.Location = new System.Drawing.Point(192, 95);
+            this.ArchFiletxt.Location = new System.Drawing.Point(221, 102);
             this.ArchFiletxt.Margin = new System.Windows.Forms.Padding(4);
             this.ArchFiletxt.MaxLength = 32767;
             this.ArchFiletxt.Name = "ArchFiletxt";
@@ -228,7 +235,7 @@
             // ArchFilelbl
             // 
             this.ArchFilelbl.AutoSize = true;
-            this.ArchFilelbl.Location = new System.Drawing.Point(0, 80);
+            this.ArchFilelbl.Location = new System.Drawing.Point(18, 106);
             this.ArchFilelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ArchFilelbl.Name = "ArchFilelbl";
             this.ArchFilelbl.Size = new System.Drawing.Size(176, 19);
@@ -237,13 +244,16 @@
             // 
             // Browsebtn
             // 
-            this.Browsebtn.Location = new System.Drawing.Point(551, 141);
+            this.Browsebtn.Location = new System.Drawing.Point(602, 46);
             this.Browsebtn.Margin = new System.Windows.Forms.Padding(4);
             this.Browsebtn.Name = "Browsebtn";
             this.Browsebtn.Size = new System.Drawing.Size(100, 34);
+            this.Browsebtn.Style = MetroFramework.MetroColorStyle.Blue;
             this.Browsebtn.TabIndex = 23;
             this.Browsebtn.Text = "Browse";
             this.Browsebtn.UseSelectable = true;
+            this.Browsebtn.UseStyleColors = true;
+            this.Browsebtn.Click += new System.EventHandler(this.Browsebtn_Click);
             // 
             // Queuefiletxt
             // 
@@ -261,7 +271,7 @@
             this.Queuefiletxt.CustomButton.UseSelectable = true;
             this.Queuefiletxt.CustomButton.Visible = false;
             this.Queuefiletxt.Lines = new string[0];
-            this.Queuefiletxt.Location = new System.Drawing.Point(192, 145);
+            this.Queuefiletxt.Location = new System.Drawing.Point(221, 50);
             this.Queuefiletxt.Margin = new System.Windows.Forms.Padding(4);
             this.Queuefiletxt.MaxLength = 32767;
             this.Queuefiletxt.Name = "Queuefiletxt";
@@ -277,41 +287,18 @@
             this.Queuefiletxt.UseSelectable = true;
             this.Queuefiletxt.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.Queuefiletxt.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.Queuefiletxt.TextChanged += new System.EventHandler(this.Queuefiletxt_TextChanged);
+            this.Queuefiletxt.Click += new System.EventHandler(this.Queuefiletxt_Click);
             // 
             // QueueFilelbl
             // 
             this.QueueFilelbl.AutoSize = true;
-            this.QueueFilelbl.Location = new System.Drawing.Point(0, 148);
+            this.QueueFilelbl.Location = new System.Drawing.Point(18, 54);
             this.QueueFilelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.QueueFilelbl.Name = "QueueFilelbl";
             this.QueueFilelbl.Size = new System.Drawing.Size(126, 19);
             this.QueueFilelbl.TabIndex = 21;
             this.QueueFilelbl.Text = "Corrupted File Path:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(0, 32);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(175, 19);
-            this.label1.TabIndex = 20;
-            this.label1.Text = "What are you Reprocessing?";
-            // 
-            // repoTypeBox
-            // 
-            this.repoTypeBox.FormattingEnabled = true;
-            this.repoTypeBox.ItemHeight = 23;
-            this.repoTypeBox.Items.AddRange(new object[] {
-            "Corrupt Archive",
-            "Corrupt Event Queue",
-            "Corrupt Buffer Queue"});
-            this.repoTypeBox.Location = new System.Drawing.Point(192, 22);
-            this.repoTypeBox.Name = "repoTypeBox";
-            this.repoTypeBox.Size = new System.Drawing.Size(187, 29);
-            this.repoTypeBox.TabIndex = 19;
-            this.repoTypeBox.UseSelectable = true;
             // 
             // eventQueueTab
             // 
@@ -327,7 +314,6 @@
             this.eventQueueTab.VerticalScrollbarBarColor = true;
             this.eventQueueTab.VerticalScrollbarHighlightOnWheel = false;
             this.eventQueueTab.VerticalScrollbarSize = 2;
-            this.eventQueueTab.Click += new System.EventHandler(this.metroTabPage2_Click);
             // 
             // VersionBox
             // 
@@ -337,7 +323,7 @@
             this.VersionBox.Controls.Add(this.NewVersionBtn);
             this.VersionBox.HorizontalScrollbarBarColor = true;
             this.VersionBox.HorizontalScrollbarHighlightOnWheel = false;
-            this.VersionBox.HorizontalScrollbarSize = 3;
+            this.VersionBox.HorizontalScrollbarSize = 1;
             this.VersionBox.Location = new System.Drawing.Point(398, 136);
             this.VersionBox.Margin = new System.Windows.Forms.Padding(4);
             this.VersionBox.Name = "VersionBox";
@@ -347,7 +333,7 @@
             this.VersionBox.Text = "Buffer Subsystem Version";
             this.VersionBox.VerticalScrollbarBarColor = true;
             this.VersionBox.VerticalScrollbarHighlightOnWheel = false;
-            this.VersionBox.VerticalScrollbarSize = 4;
+            this.VersionBox.VerticalScrollbarSize = 2;
             // 
             // OldVersionBtn
             // 
@@ -372,7 +358,6 @@
             this.NewVersionBtn.TabStop = true;
             this.NewVersionBtn.Text = "Versions 4.3 and Later";
             this.NewVersionBtn.UseSelectable = true;
-            this.NewVersionBtn.CheckedChanged += new System.EventHandler(this.NewVersionBtn_CheckedChanged_1);
             // 
             // bufferQueueTab
             // 
@@ -391,19 +376,21 @@
             // piVersion
             // 
             this.piVersion.AutoSize = true;
+            this.piVersion.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.piVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.piVersion.Location = new System.Drawing.Point(306, 50);
+            this.piVersion.Location = new System.Drawing.Point(328, 59);
             this.piVersion.Name = "piVersion";
-            this.piVersion.Size = new System.Drawing.Size(144, 19);
+            this.piVersion.Size = new System.Drawing.Size(165, 19);
+            this.piVersion.Style = MetroFramework.MetroColorStyle.Blue;
             this.piVersion.TabIndex = 17;
             this.piVersion.Text = "PI Data Archive Version";
-            this.piVersion.Click += new System.EventHandler(this.piVersion_Click);
+            this.piVersion.UseStyleColors = true;
             // 
             // AchiveRepoTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(844, 520);
+            this.ClientSize = new System.Drawing.Size(843, 454);
             this.Controls.Add(this.metroTabControl1);
             this.Controls.Add(this.piVersion);
             this.Controls.Add(this.Successtxt);
@@ -432,8 +419,6 @@
         private MetroFramework.Components.MetroStyleManager metroStyleManager1;
         private MetroFramework.Controls.MetroTabControl metroTabControl1;
         private MetroFramework.Controls.MetroTabPage archiveTab;
-        private MetroFramework.Controls.MetroLabel label1;
-        private MetroFramework.Controls.MetroComboBox repoTypeBox;
         private MetroFramework.Controls.MetroLabel piVersion;
         private MetroFramework.Controls.MetroTabPage eventQueueTab;
         private MetroFramework.Controls.MetroTabPage bufferQueueTab;

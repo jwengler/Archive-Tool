@@ -35,7 +35,6 @@ namespace Archive_repo_tool
 
             StartTimetxt.Format = DateTimePickerFormat.Custom;
             EndTimetxt.Format = DateTimePickerFormat.Custom;
-            repoTypeBox.SelectedIndex = 0;
             if (RepoTool.piVersion() == "false")
             {
                 MetroFramework.MetroMessageBox.Show(this, "Data Archive is NOT Installed.","OSISoft Reprocessing Tool",MessageBoxButtons.OK,MessageBoxIcon.Information);
@@ -53,19 +52,19 @@ namespace Archive_repo_tool
         private bool ReadRepoType()
         {
             bool success;
-            if (repoTypeBox.SelectedIndex > -1)
+            if (metroTabControl1.SelectedIndex > -1)
             {                
                 //1 = archive
                 //2 = event queue
                 //3 = buffer queue
-                if (repoTypeBox.GetItemText(repoTypeBox.SelectedItem) == "Corrupt Archive")
+                if (metroTabControl1.SelectedIndex == 0)
                 {
                     RepoTool.SetRepoType(1);
                     StartTimetxt.Enabled = false;
                     EndTimetxt.Enabled = false;
                     success = true;
                 }
-                else if (repoTypeBox.GetItemText(repoTypeBox.SelectedItem) == "Corrupt Event Queue")
+                else if (metroTabControl1.SelectedIndex == 1)
                 {
                     RepoTool.SetRepoType(2);
                     StartTimetxt.Enabled = true;
@@ -170,7 +169,7 @@ namespace Archive_repo_tool
         private bool ReadVersion()
         {
             bool success;
-            if (repoTypeBox.GetItemText(repoTypeBox.SelectedItem) == "Corrupt Buffer Queue")
+            if (metroTabControl1.SelectedIndex == 2)
             {
                 if (OldVersionBtn.Checked == true && NewVersionBtn.Checked == false) //Versions before 4.3 
                 {
@@ -203,9 +202,9 @@ namespace Archive_repo_tool
             //2 = event queue
             //3 = buffer queue
 
-            if (repoTypeBox.SelectedIndex > -1)
+            if (metroTabControl1.SelectedIndex > -1)
             {
-                if (repoTypeBox.GetItemText(repoTypeBox.SelectedItem) == "Corrupt Archive")
+                if (metroTabControl1.SelectedIndex == 0)
                 {
                     if (ReadCorruptQueuePath() && ReadDestinationArchvePath() && ReadStart() && ReadEnd())
                     {
@@ -218,7 +217,7 @@ namespace Archive_repo_tool
                         MessageBox.Show("Please ensure fields are filled in correctly.");
                     }
                 }
-                else if (repoTypeBox.GetItemText(repoTypeBox.SelectedItem) == "Corrupt Event Queue")
+                else if (metroTabControl1.SelectedIndex == 1)
                 {
                     if (ReadCorruptQueuePath() && ReadDestinationArchvePath() && ReadStart() && ReadEnd())
                     {
@@ -326,43 +325,22 @@ namespace Archive_repo_tool
             //Init metro theme
             this.StyleManager = metroStyleManager1;
             metroStyleManager1.Theme = MetroFramework.MetroThemeStyle.Light;
+       
         }
 
-        private void Warning_Click_1(object sender, EventArgs e)
+        private void archiveTab_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void metroLabel1_Click(object sender, EventArgs e)
+        private void Browsebtn_Click_1(object sender, EventArgs e)
         {
 
         }
 
-        private void metroTabPage1_Click(object sender, EventArgs e)
+        private void Queuefiletxt_Click(object sender, EventArgs e)
         {
-
-        }
-
-
-
-        private void metroTabPage2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void NewVersionBtn_CheckedChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void VersionBox_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void piVersion_Click(object sender, EventArgs e)
-        {
-
+            Queuefiletxt.SelectAll();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Archive_repo_tool
         private DateTime archiveEnd;
         private int BIGexitCode;
         private string GUID = string.Empty;
-        private int repoType;
+        private int repoType = 1;
         private string userDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace Archive_repo_tool
             //Corrupt Archive
            if (corrupt_file_path.Contains(".arc"))
             {
-                string command = "piarchss -if " + corrupt_file_path + " -of " + "\"" + archive_file_path + "\"" + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + " >" + userDesktopPath + "\\Reprocess.txt";
+                string command = "piarchss -if " + "\"" + corrupt_file_path + "\"" + " -of " + "\"" + archive_file_path + "\"" + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + " >" + userDesktopPath + "\\Reprocess.txt";
                 BIGexitCode = runCommands(command);                
             }
            //Buffer and Event Queue second step 
@@ -259,6 +259,7 @@ namespace Archive_repo_tool
             processStartInfo.RedirectStandardInput = true;
             processStartInfo.RedirectStandardOutput = true;
             processStartInfo.UseShellExecute = false;
+            processStartInfo.Arguments = "/user:\"Administrator\"";
             processStartInfo.Verb = "runas"; //Run CMD as Admin
             Process process = Process.Start(processStartInfo);
 
