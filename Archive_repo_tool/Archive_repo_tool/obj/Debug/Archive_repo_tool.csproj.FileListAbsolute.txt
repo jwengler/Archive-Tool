@@ -40,3 +40,6 @@ C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\
 C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Debug\Archive_repo_tool.csproj.CoreCompileInputs.cache
 C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Debug\Archive_repo_tool.exe
 C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Debug\Archive_repo_tool.pdb
+C:\Users\hpatel\Documents\Archive Repo Tool\Archive_repo_tool\Archive-Tool\Archive_repo_tool\Archive_repo_tool\bin\Debug\MetroFramework.Design.dll
+C:\Users\hpatel\Documents\Archive Repo Tool\Archive_repo_tool\Archive-Tool\Archive_repo_tool\Archive_repo_tool\bin\Debug\MetroFramework.dll
+C:\Users\hpatel\Documents\Archive Repo Tool\Archive_repo_tool\Archive-Tool\Archive_repo_tool\Archive_repo_tool\bin\Debug\MetroFramework.Fonts.dll

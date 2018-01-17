@@ -52,6 +52,8 @@
             this.NewVersionBtn = new MetroFramework.Controls.MetroRadioButton();
             this.bufferQueueTab = new MetroFramework.Controls.MetroTabPage();
             this.piVersion = new MetroFramework.Controls.MetroLabel();
+            this.metroProgressSpinner1 = new MetroFramework.Controls.MetroProgressSpinner();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).BeginInit();
             this.metroTabControl1.SuspendLayout();
             this.archiveTab.SuspendLayout();
@@ -76,17 +78,19 @@
             // metroTabControl1
             // 
             this.metroTabControl1.Controls.Add(this.archiveTab);
-            this.metroTabControl1.Controls.Add(this.eventQueueTab);
-            this.metroTabControl1.Controls.Add(this.bufferQueueTab);
+           // this.metroTabControl1.Controls.Add(this.bufferQueueTab);
+           // this.metroTabControl1.Controls.Add(this.eventQueueTab);
             this.metroTabControl1.Location = new System.Drawing.Point(53, 91);
             this.metroTabControl1.Name = "metroTabControl1";
             this.metroTabControl1.SelectedIndex = 0;
-            this.metroTabControl1.Size = new System.Drawing.Size(784, 351);
+            this.metroTabControl1.Size = new System.Drawing.Size(816, 414);
             this.metroTabControl1.TabIndex = 17;
             this.metroTabControl1.UseSelectable = true;
             // 
             // archiveTab
             // 
+            this.archiveTab.Controls.Add(this.metroLabel1);
+            this.archiveTab.Controls.Add(this.metroProgressSpinner1);
             this.archiveTab.Controls.Add(this.mtrolblWarning);
             this.archiveTab.Controls.Add(this.ReprecoessQueuebtn);
             this.archiveTab.Controls.Add(this.TimeFrameGrp);
@@ -100,7 +104,7 @@
             this.archiveTab.HorizontalScrollbarSize = 1;
             this.archiveTab.Location = new System.Drawing.Point(4, 38);
             this.archiveTab.Name = "archiveTab";
-            this.archiveTab.Size = new System.Drawing.Size(776, 309);
+            this.archiveTab.Size = new System.Drawing.Size(808, 372);
             this.archiveTab.TabIndex = 0;
             this.archiveTab.Text = "Corrupt Archive";
             this.archiveTab.VerticalScrollbarBarColor = true;
@@ -114,7 +118,7 @@
             this.mtrolblWarning.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.mtrolblWarning.Location = new System.Drawing.Point(515, 14);
             this.mtrolblWarning.Name = "mtrolblWarning";
-            this.mtrolblWarning.Size = new System.Drawing.Size(265, 19);
+            this.mtrolblWarning.Size = new System.Drawing.Size(289, 20);
             this.mtrolblWarning.Style = MetroFramework.MetroColorStyle.Blue;
             this.mtrolblWarning.TabIndex = 28;
             this.mtrolblWarning.Text = "NOTE: REMEMBER TO TAKE A BACKUP!";
@@ -123,7 +127,7 @@
             // ReprecoessQueuebtn
             // 
             this.ReprecoessQueuebtn.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ReprecoessQueuebtn.Location = new System.Drawing.Point(501, 197);
+            this.ReprecoessQueuebtn.Location = new System.Drawing.Point(505, 197);
             this.ReprecoessQueuebtn.Margin = new System.Windows.Forms.Padding(4);
             this.ReprecoessQueuebtn.Name = "ReprecoessQueuebtn";
             this.ReprecoessQueuebtn.Size = new System.Drawing.Size(201, 47);
@@ -160,9 +164,9 @@
             this.EndTimetxt.CustomFormat = "\"dd-MMM-yyyy HH:mm:ss\"";
             this.EndTimetxt.Enabled = false;
             this.EndTimetxt.Location = new System.Drawing.Point(105, 82);
-            this.EndTimetxt.MinimumSize = new System.Drawing.Size(0, 29);
+            this.EndTimetxt.MinimumSize = new System.Drawing.Size(0, 30);
             this.EndTimetxt.Name = "EndTimetxt";
-            this.EndTimetxt.Size = new System.Drawing.Size(209, 29);
+            this.EndTimetxt.Size = new System.Drawing.Size(209, 32);
             this.EndTimetxt.Style = MetroFramework.MetroColorStyle.Blue;
             this.EndTimetxt.TabIndex = 17;
             this.EndTimetxt.UseStyleColors = true;
@@ -172,9 +176,9 @@
             this.StartTimetxt.CustomFormat = "\"dd-MMM-yyyy HH:mm:ss\"";
             this.StartTimetxt.Enabled = false;
             this.StartTimetxt.Location = new System.Drawing.Point(105, 33);
-            this.StartTimetxt.MinimumSize = new System.Drawing.Size(0, 29);
+            this.StartTimetxt.MinimumSize = new System.Drawing.Size(0, 30);
             this.StartTimetxt.Name = "StartTimetxt";
-            this.StartTimetxt.Size = new System.Drawing.Size(209, 29);
+            this.StartTimetxt.Size = new System.Drawing.Size(209, 32);
             this.StartTimetxt.Style = MetroFramework.MetroColorStyle.Blue;
             this.StartTimetxt.TabIndex = 16;
             this.StartTimetxt.UseStyleColors = true;
@@ -186,7 +190,7 @@
             this.EndTimelbl.Location = new System.Drawing.Point(19, 87);
             this.EndTimelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.EndTimelbl.Name = "EndTimelbl";
-            this.EndTimelbl.Size = new System.Drawing.Size(67, 19);
+            this.EndTimelbl.Size = new System.Drawing.Size(71, 20);
             this.EndTimelbl.TabIndex = 1;
             this.EndTimelbl.Text = "End Time:";
             // 
@@ -196,7 +200,7 @@
             this.StartTimelbl.Location = new System.Drawing.Point(19, 38);
             this.StartTimelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StartTimelbl.Name = "StartTimelbl";
-            this.StartTimelbl.Size = new System.Drawing.Size(73, 19);
+            this.StartTimelbl.Size = new System.Drawing.Size(74, 20);
             this.StartTimelbl.TabIndex = 0;
             this.StartTimelbl.Text = "Start Time:";
             // 
@@ -238,7 +242,7 @@
             this.ArchFilelbl.Location = new System.Drawing.Point(18, 106);
             this.ArchFilelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ArchFilelbl.Name = "ArchFilelbl";
-            this.ArchFilelbl.Size = new System.Drawing.Size(176, 19);
+            this.ArchFilelbl.Size = new System.Drawing.Size(188, 20);
             this.ArchFilelbl.TabIndex = 24;
             this.ArchFilelbl.Text = "Destination Archive File Path:";
             // 
@@ -296,7 +300,7 @@
             this.QueueFilelbl.Location = new System.Drawing.Point(18, 54);
             this.QueueFilelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.QueueFilelbl.Name = "QueueFilelbl";
-            this.QueueFilelbl.Size = new System.Drawing.Size(126, 19);
+            this.QueueFilelbl.Size = new System.Drawing.Size(131, 20);
             this.QueueFilelbl.TabIndex = 21;
             this.QueueFilelbl.Text = "Corrupted File Path:";
             // 
@@ -308,7 +312,7 @@
             this.eventQueueTab.HorizontalScrollbarSize = 1;
             this.eventQueueTab.Location = new System.Drawing.Point(4, 38);
             this.eventQueueTab.Name = "eventQueueTab";
-            this.eventQueueTab.Size = new System.Drawing.Size(776, 368);
+            this.eventQueueTab.Size = new System.Drawing.Size(808, 309);
             this.eventQueueTab.TabIndex = 1;
             this.eventQueueTab.Text = "Corrupt Event Queue";
             this.eventQueueTab.VerticalScrollbarBarColor = true;
@@ -341,7 +345,7 @@
             this.OldVersionBtn.Location = new System.Drawing.Point(29, 94);
             this.OldVersionBtn.Margin = new System.Windows.Forms.Padding(4);
             this.OldVersionBtn.Name = "OldVersionBtn";
-            this.OldVersionBtn.Size = new System.Drawing.Size(121, 15);
+            this.OldVersionBtn.Size = new System.Drawing.Size(137, 17);
             this.OldVersionBtn.TabIndex = 1;
             this.OldVersionBtn.TabStop = true;
             this.OldVersionBtn.Text = "Versions Before 4.3";
@@ -353,7 +357,7 @@
             this.NewVersionBtn.Location = new System.Drawing.Point(29, 42);
             this.NewVersionBtn.Margin = new System.Windows.Forms.Padding(4);
             this.NewVersionBtn.Name = "NewVersionBtn";
-            this.NewVersionBtn.Size = new System.Drawing.Size(136, 15);
+            this.NewVersionBtn.Size = new System.Drawing.Size(154, 17);
             this.NewVersionBtn.TabIndex = 0;
             this.NewVersionBtn.TabStop = true;
             this.NewVersionBtn.Text = "Versions 4.3 and Later";
@@ -366,7 +370,7 @@
             this.bufferQueueTab.HorizontalScrollbarSize = 1;
             this.bufferQueueTab.Location = new System.Drawing.Point(4, 38);
             this.bufferQueueTab.Name = "bufferQueueTab";
-            this.bufferQueueTab.Size = new System.Drawing.Size(776, 368);
+            this.bufferQueueTab.Size = new System.Drawing.Size(808, 309);
             this.bufferQueueTab.TabIndex = 2;
             this.bufferQueueTab.Text = "Corrupt Buffer Queue";
             this.bufferQueueTab.VerticalScrollbarBarColor = true;
@@ -380,17 +384,42 @@
             this.piVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.piVersion.Location = new System.Drawing.Point(328, 59);
             this.piVersion.Name = "piVersion";
-            this.piVersion.Size = new System.Drawing.Size(165, 19);
+            this.piVersion.Size = new System.Drawing.Size(174, 20);
             this.piVersion.Style = MetroFramework.MetroColorStyle.Blue;
             this.piVersion.TabIndex = 17;
             this.piVersion.Text = "PI Data Archive Version";
             this.piVersion.UseStyleColors = true;
             // 
+            // metroProgressSpinner1
+            // 
+            this.metroProgressSpinner1.Location = new System.Drawing.Point(710, 197);
+            this.metroProgressSpinner1.Maximum = 100;
+            this.metroProgressSpinner1.Name = "metroProgressSpinner1";
+            this.metroProgressSpinner1.Size = new System.Drawing.Size(52, 47);
+            this.metroProgressSpinner1.Speed = 3F;
+            this.metroProgressSpinner1.Spinning = false;
+            this.metroProgressSpinner1.TabIndex = 29;
+            this.metroProgressSpinner1.UseSelectable = true;
+            this.metroProgressSpinner1.Visible = false;
+            // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.BackColor = System.Drawing.SystemColors.Control;
+            this.metroLabel1.Location = new System.Drawing.Point(526, 263);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(159, 20);
+            this.metroLabel1.Style = MetroFramework.MetroColorStyle.Green;
+            this.metroLabel1.TabIndex = 30;
+            this.metroLabel1.Text = "Completed Successfully!";
+            this.metroLabel1.UseStyleColors = true;
+            this.metroLabel1.Visible = false;
+            // 
             // AchiveRepoTool
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(843, 454);
+            this.ClientSize = new System.Drawing.Size(887, 509);
             this.Controls.Add(this.metroTabControl1);
             this.Controls.Add(this.piVersion);
             this.Controls.Add(this.Successtxt);
@@ -421,7 +450,6 @@
         private MetroFramework.Controls.MetroTabPage archiveTab;
         private MetroFramework.Controls.MetroLabel piVersion;
         private MetroFramework.Controls.MetroTabPage eventQueueTab;
-        private MetroFramework.Controls.MetroTabPage bufferQueueTab;
         private MetroFramework.Controls.MetroButton ReprecoessQueuebtn;
         private MetroFramework.Controls.MetroPanel TimeFrameGrp;
         private MetroFramework.Controls.MetroDateTime EndTimetxt;
@@ -437,6 +465,9 @@
         private MetroFramework.Controls.MetroPanel VersionBox;
         private MetroFramework.Controls.MetroRadioButton OldVersionBtn;
         private MetroFramework.Controls.MetroRadioButton NewVersionBtn;
+        private MetroFramework.Controls.MetroTabPage bufferQueueTab;
+        private MetroFramework.Controls.MetroProgressSpinner metroProgressSpinner1;
+        private MetroFramework.Controls.MetroLabel metroLabel1;
     }
 }
 

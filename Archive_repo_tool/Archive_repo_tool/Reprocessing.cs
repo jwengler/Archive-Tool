@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,10 @@ namespace Archive_repo_tool
         private string GUID = string.Empty;
         private int repoType = 1;
         private string userDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        
 
+        //MultiThreading So GUI Doesnt freeze while archive is reprocessing
+      
         /// <summary>
         /// Get corrupt file path
         /// </summary>
@@ -140,7 +144,10 @@ namespace Archive_repo_tool
             string command = "pidiag -ahd " + "\""+ corrupt_file_path + "\"";
             version = runCommandadm(command);
             start_time = version.Substring(version.IndexOf("Start Time:")+12, version.IndexOf("End Time:") - version.IndexOf("Start Time:")-23);
+        
             end_time = version.Substring(version.IndexOf("End Time:") + 10, version.IndexOf("Backup Time:") - version.IndexOf("End Time:") - 18);
+            if (end_time == "Current Time")
+                end_time = "Primary";
             
         }
         /// <summary>
@@ -154,7 +161,7 @@ namespace Archive_repo_tool
                 if (version == 1)
                 {
                     string command = "piarchss -evq -evqpath " + "\"" + corrupt_file_path + "\"" + " -of "+ userDesktopPath  + "\\Temp.arc" + " >" + userDesktopPath + "\\DatToArcLog.txt";
-                    Archive_Reprocess(); //reprocess temp archive into destination archive
+                   // Archive_Reprocess(); //reprocess temp archive into destination archive
                     BIGexitCode = runCommands(command);
                 }
             
@@ -178,7 +185,7 @@ namespace Archive_repo_tool
                     truncatedPath = corrupt_file_path.Substring(0, corrupt_file_path.Length-52);
                     string command = "piarchss -evq -evqpath " + "\"" + truncatedPath + "\\" + "\"" + " -bufss "+GUID+" -of " + userDesktopPath + "\\Temp.arc" + " >" + userDesktopPath+ "\\DatToArcLog.txt";
                     BIGexitCode = runCommands(command);
-                    Archive_Reprocess();
+                    //Archive_Reprocess();
 
                 }
             }
@@ -186,8 +193,9 @@ namespace Archive_repo_tool
         /// <summary>
         /// Reprocess either the corrupted archive or the temporary archive created i the DATtoARC method 
         /// </summary>
-        public void Archive_Reprocess()
+        public void Archive_Reprocess(object sender, DoWorkEventArgs e)
         {
+           
             //Corrupt Archive
            if (corrupt_file_path.Contains(".arc"))
             {
@@ -261,6 +269,7 @@ namespace Archive_repo_tool
             processStartInfo.UseShellExecute = false;
             processStartInfo.Arguments = "/user:\"Administrator\"";
             processStartInfo.Verb = "runas"; //Run CMD as Admin
+            processStartInfo.CreateNoWindow = true;
             Process process = Process.Start(processStartInfo);
 
             if (process != null)
@@ -283,6 +292,7 @@ namespace Archive_repo_tool
             processStartInfo.RedirectStandardOutput = true;
             processStartInfo.UseShellExecute = false;
             processStartInfo.Verb = "runas"; //Run CMD as Admin
+            processStartInfo.CreateNoWindow = true;
             Process process = Process.Start(processStartInfo);
 
             if (process != null)

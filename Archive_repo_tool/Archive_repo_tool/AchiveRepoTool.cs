@@ -21,6 +21,7 @@ namespace Archive_repo_tool
         {
             InitializeComponent();
             InitializeGUI(); //My Initialization
+
         }
 
         private void InitializeGUI()
@@ -109,6 +110,7 @@ namespace Archive_repo_tool
                 {
                     RepoTool.parseArchiveStartEnd();
                     StartTimetxt.Value = Convert.ToDateTime(RepoTool.GetStart());
+                    if(RepoTool.GetEnd() != "Primary")
                     EndTimetxt.Value = Convert.ToDateTime(RepoTool.GetEnd());
                 }
 
@@ -159,6 +161,7 @@ namespace Archive_repo_tool
         private bool ReadEnd()
         {
             String endTimeString = EndTimetxt.Value.ToString("dd-MMM-yyyy HH:mm:ss");
+            if(RepoTool.GetEnd() != "Primary")
             RepoTool.SetEnd(endTimeString); //send start time to the backend 
             return true;
         }
@@ -191,16 +194,26 @@ namespace Archive_repo_tool
             }
             else return false;
         }
+        private void worker_completed(object sender, RunWorkerCompletedEventArgs e)
+        {
+            metroProgressSpinner1.Spinning = false;
+            metroProgressSpinner1.Visible = false;
+            metroLabel1.Visible = true;
+            ReprecoessQueuebtn.Enabled = true;
+        }
         /// <summary>
         /// Does the reprocessing in the backend after the inputs are all checked 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ReprecoessQueuebtn_Click(object sender, EventArgs e)
-        {      
+        {
             //1 = archive
             //2 = event queue
             //3 = buffer queue
+            BackgroundWorker repoThread = new BackgroundWorker();
+            repoThread.DoWork += new DoWorkEventHandler(RepoTool.Archive_Reprocess);
+            repoThread.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_completed);
 
             if (metroTabControl1.SelectedIndex > -1)
             {
@@ -209,7 +222,11 @@ namespace Archive_repo_tool
                     if (ReadCorruptQueuePath() && ReadDestinationArchvePath() && ReadStart() && ReadEnd())
                     {
                         RepoTool.setVersion(0); //Not a buffer queue
-                        RepoTool.Archive_Reprocess();
+                        repoThread.RunWorkerAsync();
+                        ReprecoessQueuebtn.Enabled = false;
+                        metroProgressSpinner1.Visible = true;
+                        metroProgressSpinner1.Spinning = true;
+                        //RepoTool.Archive_Reprocess();
                         DisplayResults();
                     }
                     else
