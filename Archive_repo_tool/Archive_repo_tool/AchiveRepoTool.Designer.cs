@@ -34,6 +34,8 @@
             this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.archiveTab = new MetroFramework.Controls.MetroTabPage();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.metroProgressSpinner1 = new MetroFramework.Controls.MetroProgressSpinner();
             this.mtrolblWarning = new MetroFramework.Controls.MetroLabel();
             this.ReprecoessQueuebtn = new MetroFramework.Controls.MetroButton();
             this.TimeFrameGrp = new MetroFramework.Controls.MetroPanel();
@@ -52,8 +54,6 @@
             this.NewVersionBtn = new MetroFramework.Controls.MetroRadioButton();
             this.bufferQueueTab = new MetroFramework.Controls.MetroTabPage();
             this.piVersion = new MetroFramework.Controls.MetroLabel();
-            this.metroProgressSpinner1 = new MetroFramework.Controls.MetroProgressSpinner();
-            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).BeginInit();
             this.metroTabControl1.SuspendLayout();
             this.archiveTab.SuspendLayout();
@@ -78,8 +78,6 @@
             // metroTabControl1
             // 
             this.metroTabControl1.Controls.Add(this.archiveTab);
-           // this.metroTabControl1.Controls.Add(this.bufferQueueTab);
-           // this.metroTabControl1.Controls.Add(this.eventQueueTab);
             this.metroTabControl1.Location = new System.Drawing.Point(53, 91);
             this.metroTabControl1.Name = "metroTabControl1";
             this.metroTabControl1.SelectedIndex = 0;
@@ -111,6 +109,31 @@
             this.archiveTab.VerticalScrollbarHighlightOnWheel = false;
             this.archiveTab.VerticalScrollbarSize = 2;
             this.archiveTab.Click += new System.EventHandler(this.archiveTab_Click);
+            // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.BackColor = System.Drawing.SystemColors.Control;
+            this.metroLabel1.Location = new System.Drawing.Point(442, 263);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(320, 20);
+            this.metroLabel1.Style = MetroFramework.MetroColorStyle.Green;
+            this.metroLabel1.TabIndex = 30;
+            this.metroLabel1.Text = "Completed Successfully! Logs Located on Desktop";
+            this.metroLabel1.UseStyleColors = true;
+            this.metroLabel1.Visible = false;
+            // 
+            // metroProgressSpinner1
+            // 
+            this.metroProgressSpinner1.Location = new System.Drawing.Point(710, 197);
+            this.metroProgressSpinner1.Maximum = 100;
+            this.metroProgressSpinner1.Name = "metroProgressSpinner1";
+            this.metroProgressSpinner1.Size = new System.Drawing.Size(52, 47);
+            this.metroProgressSpinner1.Speed = 3F;
+            this.metroProgressSpinner1.Spinning = false;
+            this.metroProgressSpinner1.TabIndex = 29;
+            this.metroProgressSpinner1.UseSelectable = true;
+            this.metroProgressSpinner1.Visible = false;
             // 
             // mtrolblWarning
             // 
@@ -389,31 +412,6 @@
             this.piVersion.TabIndex = 17;
             this.piVersion.Text = "PI Data Archive Version";
             this.piVersion.UseStyleColors = true;
-            // 
-            // metroProgressSpinner1
-            // 
-            this.metroProgressSpinner1.Location = new System.Drawing.Point(710, 197);
-            this.metroProgressSpinner1.Maximum = 100;
-            this.metroProgressSpinner1.Name = "metroProgressSpinner1";
-            this.metroProgressSpinner1.Size = new System.Drawing.Size(52, 47);
-            this.metroProgressSpinner1.Speed = 3F;
-            this.metroProgressSpinner1.Spinning = false;
-            this.metroProgressSpinner1.TabIndex = 29;
-            this.metroProgressSpinner1.UseSelectable = true;
-            this.metroProgressSpinner1.Visible = false;
-            // 
-            // metroLabel1
-            // 
-            this.metroLabel1.AutoSize = true;
-            this.metroLabel1.BackColor = System.Drawing.SystemColors.Control;
-            this.metroLabel1.Location = new System.Drawing.Point(526, 263);
-            this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(159, 20);
-            this.metroLabel1.Style = MetroFramework.MetroColorStyle.Green;
-            this.metroLabel1.TabIndex = 30;
-            this.metroLabel1.Text = "Completed Successfully!";
-            this.metroLabel1.UseStyleColors = true;
-            this.metroLabel1.Visible = false;
             // 
             // AchiveRepoTool
             // 

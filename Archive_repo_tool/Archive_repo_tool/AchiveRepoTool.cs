@@ -21,7 +21,7 @@ namespace Archive_repo_tool
         {
             InitializeComponent();
             InitializeGUI(); //My Initialization
-
+            
         }
 
         private void InitializeGUI()
@@ -108,12 +108,19 @@ namespace Archive_repo_tool
                 RepoTool.SetCorrupt(path);
                 if (RepoTool.GetRepoType() == 1)
                 {
-                    RepoTool.parseArchiveStartEnd();
-                    StartTimetxt.Value = Convert.ToDateTime(RepoTool.GetStart());
-                    if(RepoTool.GetEnd() != "Primary")
-                    EndTimetxt.Value = Convert.ToDateTime(RepoTool.GetEnd());
+                    try
+                    {
+                        RepoTool.parseArchiveStartEnd();
+                        StartTimetxt.Value = Convert.ToDateTime(RepoTool.GetStart());
+                        if (RepoTool.GetEnd() != "Primary")
+                            EndTimetxt.Value = Convert.ToDateTime(RepoTool.GetEnd());
+                    }
+                    catch(Exception e)
+                    {
+                        MetroFramework.MetroMessageBox.Show(this, "Invalid File Selected, Please Select Valid Archive File","Reprocessing Tool");
+                        Queuefiletxt.Clear();         
+                    }                    
                 }
-
             }
             return okay;
         }
@@ -198,7 +205,13 @@ namespace Archive_repo_tool
         {
             metroProgressSpinner1.Spinning = false;
             metroProgressSpinner1.Visible = false;
+            if (e.Error != null)
+            {
+                metroLabel1.Style = MetroFramework.MetroColorStyle.Red;
+                metroLabel1.Text = "Failed Reprocessing - Check Logs";                            
+            }
             metroLabel1.Visible = true;
+
             ReprecoessQueuebtn.Enabled = true;
         }
         /// <summary>
@@ -224,6 +237,7 @@ namespace Archive_repo_tool
                         RepoTool.setVersion(0); //Not a buffer queue
                         repoThread.RunWorkerAsync();
                         ReprecoessQueuebtn.Enabled = false;
+                        metroLabel1.Visible = false;
                         metroProgressSpinner1.Visible = true;
                         metroProgressSpinner1.Spinning = true;
                         //RepoTool.Archive_Reprocess();
@@ -231,7 +245,7 @@ namespace Archive_repo_tool
                     }
                     else
                     {
-                        MessageBox.Show("Please ensure fields are filled in correctly.");
+                        MetroFramework.MetroMessageBox.Show(this, "Please ensure fields are filled in correctly.");
                     }
                 }
                 else if (metroTabControl1.SelectedIndex == 1)

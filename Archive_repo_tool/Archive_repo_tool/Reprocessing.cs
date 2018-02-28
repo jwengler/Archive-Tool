@@ -142,13 +142,13 @@ namespace Archive_repo_tool
         {
             string version;
             string command = "pidiag -ahd " + "\""+ corrupt_file_path + "\"";
-            version = runCommandadm(command);
-            start_time = version.Substring(version.IndexOf("Start Time:")+12, version.IndexOf("End Time:") - version.IndexOf("Start Time:")-23);
-        
-            end_time = version.Substring(version.IndexOf("End Time:") + 10, version.IndexOf("Backup Time:") - version.IndexOf("End Time:") - 18);
-            if (end_time == "Current Time")
-                end_time = "Primary";
-            
+            version = runCommandadm(command);          
+                start_time = version.Substring(version.IndexOf("Start Time:") + 12, version.IndexOf("End Time:") - version.IndexOf("Start Time:") - 23);
+
+                end_time = version.Substring(version.IndexOf("End Time:") + 10, version.IndexOf("Backup Time:") - version.IndexOf("End Time:") - 18);
+
+                if (end_time == "Current Time")
+                    end_time = "Primary";           
         }
         /// <summary>
         /// Reprocess the Buffer queue file into a temporary arc file located on the C:\ drive 
@@ -243,7 +243,7 @@ namespace Archive_repo_tool
             {
                 version = runCommandadm(command);
                 version = version.Substring(version.IndexOf("Version:"), version.IndexOf("\r\nProgram:") - version.IndexOf("Version:"));
-                version = "Current Data Archive " + version;
+                version = "Installed Data Archive " + version;
             }
             catch(Exception ex)
             {
@@ -259,7 +259,7 @@ namespace Archive_repo_tool
         /// </summary>
         /// <param name="commandToRun"></param>
         /// <returns></returns>
-        public int runCommands(string commandToRun)
+        public int runCommands(string commandToRun) //bin folder
         {
             string commandOutput = "Command Didnt Run";
             int exitCode = -1;
@@ -283,7 +283,7 @@ namespace Archive_repo_tool
             return exitCode;
 
         }
-        public string runCommandadm(string commandToRun)
+        public string runCommandadm(string commandToRun) //adm folder
         {
             string commandOutput = "Command Didnt Run";
             int exitCode = -1;
@@ -300,7 +300,7 @@ namespace Archive_repo_tool
                 process.StandardInput.WriteLine(@"cd /d %piserver%\adm");
                 process.StandardInput.WriteLine(commandToRun);
                 process.StandardInput.Close(); // line added to stop process from hanging on ReadToEnd()
-                commandOutput = process.StandardOutput.ReadToEnd();
+                commandOutput = process.StandardOutput.ReadToEnd();                
                 exitCode = process.ExitCode;
             }
             return commandOutput;
