@@ -43,7 +43,6 @@
             this.StartTimetxt = new MetroFramework.Controls.MetroDateTime();
             this.EndTimelbl = new MetroFramework.Controls.MetroLabel();
             this.StartTimelbl = new MetroFramework.Controls.MetroLabel();
-            this.ArchFiletxt = new MetroFramework.Controls.MetroTextBox();
             this.ArchFilelbl = new MetroFramework.Controls.MetroLabel();
             this.Browsebtn = new MetroFramework.Controls.MetroButton();
             this.Queuefiletxt = new MetroFramework.Controls.MetroTextBox();
@@ -92,7 +91,6 @@
             this.archiveTab.Controls.Add(this.mtrolblWarning);
             this.archiveTab.Controls.Add(this.ReprecoessQueuebtn);
             this.archiveTab.Controls.Add(this.TimeFrameGrp);
-            this.archiveTab.Controls.Add(this.ArchFiletxt);
             this.archiveTab.Controls.Add(this.ArchFilelbl);
             this.archiveTab.Controls.Add(this.Browsebtn);
             this.archiveTab.Controls.Add(this.Queuefiletxt);
@@ -107,7 +105,7 @@
             this.archiveTab.Text = "Corrupt Archive";
             this.archiveTab.VerticalScrollbarBarColor = true;
             this.archiveTab.VerticalScrollbarHighlightOnWheel = false;
-            this.archiveTab.VerticalScrollbarSize = 2;
+            this.archiveTab.VerticalScrollbarSize = 1;
             this.archiveTab.Click += new System.EventHandler(this.archiveTab_Click);
             // 
             // metroLabel1
@@ -116,7 +114,7 @@
             this.metroLabel1.BackColor = System.Drawing.SystemColors.Control;
             this.metroLabel1.Location = new System.Drawing.Point(442, 263);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(320, 20);
+            this.metroLabel1.Size = new System.Drawing.Size(300, 19);
             this.metroLabel1.Style = MetroFramework.MetroColorStyle.Green;
             this.metroLabel1.TabIndex = 30;
             this.metroLabel1.Text = "Completed Successfully! Logs Located on Desktop";
@@ -141,7 +139,7 @@
             this.mtrolblWarning.FontWeight = MetroFramework.MetroLabelWeight.Bold;
             this.mtrolblWarning.Location = new System.Drawing.Point(515, 14);
             this.mtrolblWarning.Name = "mtrolblWarning";
-            this.mtrolblWarning.Size = new System.Drawing.Size(289, 20);
+            this.mtrolblWarning.Size = new System.Drawing.Size(265, 19);
             this.mtrolblWarning.Style = MetroFramework.MetroColorStyle.Blue;
             this.mtrolblWarning.TabIndex = 28;
             this.mtrolblWarning.Text = "NOTE: REMEMBER TO TAKE A BACKUP!";
@@ -180,16 +178,16 @@
             this.TimeFrameGrp.Text = "Time of Target Archive";
             this.TimeFrameGrp.VerticalScrollbarBarColor = true;
             this.TimeFrameGrp.VerticalScrollbarHighlightOnWheel = false;
-            this.TimeFrameGrp.VerticalScrollbarSize = 2;
+            this.TimeFrameGrp.VerticalScrollbarSize = 1;
             // 
             // EndTimetxt
             // 
             this.EndTimetxt.CustomFormat = "\"dd-MMM-yyyy HH:mm:ss\"";
             this.EndTimetxt.Enabled = false;
             this.EndTimetxt.Location = new System.Drawing.Point(105, 82);
-            this.EndTimetxt.MinimumSize = new System.Drawing.Size(0, 30);
+            this.EndTimetxt.MinimumSize = new System.Drawing.Size(0, 29);
             this.EndTimetxt.Name = "EndTimetxt";
-            this.EndTimetxt.Size = new System.Drawing.Size(209, 32);
+            this.EndTimetxt.Size = new System.Drawing.Size(209, 30);
             this.EndTimetxt.Style = MetroFramework.MetroColorStyle.Blue;
             this.EndTimetxt.TabIndex = 17;
             this.EndTimetxt.UseStyleColors = true;
@@ -199,9 +197,9 @@
             this.StartTimetxt.CustomFormat = "\"dd-MMM-yyyy HH:mm:ss\"";
             this.StartTimetxt.Enabled = false;
             this.StartTimetxt.Location = new System.Drawing.Point(105, 33);
-            this.StartTimetxt.MinimumSize = new System.Drawing.Size(0, 30);
+            this.StartTimetxt.MinimumSize = new System.Drawing.Size(0, 29);
             this.StartTimetxt.Name = "StartTimetxt";
-            this.StartTimetxt.Size = new System.Drawing.Size(209, 32);
+            this.StartTimetxt.Size = new System.Drawing.Size(209, 30);
             this.StartTimetxt.Style = MetroFramework.MetroColorStyle.Blue;
             this.StartTimetxt.TabIndex = 16;
             this.StartTimetxt.UseStyleColors = true;
@@ -213,7 +211,7 @@
             this.EndTimelbl.Location = new System.Drawing.Point(19, 87);
             this.EndTimelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.EndTimelbl.Name = "EndTimelbl";
-            this.EndTimelbl.Size = new System.Drawing.Size(71, 20);
+            this.EndTimelbl.Size = new System.Drawing.Size(67, 19);
             this.EndTimelbl.TabIndex = 1;
             this.EndTimelbl.Text = "End Time:";
             // 
@@ -223,41 +221,9 @@
             this.StartTimelbl.Location = new System.Drawing.Point(19, 38);
             this.StartTimelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.StartTimelbl.Name = "StartTimelbl";
-            this.StartTimelbl.Size = new System.Drawing.Size(74, 20);
+            this.StartTimelbl.Size = new System.Drawing.Size(73, 19);
             this.StartTimelbl.TabIndex = 0;
             this.StartTimelbl.Text = "Start Time:";
-            // 
-            // ArchFiletxt
-            // 
-            // 
-            // 
-            // 
-            this.ArchFiletxt.CustomButton.Image = null;
-            this.ArchFiletxt.CustomButton.Location = new System.Drawing.Point(375, 1);
-            this.ArchFiletxt.CustomButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
-            this.ArchFiletxt.CustomButton.Name = "";
-            this.ArchFiletxt.CustomButton.Size = new System.Drawing.Size(25, 25);
-            this.ArchFiletxt.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.ArchFiletxt.CustomButton.TabIndex = 1;
-            this.ArchFiletxt.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.ArchFiletxt.CustomButton.UseSelectable = true;
-            this.ArchFiletxt.CustomButton.Visible = false;
-            this.ArchFiletxt.Lines = new string[0];
-            this.ArchFiletxt.Location = new System.Drawing.Point(221, 102);
-            this.ArchFiletxt.Margin = new System.Windows.Forms.Padding(4);
-            this.ArchFiletxt.MaxLength = 32767;
-            this.ArchFiletxt.Name = "ArchFiletxt";
-            this.ArchFiletxt.PasswordChar = '\0';
-            this.ArchFiletxt.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.ArchFiletxt.SelectedText = "";
-            this.ArchFiletxt.SelectionLength = 0;
-            this.ArchFiletxt.SelectionStart = 0;
-            this.ArchFiletxt.ShortcutsEnabled = true;
-            this.ArchFiletxt.Size = new System.Drawing.Size(401, 27);
-            this.ArchFiletxt.TabIndex = 25;
-            this.ArchFiletxt.UseSelectable = true;
-            this.ArchFiletxt.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.ArchFiletxt.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
             // ArchFilelbl
             // 
@@ -265,7 +231,7 @@
             this.ArchFilelbl.Location = new System.Drawing.Point(18, 106);
             this.ArchFilelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ArchFilelbl.Name = "ArchFilelbl";
-            this.ArchFilelbl.Size = new System.Drawing.Size(188, 20);
+            this.ArchFilelbl.Size = new System.Drawing.Size(176, 19);
             this.ArchFilelbl.TabIndex = 24;
             this.ArchFilelbl.Text = "Destination Archive File Path:";
             // 
@@ -289,7 +255,7 @@
             // 
             this.Queuefiletxt.CustomButton.Image = null;
             this.Queuefiletxt.CustomButton.Location = new System.Drawing.Point(310, 1);
-            this.Queuefiletxt.CustomButton.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.Queuefiletxt.CustomButton.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.Queuefiletxt.CustomButton.Name = "";
             this.Queuefiletxt.CustomButton.Size = new System.Drawing.Size(25, 25);
             this.Queuefiletxt.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -323,7 +289,7 @@
             this.QueueFilelbl.Location = new System.Drawing.Point(18, 54);
             this.QueueFilelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.QueueFilelbl.Name = "QueueFilelbl";
-            this.QueueFilelbl.Size = new System.Drawing.Size(131, 20);
+            this.QueueFilelbl.Size = new System.Drawing.Size(126, 19);
             this.QueueFilelbl.TabIndex = 21;
             this.QueueFilelbl.Text = "Corrupted File Path:";
             // 
@@ -368,7 +334,7 @@
             this.OldVersionBtn.Location = new System.Drawing.Point(29, 94);
             this.OldVersionBtn.Margin = new System.Windows.Forms.Padding(4);
             this.OldVersionBtn.Name = "OldVersionBtn";
-            this.OldVersionBtn.Size = new System.Drawing.Size(137, 17);
+            this.OldVersionBtn.Size = new System.Drawing.Size(121, 15);
             this.OldVersionBtn.TabIndex = 1;
             this.OldVersionBtn.TabStop = true;
             this.OldVersionBtn.Text = "Versions Before 4.3";
@@ -380,7 +346,7 @@
             this.NewVersionBtn.Location = new System.Drawing.Point(29, 42);
             this.NewVersionBtn.Margin = new System.Windows.Forms.Padding(4);
             this.NewVersionBtn.Name = "NewVersionBtn";
-            this.NewVersionBtn.Size = new System.Drawing.Size(154, 17);
+            this.NewVersionBtn.Size = new System.Drawing.Size(136, 15);
             this.NewVersionBtn.TabIndex = 0;
             this.NewVersionBtn.TabStop = true;
             this.NewVersionBtn.Text = "Versions 4.3 and Later";
@@ -407,7 +373,7 @@
             this.piVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.piVersion.Location = new System.Drawing.Point(328, 59);
             this.piVersion.Name = "piVersion";
-            this.piVersion.Size = new System.Drawing.Size(174, 20);
+            this.piVersion.Size = new System.Drawing.Size(165, 19);
             this.piVersion.Style = MetroFramework.MetroColorStyle.Blue;
             this.piVersion.TabIndex = 17;
             this.piVersion.Text = "PI Data Archive Version";
@@ -415,7 +381,7 @@
             // 
             // AchiveRepoTool
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(887, 509);
             this.Controls.Add(this.metroTabControl1);
@@ -454,7 +420,6 @@
         private MetroFramework.Controls.MetroDateTime StartTimetxt;
         private MetroFramework.Controls.MetroLabel EndTimelbl;
         private MetroFramework.Controls.MetroLabel StartTimelbl;
-        private MetroFramework.Controls.MetroTextBox ArchFiletxt;
         private MetroFramework.Controls.MetroLabel ArchFilelbl;
         private MetroFramework.Controls.MetroButton Browsebtn;
         private MetroFramework.Controls.MetroTextBox Queuefiletxt;

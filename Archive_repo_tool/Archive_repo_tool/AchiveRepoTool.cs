@@ -31,7 +31,7 @@ namespace Archive_repo_tool
             //input controls
             //could have a button for different PI Server versions 
             //clear inputs
-            ArchFiletxt.Text = string.Empty;
+            //ArchFiletxt.Text = string.Empty;
             Queuefiletxt.Text = string.Empty;
 
             StartTimetxt.Format = DateTimePickerFormat.Custom;
@@ -131,10 +131,17 @@ namespace Archive_repo_tool
         private bool ReadDestinationArchvePath()
         {
             bool okay = true;
+            string archiveName = string.Empty;
             string path = string.Empty;
             //Get the contents of the textbox
 
-            path = ArchFiletxt.Text;
+            path = RepoTool.GetCorrupt();
+            archiveName = path.Substring(path.LastIndexOf('\\'), (path.LastIndexOf('.')-1)- path.LastIndexOf('\\')+1);
+            archiveName = archiveName + "_reprocessed.arc";
+            path = path.Substring(0, path.LastIndexOf('\\'));
+            path = path + archiveName;
+            
+            RepoTool.SetArchive(path);
 
             if (string.IsNullOrEmpty(path))
             {
@@ -142,12 +149,12 @@ namespace Archive_repo_tool
             }
             else
             {
-                if (ArchFiletxt.Text != Queuefiletxt.Text)
-                {
-                    RepoTool.SetArchive(path);
-                }
-                else
-                    MessageBox.Show("Destination Archive path cannot match Corrupt Filename!", "Error"); //if there is an error generate this message box
+                //if (ArchFiletxt.Text != Queuefiletxt.Text)
+                //{
+                //    RepoTool.SetArchive(path);
+                //}
+                //else
+                //    MessageBox.Show("Destination Archive path cannot match Corrupt Filename!", "Error"); //if there is an error generate this message box
             }
             return okay;
         }
@@ -372,6 +379,11 @@ namespace Archive_repo_tool
         private void Queuefiletxt_Click(object sender, EventArgs e)
         {
             Queuefiletxt.SelectAll();
+        }
+
+        private void ArchFiletxt_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
