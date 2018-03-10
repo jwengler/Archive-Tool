@@ -27,7 +27,7 @@ namespace Archive_repo_tool
         
 
         //MultiThreading So GUI Doesnt freeze while archive is reprocessing
-      
+
         /// <summary>
         /// Get corrupt file path
         /// </summary>
@@ -197,7 +197,7 @@ namespace Archive_repo_tool
         {
            
             //Corrupt Archive
-           if (corrupt_file_path.Contains(".arc"))
+           if (!string.IsNullOrEmpty(start_time))
             {
                 string command = "piarchss -if " + "\"" + corrupt_file_path + "\"" + " -of " + "\"" + archive_file_path + "\"" + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + " >" + userDesktopPath + "\\Reprocess.txt";
                 BIGexitCode = runCommands(command);                
@@ -285,7 +285,7 @@ namespace Archive_repo_tool
         }
         public string runCommandadm(string commandToRun) //adm folder
         {
-            string commandOutput = "Command Didnt Run";
+            string commandOutput = "Command Didn't Run";
             int exitCode = -1;
             ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd.exe");
             processStartInfo.RedirectStandardInput = true;

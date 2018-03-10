@@ -8,12 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Forms;
+using System.IO;
 
 
 namespace Archive_repo_tool
 {
     public partial class AchiveRepoTool : MetroForm
     {
+        //Global variables
+        private String openingFilePath = string.Empty;
+        private bool fileStatus = false;
         //create an instane of teh GUI
         private Reprocessing RepoTool = new Reprocessing();
 
@@ -22,18 +26,22 @@ namespace Archive_repo_tool
             InitializeComponent();
             InitializeGUI(); //My Initialization
             
+            
         }
 
         private void InitializeGUI()
         {
+
             this.Text = "Reprocessing Tool"; //This = the current class or MainForm
 
             //input controls
             //could have a button for different PI Server versions 
             //clear inputs
             //ArchFiletxt.Text = string.Empty;
-            Queuefiletxt.Text = string.Empty;
-
+            txtInputFile.Text = string.Empty;
+            txtReprocessedFile.Text = string.Empty;
+            mtrBtn.Enabled = false;
+            ReprecoessQueuebtn.Enabled = false;
             StartTimetxt.Format = DateTimePickerFormat.Custom;
             EndTimetxt.Format = DateTimePickerFormat.Custom;
             if (RepoTool.piVersion() == "false")
@@ -93,11 +101,10 @@ namespace Archive_repo_tool
         /// <returns></returns>
         private bool ReadCorruptQueuePath()
         {
-            bool okay = true;
             string path = string.Empty;
             //Get the contents of the textbox
 
-            path = Queuefiletxt.Text;
+            path = txtInputFile.Text;
 
             if (string.IsNullOrEmpty(path))
             {
@@ -118,11 +125,15 @@ namespace Archive_repo_tool
                     catch(Exception e)
                     {
                         MetroFramework.MetroMessageBox.Show(this, "Invalid File Selected, Please Select Valid Archive File","Reprocessing Tool");
-                        Queuefiletxt.Clear();         
-                    }                    
+                        //Queuefiletxt.Clear();
+                        return false;
+                    }
+                    //ReprecoessQueuebtn.Enabled = true;
+
+                    return true;
                 }
+                return true;
             }
-            return okay;
         }
         /// <summary>
         /// Send the destination path/new archive path on to the backend
@@ -130,34 +141,81 @@ namespace Archive_repo_tool
         /// <returns></returns>
         private bool ReadDestinationArchvePath()
         {
-            bool okay = true;
+            bool okay;
             string archiveName = string.Empty;
             string path = string.Empty;
+            string orginalAnnoFile = string.Empty;
+            //string archiveFileName = string.Empty;
+            string archiveAnn = string.Empty;
+            //string archiveAnnName = string.Empty;
+            string annoPath = string.Empty;
             //Get the contents of the textbox
 
             path = RepoTool.GetCorrupt();
-            archiveName = path.Substring(path.LastIndexOf('\\'), (path.LastIndexOf('.')-1)- path.LastIndexOf('\\')+1);
-            archiveName = archiveName + "_reprocessed.arc";
-            path = path.Substring(0, path.LastIndexOf('\\'));
-            path = path + archiveName;
-            
-            RepoTool.SetArchive(path);
-
-            if (string.IsNullOrEmpty(path))
+            //archiveName = path.Substring(path.LastIndexOf('\\'), (path.LastIndexOf('.')-1)- path.LastIndexOf('\\')+1);
+            archiveName = path.Substring(path.LastIndexOf('\\')+1);
+            if(archiveName.Contains(".arc"))
             {
-                return false;
+                orginalAnnoFile = archiveName + ".ann";
+                archiveAnn = archiveName.Substring(0, archiveName.LastIndexOf(".arc")) + "_reprocessed.arc.ann";
+                archiveName = archiveName.Substring(0,archiveName.LastIndexOf(".arc")) + "_reprocessed.arc";
             }
             else
             {
-                //if (ArchFiletxt.Text != Queuefiletxt.Text)
-                //{
-                //    RepoTool.SetArchive(path);
-                //}
-                //else
-                //    MessageBox.Show("Destination Archive path cannot match Corrupt Filename!", "Error"); //if there is an error generate this message box
+                orginalAnnoFile = archiveName + ".ann";
+                archiveAnn = archiveName + "_reprocessed.ann";
+                archiveName = archiveName + "_reprocessed";
             }
-            return okay;
+            path = path.Substring(0, path.LastIndexOf('\\'));
+            openingFilePath = path;
+            orginalAnnoFile = path + "\\"+orginalAnnoFile;
+            annoPath = path + "\\" + archiveAnn;
+            path = path + "\\"+archiveName;
+            //Checking whether the reprocessing annotation and archive file existing
+            if(!File.Exists(orginalAnnoFile))
+            {
+                MetroFramework.MetroMessageBox.Show(this, "Missing Annotation file!", "Reprocessing Tool | Warning");
+                fileStatus = false;
+                return fileStatus;
+                //System.Windows.Forms.Application.Exit();
+            }
+            else if (File.Exists(path))
+            {
+                MetroFramework.MetroMessageBox.Show(this, "Delete existing archive file <<" + archiveName.Substring(1) + ">>", "Reprocessing Tool | Warning");
+                //System.Windows.Forms.Application.Exit();
+                okay = false;
+                return okay;
+            }
+            else if (File.Exists(annoPath))
+            {
+                MetroFramework.MetroMessageBox.Show(this, "Delete existing annotation file <<" + archiveAnn.Substring(1) + ">>","Reprocessing Tool | Warning");
+                //System.Windows.Forms.Application.Exit();
+                okay = false;
+                return okay;
+            }
+            else
+            {
+                txtReprocessedFile.Text = path;
+                RepoTool.SetArchive(path);
+
+                if (string.IsNullOrEmpty(path))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                    //if (ArchFiletxt.Text != Queuefiletxt.Text)
+                    //{
+                    //    RepoTool.SetArchive(path);
+                    //}
+                    //else
+                    //    MessageBox.Show("Destination Archive path cannot match Corrupt Filename!", "Error"); //if there is an error generate this message box
+                }
+            }
+            //return okay;
         }
+       
         /// <summary>
         /// Read the start time of the input archive file
         /// </summary>
@@ -196,7 +254,7 @@ namespace Archive_repo_tool
                 else if (OldVersionBtn.Checked == false && NewVersionBtn.Checked == true) //Version 4.3 and later
                 {
                     RepoTool.setVersion(2);
-                    MessageBox.Show("All Corrupt Buffer files in this folder will be reprocessed!");
+                    MetroFramework.MetroMessageBox.Show(this, "All Corrupt Buffer files in this folder will be reprocessed!");
                     success = true;
                 }
                 else //no radio button selected
@@ -218,8 +276,10 @@ namespace Archive_repo_tool
                 metroLabel1.Text = "Failed Reprocessing - Check Logs";                            
             }
             metroLabel1.Visible = true;
+            //Queuefiletxt.Clear();
 
-            ReprecoessQueuebtn.Enabled = true;
+            //ReprecoessQueuebtn.Enabled = true;
+            mtrBtn.Enabled = true;
         }
         /// <summary>
         /// Does the reprocessing in the backend after the inputs are all checked 
@@ -252,7 +312,10 @@ namespace Archive_repo_tool
                     }
                     else
                     {
-                        MetroFramework.MetroMessageBox.Show(this, "Please ensure fields are filled in correctly.");
+                        if (fileStatus == true)
+                        {
+                            MetroFramework.MetroMessageBox.Show(this, "Please ensure fields are filled in correctly.");
+                        }
                     }
                 }
                 else if (metroTabControl1.SelectedIndex == 1)
@@ -265,7 +328,10 @@ namespace Archive_repo_tool
                     }
                     else
                     {
-                        MessageBox.Show("Please ensure fields are filled in correctly.");
+                        if (ReadDestinationArchvePath() == true)
+                        {
+                            MetroFramework.MetroMessageBox.Show(this, "Please ensure fields are filled in correctly.");
+                        }
                     }
 
                 }
@@ -279,14 +345,19 @@ namespace Archive_repo_tool
                     }
                     else
                     {
-                        MessageBox.Show("Please ensure fields are filled in correctly.");
+                        if (ReadDestinationArchvePath() == true)
+                        {
+                            MetroFramework.MetroMessageBox.Show(this, "Please ensure fields are filled in correctly.");
+                        }
                     }
                 }
             }
             else
             {
-                MessageBox.Show("Please Select what you are reprocessing!"); //RepoType not selected
+                MetroFramework.MetroMessageBox.Show(this, "Please Select what you are reprocessing!"); //RepoType not selected
             }
+
+            //ReprecoessQueuebtn.Enabled = false;
         }
         /// <summary>
         /// Display the success or unsuccessful operation (still needs work)
@@ -304,6 +375,9 @@ namespace Archive_repo_tool
         private void Browsebtn_Click(object sender, EventArgs e)
         {
             LoadNewFile();
+            txtReprocessedFile.Text = String.Empty;
+            mtrBtn.Enabled = false;
+            metroLabel1.Visible = false;
         }
         //ADD FILE TYPES//
         private void LoadNewFile() //www.dreamincode.net/forums/topic/241079-browsing-for-a-file-using-openfiledialog
@@ -321,11 +395,11 @@ namespace Archive_repo_tool
         {
             get
             {
-                return Queuefiletxt.Text;
+                return txtInputFile.Text;
             }
             set
             {
-                Queuefiletxt.Text = value;
+                txtInputFile.Text = value;
             }
         }
 
@@ -333,28 +407,15 @@ namespace Archive_repo_tool
         {
             ReadRepoType();
         }
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void NewVersionBtn_CheckedChanged(object sender, EventArgs e)
         {
             ReadVersion();
         }
 
-        private void StartTimetxt_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void warning_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Queuefiletxt_TextChanged(object sender, EventArgs e)
         {
+        
             ReadCorruptQueuePath();
         }
 
@@ -363,26 +424,53 @@ namespace Archive_repo_tool
             //Init metro theme
             this.StyleManager = metroStyleManager1;
             metroStyleManager1.Theme = MetroFramework.MetroThemeStyle.Light;
-       
-        }
-
-        private void archiveTab_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Browsebtn_Click_1(object sender, EventArgs e)
-        {
-
+            //Enabling timer for blinking text
+            myTimer.Start();
+            myTimer.Enabled = true;
+            
         }
 
         private void Queuefiletxt_Click(object sender, EventArgs e)
         {
-            Queuefiletxt.SelectAll();
+            txtInputFile.SelectAll();
         }
 
-        private void ArchFiletxt_Click(object sender, EventArgs e)
+        private void txtReprocessedFile_Click(object sender, EventArgs e)
         {
+            txtReprocessedFile.SelectAll();
+        }
+
+        private void myTimer_Tick(object sender, EventArgs e)
+        {
+            Random frmRand = new Random();
+            int A = frmRand.Next(0, 255);
+            int B = frmRand.Next(0, 255);
+            int C = frmRand.Next(0, 255);
+            int D = frmRand.Next(0, 255);
+            lblWarning.ForeColor = Color.FromArgb(A , B, C, D);
+        }
+
+        private void mtrBtn_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(openingFilePath);
+        }
+        private void Browsebtn_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtInputFile.Text))
+            {
+                ReprecoessQueuebtn.Enabled = true;
+            }
+            else
+            {
+                ReprecoessQueuebtn.Enabled = false;
+            }
+
+        }
+
+        private void Browsebtn_MouseDown(object sender, MouseEventArgs e)
+        {
+            txtInputFile.Clear();
+            txtReprocessedFile.Clear();
 
         }
     }
