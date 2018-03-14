@@ -24,7 +24,11 @@ namespace Archive_repo_tool
         private string GUID = string.Empty;
         private int repoType = 1;
         private string userDesktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        
+        private string outputPath = string.Empty;
+        private string RepoFilename = string.Empty;
+        private int[] versionArrary = new int[4];
+        private int[] basePIVersion = new int[] {3,4,390,16};
+
 
         //MultiThreading So GUI Doesnt freeze while archive is reprocessing
 
@@ -77,7 +81,7 @@ namespace Archive_repo_tool
         /// Set the destination archive/new archive file path into a local variable 
         /// </summary>
         /// <param name="value"></param>
-        public void SetArchive(string value)
+        public void SetOutputArchive(string value)
         {
 
             if (!string.IsNullOrEmpty(value))
@@ -135,6 +139,14 @@ namespace Archive_repo_tool
         {
                 version = value;
         }
+        public void SetOutputPath(String thisPath)
+        {
+            outputPath = thisPath;
+        }
+        public void setRepoFilename(String thisName)
+        {
+            RepoFilename = thisName;
+        }
         /// <summary>
         /// Get Archive Start and End Time 
         /// </summary>
@@ -190,22 +202,82 @@ namespace Archive_repo_tool
                 }
             }
         }
+
+        /// <summary>
+        /// Get PI Server Version
+        /// </summary>
+        /// <returns></returns>
+        public string piVersion()
+        {
+            string version;
+            string getVer;
+            string command = "pidiag -v";
+            try
+            {
+                version = runCommandadm(command);
+                version = version.Substring(version.IndexOf("Version:"), version.IndexOf("\r\nProgram:") - version.IndexOf("Version:"));
+                getVer = version.Substring(version.IndexOf("PI ") + 3); // "3.4.415.1188"
+                versionArrary[0] = Int32.Parse(getVer.Substring(0, getVer.Length - (getVer.Substring(getVer.IndexOf("."))).Length));
+                getVer = getVer.Substring(getVer.IndexOf(".") + 1);
+                versionArrary[1] = Int32.Parse(getVer.Substring(0, getVer.Length - (getVer.Substring(getVer.IndexOf("."))).Length));
+                getVer = getVer.Substring(getVer.IndexOf(".") + 1);
+                versionArrary[2] = Int32.Parse(getVer.Substring(0, getVer.Length - (getVer.Substring(getVer.IndexOf("."))).Length));
+                getVer = getVer.Substring(getVer.IndexOf(".") + 1);
+                versionArrary[3] = Int32.Parse(getVer);
+                version = "Installed Data Archive " + version;
+            }
+            catch (Exception ex)
+            {
+
+                version = "false";
+
+            }
+
+            return version;
+        }
         /// <summary>
         /// Reprocess either the corrupted archive or the temporary archive created i the DATtoARC method 
         /// </summary>
         public void Archive_Reprocess(object sender, DoWorkEventArgs e)
         {
-           
-            //Corrupt Archive
+            string command = string.Empty;
+            //Reprocessing Corrupt Archive
            if (!string.IsNullOrEmpty(start_time))
             {
-                string command = "piarchss -if " + "\"" + corrupt_file_path + "\"" + " -of " + "\"" + archive_file_path + "\"" + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + " >" + userDesktopPath + "\\Reprocess.txt";
+                if(start_time.Equals("Primary")) //Reprocessing Primary Archive files | For PI Data Archive version 2012 and later (version 3.4.390.16 and later
+                {
+                    if ((basePIVersion[0] >= versionArrary[0]) && (basePIVersion[1] >= versionArrary[1]) && (basePIVersion[2] >= versionArrary[2]) && (basePIVersion[3] >= versionArrary[3]))
+                    {
+                        //../bin/piarchss -if /export/PI/dat/piarch.005 -of piarch.005.fix -f 0 -oet primary -noinputcheck
+                        command = "piarchss -if " + "\"" + corrupt_file_path + "\"" + " -of " + "\"" + archive_file_path + "\"" + " -f" + " 0" + " -oet primary -noinputcheck" + " >" + outputPath + "\\" + RepoFilename + ".txt";
+                    }
+                    else
+                    {
+                        //../bin/piarchss -if /export/PI/dat/piarch.005 -of piarch.005.fix -f 0 -oet primary
+                        command = "piarchss -if " + "\"" + corrupt_file_path + "\"" + " -of " + "\"" + archive_file_path + "\"" + " -f" + " 0" + " -oet primary" + " >" + outputPath + "\\" + RepoFilename + ".txt";
+                    }
+                }
+                else
+                {
+                    if ((basePIVersion[0] >= versionArrary[0]) && (basePIVersion[1] >= versionArrary[1]) && (basePIVersion[2] >= versionArrary[2]) && (basePIVersion[3] >= versionArrary[3]))
+                    {
+                        //$ ../ bin / piarchss -if / export / PI / dat / piarch.001 - of piarch1.fix - f 0 - noinputcheck
+                        command = "piarchss -if " + "\"" + corrupt_file_path + "\"" + " -of " + "\"" + archive_file_path + "\"" + " -f" + " 0" + " -noinputcheck" + " >" + outputPath + "\\" + RepoFilename + ".txt";
+                    }
+                    else
+                    {
+                        //$ ../bin/piarchss -if /export/PI/dat/piarch.001 -of piarch1.fix -f 0
+                        command = "piarchss -if " + "\"" + corrupt_file_path + "\"" + " -of " + "\"" + archive_file_path + "\"" + " -f" + " 0" + " >" + outputPath + "\\" + RepoFilename + ".txt";
+                    }
+                }
+                
+                //command = "piarchss -if " + "\"" + corrupt_file_path + "\"" + " -of " + "\"" + archive_file_path + "\"" + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + " >" + outputPath + "\\"+ RepoFilename+".txt";
                 BIGexitCode = runCommands(command);                
             }
            //Buffer and Event Queue second step 
             else
             {
-                string command = "piarchss -if "+userDesktopPath + "\\Temp.arc -of " + "\"" + archive_file_path + "\"" + "\\Temp.arc" + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + " >" + userDesktopPath + "\\Reprocess.txt";
+                command = "piarchss -if "+userDesktopPath + "\\Temp.arc -of " + "\"" + archive_file_path + "\"" + "\\Temp.arc" + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + " >" + userDesktopPath + "\\Reprocess.txt";
                 BIGexitCode = runCommands(command);
                 DeleteTempArc();
             }
@@ -231,29 +303,7 @@ namespace Archive_repo_tool
             else
                 return "failure";
         }
-        /// <summary>
-        /// Get PI Server Version
-        /// </summary>
-        /// <returns></returns>
-        public string piVersion()
-        {
-            string version;
-            string command = "pidiag -v";
-            try
-            {
-                version = runCommandadm(command);
-                version = version.Substring(version.IndexOf("Version:"), version.IndexOf("\r\nProgram:") - version.IndexOf("Version:"));
-                version = "Installed Data Archive " + version;
-            }
-            catch(Exception ex)
-            {
-
-                version = "false";
-
-            }
-           
-            return version;
-        }
+ 
         /// <summary>
         /// Create a command line with the %piserver%\adm directory already navigated to
         /// </summary>

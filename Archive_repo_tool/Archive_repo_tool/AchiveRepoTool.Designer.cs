@@ -35,7 +35,7 @@
             this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.archiveTab = new MetroFramework.Controls.MetroTabPage();
-            this.mtrBtn = new MetroFramework.Controls.MetroButton();
+            this.mtrBtnOutput = new MetroFramework.Controls.MetroButton();
             this.lblWarning = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.StartTimelbl = new MetroFramework.Controls.MetroLabel();
@@ -90,7 +90,7 @@
             // 
             // archiveTab
             // 
-            this.archiveTab.Controls.Add(this.mtrBtn);
+            this.archiveTab.Controls.Add(this.mtrBtnOutput);
             this.archiveTab.Controls.Add(this.lblWarning);
             this.archiveTab.Controls.Add(this.groupBox1);
             this.archiveTab.Controls.Add(this.txtReprocessedFile);
@@ -114,17 +114,19 @@
             this.archiveTab.VerticalScrollbarHighlightOnWheel = false;
             this.archiveTab.VerticalScrollbarSize = 1;
             // 
-            // mtrBtn
+            // mtrBtnOutput
             // 
-            this.mtrBtn.Location = new System.Drawing.Point(589, 99);
-            this.mtrBtn.Margin = new System.Windows.Forms.Padding(4);
-            this.mtrBtn.Name = "mtrBtn";
-            this.mtrBtn.Size = new System.Drawing.Size(159, 34);
-            this.mtrBtn.TabIndex = 34;
-            this.mtrBtn.Text = "Browse Reprocessed File";
-            this.mtrBtn.UseSelectable = true;
-            this.mtrBtn.UseStyleColors = true;
-            this.mtrBtn.Click += new System.EventHandler(this.mtrBtn_Click);
+            this.mtrBtnOutput.Location = new System.Drawing.Point(586, 99);
+            this.mtrBtnOutput.Margin = new System.Windows.Forms.Padding(4);
+            this.mtrBtnOutput.Name = "mtrBtnOutput";
+            this.mtrBtnOutput.Size = new System.Drawing.Size(165, 34);
+            this.mtrBtnOutput.Style = MetroFramework.MetroColorStyle.Blue;
+            this.mtrBtnOutput.TabIndex = 35;
+            this.mtrBtnOutput.Text = "Browse Output File Location";
+            this.mtrBtnOutput.UseSelectable = true;
+            this.mtrBtnOutput.UseStyleColors = true;
+            this.mtrBtnOutput.Click += new System.EventHandler(this.mtrBtnOutput_Click);
+            this.mtrBtnOutput.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mtrBtnOutput_MouseUp);
             // 
             // lblWarning
             // 
@@ -239,12 +241,12 @@
             // 
             this.metroLabel1.AutoSize = true;
             this.metroLabel1.BackColor = System.Drawing.SystemColors.Control;
-            this.metroLabel1.Location = new System.Drawing.Point(442, 292);
+            this.metroLabel1.Location = new System.Drawing.Point(531, 292);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(300, 19);
+            this.metroLabel1.Size = new System.Drawing.Size(149, 19);
             this.metroLabel1.Style = MetroFramework.MetroColorStyle.Green;
             this.metroLabel1.TabIndex = 30;
-            this.metroLabel1.Text = "Completed Successfully! Logs Located on Desktop";
+            this.metroLabel1.Text = "Completed Successfully!";
             this.metroLabel1.UseStyleColors = true;
             this.metroLabel1.Visible = false;
             // 
@@ -286,18 +288,16 @@
             // 
             // Browsebtn
             // 
-            this.Browsebtn.Location = new System.Drawing.Point(618, 46);
+            this.Browsebtn.Location = new System.Drawing.Point(586, 46);
             this.Browsebtn.Margin = new System.Windows.Forms.Padding(4);
             this.Browsebtn.Name = "Browsebtn";
-            this.Browsebtn.Size = new System.Drawing.Size(100, 34);
+            this.Browsebtn.Size = new System.Drawing.Size(165, 34);
             this.Browsebtn.Style = MetroFramework.MetroColorStyle.Blue;
             this.Browsebtn.TabIndex = 23;
-            this.Browsebtn.Text = "Browse";
+            this.Browsebtn.Text = "Browse Input File Location";
             this.Browsebtn.UseSelectable = true;
             this.Browsebtn.UseStyleColors = true;
             this.Browsebtn.Click += new System.EventHandler(this.Browsebtn_Click);
-            //this.Browsebtn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Browsebtn_KeyDown);
-            //this.Browsebtn.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Browsebtn_KeyUp);
             this.Browsebtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Browsebtn_MouseDown);
             this.Browsebtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Browsebtn_MouseUp);
             // 
@@ -495,7 +495,7 @@
         private MetroFramework.Controls.MetroDateTime StartTimetxt;
         private System.Windows.Forms.Label lblWarning;
         private System.Windows.Forms.Timer myTimer;
-        private MetroFramework.Controls.MetroButton mtrBtn;
+        private MetroFramework.Controls.MetroButton mtrBtnOutput;
     }
 }
 
