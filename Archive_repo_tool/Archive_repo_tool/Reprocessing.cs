@@ -104,7 +104,7 @@ namespace Archive_repo_tool
         {
 
             if (!string.IsNullOrEmpty(value))
-               start_time = value;
+                start_time = value;
         }
         /// <summary>
         /// Get the end time from the GUI
@@ -138,35 +138,37 @@ namespace Archive_repo_tool
         /// <param name="value"></param>
         public void setVersion(int value)
         {
-                version = value;
+            version = value;
         }
         public void SetOutputPath(String thisPath)
         {
             outputPath = thisPath;
         }
-       
+
         public void setRepoFilename(String thisName)
         {
             RepoFilename = thisName;
-        }
-        public void setOutoutFullPath()
-        {
             strOutputLogFile = outputPath + "\\" + RepoFilename + ".txt";
         }
+        public string setLogFilePath()
+        {
+            return strOutputLogFile;
+        }
+
         /// <summary>
         /// Get Archive Start and End Time 
         /// </summary>
         public void parseArchiveStartEnd()
         {
             string version;
-            string command = "pidiag -ahd " + "\""+ corrupt_file_path + "\"";
-            version = runCommandadm(command);          
-                start_time = version.Substring(version.IndexOf("Start Time:") + 12, version.IndexOf("End Time:") - version.IndexOf("Start Time:") - 23);
+            string command = "pidiag -ahd " + "\"" + corrupt_file_path + "\"";
+            version = runCommandadm(command);
+            start_time = version.Substring(version.IndexOf("Start Time:") + 12, version.IndexOf("End Time:") - version.IndexOf("Start Time:") - 23);
 
-                end_time = version.Substring(version.IndexOf("End Time:") + 10, version.IndexOf("Backup Time:") - version.IndexOf("End Time:") - 18);
+            end_time = version.Substring(version.IndexOf("End Time:") + 10, version.IndexOf("Backup Time:") - version.IndexOf("End Time:") - 18);
 
-                if (end_time == "Current Time")
-                    end_time = "Primary";           
+            if (end_time == "Current Time")
+                end_time = "Primary";
         }
         /// <summary>
         /// Reprocess the Buffer queue file into a temporary arc file located on the C:\ drive 
@@ -178,11 +180,11 @@ namespace Archive_repo_tool
                 //Buffer < 4.3 and event queues step 1
                 if (version == 1)
                 {
-                    string command = "piarchss -evq -evqpath " + "\"" + corrupt_file_path + "\"" + " -of "+ userDesktopPath  + "\\Temp.arc" + " >" + userDesktopPath + "\\DatToArcLog.txt";
-                   // Archive_Reprocess(); //reprocess temp archive into destination archive
+                    string command = "piarchss -evq -evqpath " + "\"" + corrupt_file_path + "\"" + " -of " + userDesktopPath + "\\Temp.arc" + " >" + userDesktopPath + "\\DatToArcLog.txt";
+                    // Archive_Reprocess(); //reprocess temp archive into destination archive
                     BIGexitCode = runCommands(command);
                 }
-            
+
                 //Parse GUID
                 //[‎10/‎5/‎2017 3:58 PM]  Harry Markley:  
                 //Buffer > 4.3 first step
@@ -200,8 +202,8 @@ namespace Archive_repo_tool
                     {
                         MessageBox.Show("Cant find buffer queue guid in filename!", "Error"); //if there is an error generate this message box
                     }
-                    truncatedPath = corrupt_file_path.Substring(0, corrupt_file_path.Length-52);
-                    string command = "piarchss -evq -evqpath " + "\"" + truncatedPath + "\\" + "\"" + " -bufss "+GUID+" -of " + userDesktopPath + "\\Temp.arc" + " >" + userDesktopPath+ "\\DatToArcLog.txt";
+                    truncatedPath = corrupt_file_path.Substring(0, corrupt_file_path.Length - 52);
+                    string command = "piarchss -evq -evqpath " + "\"" + truncatedPath + "\\" + "\"" + " -bufss " + GUID + " -of " + userDesktopPath + "\\Temp.arc" + " >" + userDesktopPath + "\\DatToArcLog.txt";
                     BIGexitCode = runCommands(command);
                     //Archive_Reprocess();
 
@@ -237,6 +239,32 @@ namespace Archive_repo_tool
 
             return version;
         }
+        public bool readLogfile()
+        {
+            bool bSucessfull = false;
+            const Int32 bufferSize = 1024;
+            try
+            {
+                using (var fileStream = File.OpenRead(strOutputLogFile))
+                using (var streamReader = new StreamReader(fileStream, Encoding.UTF8, true, bufferSize))
+                {
+                    String line;
+                    while ((line = streamReader.ReadLine()) != null)
+                    {
+                        if (line.Contains("Archive reprocessing completed successfully"))
+                        {
+                            bSucessfull = true;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+            return bSucessfull;
+        }
         /// <summary>
         /// Reprocess either the corrupted archive or the temporary archive created i the DATtoARC method 
         /// </summary>
@@ -244,9 +272,9 @@ namespace Archive_repo_tool
         {
             string command = string.Empty;
             //Reprocessing Corrupt Archive
-           if (!string.IsNullOrEmpty(start_time))
+            if (!string.IsNullOrEmpty(start_time))
             {
-                if(end_time.Equals("Primary")) //Reprocessing Primary Archive files | For PI Data Archive version 2012 and later (version 3.4.390.16 and later
+                if (end_time.Equals("Primary")) //Reprocessing Primary Archive files | For PI Data Archive version 2012 and later (version 3.4.390.16 and later
                 {
                     if (installedVer >= basePIVersion)
                     {
@@ -272,14 +300,14 @@ namespace Archive_repo_tool
                         command = "piarchss -if " + "\"" + corrupt_file_path + "\"" + " -of " + "\"" + archive_file_path + "\"" + " -f" + " 0" + " >" + strOutputLogFile;
                     }
                 }
-                
+
                 //command = "piarchss -if " + "\"" + corrupt_file_path + "\"" + " -of " + "\"" + archive_file_path + "\"" + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + " >" + outputPath + "\\"+ RepoFilename+".txt";
-                BIGexitCode = runCommands(command);                
+                BIGexitCode = runCommands(command);
             }
-           //Buffer and Event Queue second step 
+            //Buffer and Event Queue second step 
             else
             {
-                command = "piarchss -if "+userDesktopPath + "\\Temp.arc -of " + "\"" + archive_file_path + "\"" + "\\Temp.arc" + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + " >" + strOutputLogFile;
+                command = "piarchss -if " + userDesktopPath + "\\Temp.arc -of " + "\"" + archive_file_path + "\"" + "\\Temp.arc" + " -ost \"" + start_time + "\" -oet \"" + end_time + "\"" + " >" + strOutputLogFile;
                 BIGexitCode = runCommands(command);
                 DeleteTempArc();
             }
@@ -289,7 +317,7 @@ namespace Archive_repo_tool
         /// </summary>
         public void DeleteTempArc()
         {
-            string command = "/ C  del /f " +userDesktopPath + "\\Temp.arc";
+            string command = "/ C  del /f " + userDesktopPath + "\\Temp.arc";
             BIGexitCode = runCommands(command);
         }
         /// <summary>
@@ -305,7 +333,7 @@ namespace Archive_repo_tool
             else
                 return "failure";
         }
- 
+
         /// <summary>
         /// Create a command line with the %piserver%\adm directory already navigated to
         /// </summary>
@@ -352,7 +380,7 @@ namespace Archive_repo_tool
                 process.StandardInput.WriteLine(@"cd /d %piserver%\adm");
                 process.StandardInput.WriteLine(commandToRun);
                 process.StandardInput.Close(); // line added to stop process from hanging on ReadToEnd()
-                commandOutput = process.StandardOutput.ReadToEnd();                
+                commandOutput = process.StandardOutput.ReadToEnd();
                 exitCode = process.ExitCode;
             }
             return commandOutput;

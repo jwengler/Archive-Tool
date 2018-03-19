@@ -35,6 +35,7 @@
             this.metroStyleManager1 = new MetroFramework.Components.MetroStyleManager(this.components);
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.archiveTab = new MetroFramework.Controls.MetroTabPage();
+            this.mtrlblRepoFailed = new MetroFramework.Controls.MetroLabel();
             this.mtrBtnOutput = new MetroFramework.Controls.MetroButton();
             this.lblWarning = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -90,6 +91,7 @@
             // 
             // archiveTab
             // 
+            this.archiveTab.Controls.Add(this.mtrlblRepoFailed);
             this.archiveTab.Controls.Add(this.mtrBtnOutput);
             this.archiveTab.Controls.Add(this.lblWarning);
             this.archiveTab.Controls.Add(this.groupBox1);
@@ -113,6 +115,19 @@
             this.archiveTab.VerticalScrollbarBarColor = true;
             this.archiveTab.VerticalScrollbarHighlightOnWheel = false;
             this.archiveTab.VerticalScrollbarSize = 1;
+            // 
+            // mtrlblRepoFailed
+            // 
+            this.mtrlblRepoFailed.AutoSize = true;
+            this.mtrlblRepoFailed.BackColor = System.Drawing.SystemColors.Control;
+            this.mtrlblRepoFailed.Location = new System.Drawing.Point(503, 292);
+            this.mtrlblRepoFailed.Name = "mtrlblRepoFailed";
+            this.mtrlblRepoFailed.Size = new System.Drawing.Size(204, 19);
+            this.mtrlblRepoFailed.Style = MetroFramework.MetroColorStyle.Red;
+            this.mtrlblRepoFailed.TabIndex = 36;
+            this.mtrlblRepoFailed.Text = "Failed Reprocessing - Check Logs";
+            this.mtrlblRepoFailed.UseStyleColors = true;
+            this.mtrlblRepoFailed.Visible = false;
             // 
             // mtrBtnOutput
             // 
@@ -241,7 +256,7 @@
             // 
             this.metroLabel1.AutoSize = true;
             this.metroLabel1.BackColor = System.Drawing.SystemColors.Control;
-            this.metroLabel1.Location = new System.Drawing.Point(531, 292);
+            this.metroLabel1.Location = new System.Drawing.Point(557, 292);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(149, 19);
             this.metroLabel1.Style = MetroFramework.MetroColorStyle.Green;
@@ -256,7 +271,7 @@
             this.metroProgressSpinner1.Maximum = 100;
             this.metroProgressSpinner1.Name = "metroProgressSpinner1";
             this.metroProgressSpinner1.Size = new System.Drawing.Size(52, 47);
-            this.metroProgressSpinner1.Speed = 3F;
+            this.metroProgressSpinner1.Speed = 2F;
             this.metroProgressSpinner1.Spinning = false;
             this.metroProgressSpinner1.TabIndex = 29;
             this.metroProgressSpinner1.UseSelectable = true;
@@ -496,6 +511,7 @@
         private System.Windows.Forms.Label lblWarning;
         private System.Windows.Forms.Timer myTimer;
         private MetroFramework.Controls.MetroButton mtrBtnOutput;
+        private MetroFramework.Controls.MetroLabel mtrlblRepoFailed;
     }
 }
 

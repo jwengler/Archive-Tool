@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetroFramework.Forms;
 using System.IO;
+using System.Diagnostics;
 
 
 namespace Archive_repo_tool
@@ -18,6 +19,7 @@ namespace Archive_repo_tool
         //Global variables
         private String openingFilePath = string.Empty;
         private bool fileStatus = false;
+        private string inputPath = string.Empty;
         //create an instane of teh GUI
         private Reprocessing RepoTool = new Reprocessing();
 
@@ -25,8 +27,8 @@ namespace Archive_repo_tool
         {
             InitializeComponent();
             InitializeGUI(); //My Initialization
-            
-            
+
+
         }
 
         private void InitializeGUI()
@@ -46,11 +48,11 @@ namespace Archive_repo_tool
             EndTimetxt.Format = DateTimePickerFormat.Custom;
             if (RepoTool.piVersion() == "false")
             {
-                MetroFramework.MetroMessageBox.Show(this, "Data Archive is NOT Installed.","OSISoft Reprocessing Tool",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MetroFramework.MetroMessageBox.Show(this, "Data Archive is NOT Installed.", "OSISoft Reprocessing Tool", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             else
-            piVersion.Text = RepoTool.piVersion();
+                piVersion.Text = RepoTool.piVersion();
             //output controls
             Successtxt.Text = string.Empty;
         }
@@ -62,7 +64,7 @@ namespace Archive_repo_tool
         {
             bool success;
             if (metroTabControl1.SelectedIndex > -1)
-            {                
+            {
                 //1 = archive
                 //2 = event queue
                 //3 = buffer queue
@@ -93,7 +95,7 @@ namespace Archive_repo_tool
             {
                 success = false;
                 return success;
-            }      
+            }
         }
         /// <summary>
         /// Send the Corrupte file path on to the Reprocessing.cs
@@ -122,9 +124,9 @@ namespace Archive_repo_tool
                         if (RepoTool.GetEnd() != "Primary")
                             EndTimetxt.Value = Convert.ToDateTime(RepoTool.GetEnd());
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
-                        MetroFramework.MetroMessageBox.Show(this, "Invalid File Selected, Please Select Valid Archive File","Reprocessing Tool");
+                        MetroFramework.MetroMessageBox.Show(this, "Invalid File Selected, Please Select Valid Archive File", "Reprocessing Tool");
                         //Queuefiletxt.Clear();
                         return false;
                     }
@@ -143,7 +145,6 @@ namespace Archive_repo_tool
         {
             bool okay;
             string inputArcName = string.Empty;
-            string inputPath = string.Empty;
             string outputPath = string.Empty;
             string inputAnnoFile = string.Empty; //To check input annotation file
             string ouputAnnoFile = string.Empty;
@@ -157,12 +158,12 @@ namespace Archive_repo_tool
             outputPath = txtReprocessedFile.Text;
 
             //archiveName = path.Substring(path.LastIndexOf('\\'), (path.LastIndexOf('.')-1)- path.LastIndexOf('\\')+1);
-            inputArcName = inputPath.Substring(inputPath.LastIndexOf('\\')+1);
-            if(inputArcName.Contains(".arc"))
+            inputArcName = inputPath.Substring(inputPath.LastIndexOf('\\') + 1);
+            if (inputArcName.Contains(".arc"))
             {
                 inputAnnoFile = inputArcName + ".ann";
                 ouputAnnoFile = inputArcName.Substring(0, inputArcName.LastIndexOf(".arc")) + "_reprocessed.arc.ann";
-                ouputArcFile = inputArcName.Substring(0,inputArcName.LastIndexOf(".arc")) + "_reprocessed.arc";
+                ouputArcFile = inputArcName.Substring(0, inputArcName.LastIndexOf(".arc")) + "_reprocessed.arc";
             }
             else
             {
@@ -172,13 +173,13 @@ namespace Archive_repo_tool
             }
             openingFilePath = inputPath; // delete this later
             inputPath = inputPath.Substring(0, inputPath.LastIndexOf('\\'));
-            inputAnnoFile = inputPath + "\\"+inputAnnoFile;
-            inputPath = inputPath + "\\"+inputArcName;
+            inputAnnoFile = inputPath + "\\" + inputAnnoFile;
+            inputPath = inputPath + "\\" + inputArcName;
             RepoTool.setRepoFilename(inputArcName.Substring(0, inputArcName.LastIndexOf(".arc")));
             outputArcPath = outputPath + "\\" + ouputArcFile;
             outputAnnoPath = outputPath + "\\" + ouputAnnoFile;
             //Checking whether the reprocessing annotation and archive file existing
-            if(!File.Exists(inputAnnoFile))
+            if (!File.Exists(inputAnnoFile))
             {
                 MetroFramework.MetroMessageBox.Show(this, "Missing Annotation file!", "Reprocessing Tool | Warning");
                 fileStatus = false;
@@ -194,7 +195,7 @@ namespace Archive_repo_tool
             }
             else if (File.Exists(outputAnnoPath))
             {
-                MetroFramework.MetroMessageBox.Show(this, "Delete existing annotation file <<" + ouputAnnoFile + ">>","Reprocessing Tool | Warning");
+                MetroFramework.MetroMessageBox.Show(this, "Delete existing annotation file <<" + ouputAnnoFile + ">>", "Reprocessing Tool | Warning");
                 //System.Windows.Forms.Application.Exit();
                 okay = false;
                 return okay;
@@ -221,14 +222,14 @@ namespace Archive_repo_tool
             }
             //return okay;
         }
-       
+
         /// <summary>
         /// Read the start time of the input archive file
         /// </summary>
         /// <returns></returns>
         private bool ReadStart()
         {
-            String startTimeString = StartTimetxt.Value.ToString("dd-MMM-yyyy HH:mm:ss");         
+            String startTimeString = StartTimetxt.Value.ToString("dd-MMM-yyyy HH:mm:ss");
             RepoTool.SetStart(startTimeString); //send start time to the backend 
             return true;
         }
@@ -239,8 +240,8 @@ namespace Archive_repo_tool
         private bool ReadEnd()
         {
             String endTimeString = EndTimetxt.Value.ToString("dd-MMM-yyyy HH:mm:ss");
-            if(RepoTool.GetEnd() != "Primary")
-            RepoTool.SetEnd(endTimeString); //send start time to the backend 
+            if (RepoTool.GetEnd() != "Primary")
+                RepoTool.SetEnd(endTimeString); //send start time to the backend 
             return true;
         }
         /// <summary>
@@ -254,8 +255,8 @@ namespace Archive_repo_tool
             {
                 if (OldVersionBtn.Checked == true && NewVersionBtn.Checked == false) //Versions before 4.3 
                 {
-                    RepoTool.setVersion(1);                    
-                    success = true;                    
+                    RepoTool.setVersion(1);
+                    success = true;
                 }
                 else if (OldVersionBtn.Checked == false && NewVersionBtn.Checked == true) //Version 4.3 and later
                 {
@@ -276,12 +277,23 @@ namespace Archive_repo_tool
         {
             metroProgressSpinner1.Spinning = false;
             metroProgressSpinner1.Visible = false;
-            if (e.Error != null)
+            if ((e.Error != null) || !(RepoTool.readLogfile()))
             {
-                metroLabel1.Style = MetroFramework.MetroColorStyle.Red;
-                metroLabel1.Text = "Failed Reprocessing - Check Logs";                            
+                //MetroFramework.MetroMessageBox.Show(this, "Faile Reprocessing - Check logs");
+                //metroLabel1.Style = MetroFramework.MetroColorStyle.Red;
+                //metroLabel1.Text = "Failed Reprocessing - Check Logs";
+                mtrlblRepoFailed.Visible = true;
+                DialogResult result = MetroFramework.MetroMessageBox.Show(this, "Do you want to open log file?", "Reprocessing Tool | Failed Reprocessing", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result == DialogResult.Yes)
+                {
+                    Process.Start(RepoTool.setLogFilePath());
+                }
             }
-            metroLabel1.Visible = true;
+            else
+            {
+                metroLabel1.Visible = true;
+            }
+
             //Queuefiletxt.Clear();
 
             //ReprecoessQueuebtn.Enabled = true;
@@ -345,9 +357,9 @@ namespace Archive_repo_tool
                 {
                     if (ReadCorruptQueuePath() && ReadDestinationArchvePath() && ReadStart() && ReadEnd() && ReadVersion())
                     {
-                       RepoTool.DatToArc();
-                    
-                       DisplayResults();
+                        RepoTool.DatToArc();
+
+                        DisplayResults();
                     }
                     else
                     {
@@ -384,6 +396,7 @@ namespace Archive_repo_tool
             txtReprocessedFile.Text = String.Empty;
             //mtrBtnBrowseRepo.Enabled = false;
             metroLabel1.Visible = false;
+            mtrlblRepoFailed.Visible = false;
         }
         //ADD FILE TYPES//
         private void LoadNewFile() //www.dreamincode.net/forums/topic/241079-browsing-for-a-file-using-openfiledialog
@@ -391,7 +404,7 @@ namespace Archive_repo_tool
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Archive Files|*.arc|Queues|*.dat|All Files|*.*";
             System.Windows.Forms.DialogResult dr = ofd.ShowDialog();
-           
+
             if (dr == DialogResult.OK)
             {
                 userSelectedFilePath = ofd.FileName;
@@ -421,7 +434,7 @@ namespace Archive_repo_tool
 
         private void Queuefiletxt_TextChanged(object sender, EventArgs e)
         {
-        
+
             ReadCorruptQueuePath();
         }
 
@@ -434,6 +447,7 @@ namespace Archive_repo_tool
             myTimer.Start();
             myTimer.Enabled = true;
             mtrBtnOutput.Enabled = false;
+            mtrlblRepoFailed.Visible = false;
         }
 
         private void Queuefiletxt_Click(object sender, EventArgs e)
@@ -453,7 +467,7 @@ namespace Archive_repo_tool
             int B = frmRand.Next(0, 255);
             int C = frmRand.Next(0, 255);
             int D = frmRand.Next(0, 255);
-            lblWarning.ForeColor = Color.FromArgb(A , B, C, D);
+            lblWarning.ForeColor = Color.FromArgb(A, B, C, D);
         }
 
         private void MtrBtn_Click(object sender, EventArgs e)
@@ -481,11 +495,14 @@ namespace Archive_repo_tool
         }
         private string getBrowerPath()
         {
+            string inputPath = RepoTool.GetCorrupt();
+            inputPath = inputPath.Substring(0, inputPath.LastIndexOf('\\'));
             FolderBrowserDialog browser = new FolderBrowserDialog();
+            browser.SelectedPath = inputPath;
             string repoPath = string.Empty;
             if (browser.ShowDialog() == DialogResult.OK)
             {
-                repoPath = browser.SelectedPath; // prints path
+                repoPath = browser.SelectedPath;
             }
             return repoPath;
         }
@@ -507,5 +524,6 @@ namespace Archive_repo_tool
                 ReprecoessQueuebtn.Enabled = false;
             }
         }
+
     }
 }

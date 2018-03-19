@@ -33,6 +33,7 @@ C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\
 C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\Archive_repo_tool\bin\Debug\Archive_repo_tool.exe.config
 C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\Archive_repo_tool\bin\Debug\Archive_repo_tool.exe
 C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\Archive_repo_tool\bin\Debug\Archive_repo_tool.pdb
+C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Debug\Archive_repo_tool.csprojResolveAssemblyReference.cache
 C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Debug\Archive_repo_tool.AchiveRepoTool.resources
 C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Debug\Archive_repo_tool.Properties.Resources.resources
 C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Debug\Archive_repo_tool.csproj.GenerateResource.Cache
