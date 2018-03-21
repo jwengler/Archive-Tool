@@ -20,6 +20,7 @@ namespace Archive_repo_tool
         private String openingFilePath = string.Empty;
         private bool fileStatus = false;
         private string inputPath = string.Empty;
+        string[] userSelectedFilePaths = new string[] { };
         //create an instane of teh GUI
         private Reprocessing RepoTool = new Reprocessing();
 
@@ -27,8 +28,6 @@ namespace Archive_repo_tool
         {
             InitializeComponent();
             InitializeGUI(); //My Initialization
-
-
         }
 
         private void InitializeGUI()
@@ -103,35 +102,44 @@ namespace Archive_repo_tool
         /// <returns></returns>
         private bool ReadCorruptQueuePath()
         {
-            string path = string.Empty;
+            string[] path = new string[10];
             //Get the contents of the textbox
-
-            path = txtInputFile.Text;
-
-            if (string.IsNullOrEmpty(path))
+            if (userSelectedFilePaths.Length != 0)
+            {
+                for (int i = 0; i < userSelectedFilePaths.Length; i++)
+                {
+                    path[i] = userSelectedFilePaths[i];
+                    //path = txtInputFile.Text;
+                }
+            }
+            if (path.Count() == 0)
             {
                 return false;
             }
             else
             {
-                RepoTool.SetCorrupt(path);
-                if (RepoTool.GetRepoType() == 1)
+                for (int i= 0; i < userSelectedFilePaths.Length; i++)
                 {
-                    try
+                    RepoTool.SetCorrupt(userSelectedFilePaths[i],i);
+                    if (RepoTool.GetRepoType() == 1)
                     {
-                        RepoTool.parseArchiveStartEnd();
-                        StartTimetxt.Value = Convert.ToDateTime(RepoTool.GetStart());
-                        if (RepoTool.GetEnd() != "Primary")
-                            EndTimetxt.Value = Convert.ToDateTime(RepoTool.GetEnd());
-                    }
-                    catch (Exception e)
-                    {
-                        MetroFramework.MetroMessageBox.Show(this, "Invalid File Selected, Please Select Valid Archive File", "Reprocessing Tool");
-                        //Queuefiletxt.Clear();
-                        return false;
-                    }
-                    //ReprecoessQueuebtn.Enabled = true;
+                        try
+                        {
+                            RepoTool.parseArchiveStartEnd();
+                            StartTimetxt.Value = Convert.ToDateTime(RepoTool.GetStart());
+                            if (RepoTool.GetEnd() != "Primary")
+                                EndTimetxt.Value = Convert.ToDateTime(RepoTool.GetEnd());
+                        }
+                        catch (Exception e)
+                        {
+                            MetroFramework.MetroMessageBox.Show(this, "Invalid File Selected, Please Select Valid Archive File", "Reprocessing Tool");
+                            //Queuefiletxt.Clear();
+                            return false;
+                        }
+                        //ReprecoessQueuebtn.Enabled = true;
 
+                        return true;
+                    }
                     return true;
                 }
                 return true;
@@ -402,25 +410,44 @@ namespace Archive_repo_tool
         private void LoadNewFile() //www.dreamincode.net/forums/topic/241079-browsing-for-a-file-using-openfiledialog
         {
             OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Multiselect = true;            
             ofd.Filter = "Archive Files|*.arc|Queues|*.dat|All Files|*.*";
             System.Windows.Forms.DialogResult dr = ofd.ShowDialog();
 
             if (dr == DialogResult.OK)
+            {               
+                userSelectedFilePaths = ofd.FileNames;
+                
+                if (userSelectedFilePaths.Length != 0)
+                {
+                    for (int i = 0; i < userSelectedFilePaths.Length; i++)
+                    {
+                        int length = userSelectedFilePaths[i].Length;
+                        string filename = userSelectedFilePaths[i].Substring(userSelectedFilePaths[i].LastIndexOf("\\")+1, (userSelectedFilePaths[i].Length)-(userSelectedFilePaths[i].LastIndexOf("\\")+1));
+                        string filepath = userSelectedFilePaths[i].Substring(0, userSelectedFilePaths[i].LastIndexOf("\\") + 1);
+                        ListViewItem archive = new ListViewItem(filename);
+                        archive.SubItems.Add(filepath);
+                        if (arcListView.FindItemWithText(filename) == null)
+                        {
+                            arcListView.Items.Add(archive);
+                            arcListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                        }
+                        else
+                        {
+                            MetroFramework.MetroMessageBox.Show(this, "File Already Exists in List!");
+                            return;
+                        }
+                        
+                    }
+                    ReadCorruptQueuePath();
+                }           
+            }
+            else
             {
-                userSelectedFilePath = ofd.FileName;
+                ofd.Dispose();
             }
         }
-        public string userSelectedFilePath
-        {
-            get
-            {
-                return txtInputFile.Text;
-            }
-            set
-            {
-                txtInputFile.Text = value;
-            }
-        }
+        
 
         private void repoTypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -435,7 +462,7 @@ namespace Archive_repo_tool
         private void Queuefiletxt_TextChanged(object sender, EventArgs e)
         {
 
-            ReadCorruptQueuePath();
+            
         }
 
         private void AchiveRepoTool_Load(object sender, EventArgs e)
@@ -453,6 +480,7 @@ namespace Archive_repo_tool
         private void Queuefiletxt_Click(object sender, EventArgs e)
         {
             txtInputFile.SelectAll();
+
         }
 
         private void txtReprocessedFile_Click(object sender, EventArgs e)
@@ -476,7 +504,7 @@ namespace Archive_repo_tool
         }
         private void Browsebtn_MouseUp(object sender, MouseEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtInputFile.Text))
+            if (userSelectedFilePaths != null)
             {
                 mtrBtnOutput.Enabled = true;
             }
@@ -489,7 +517,8 @@ namespace Archive_repo_tool
 
         private void Browsebtn_MouseDown(object sender, MouseEventArgs e)
         {
-            txtInputFile.Clear();
+            userSelectedFilePaths = null;
+            //arcListView.Clear();
             txtReprocessedFile.Clear();
 
         }

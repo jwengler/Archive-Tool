@@ -13,7 +13,7 @@ namespace Archive_repo_tool
 {
     class Reprocessing
     {
-        private string corrupt_file_path = string.Empty;
+        private string[] corrupt_file_path = new string[10];
         private string archive_file_path = string.Empty;
         private string start_time = string.Empty;
         private string end_time = string.Empty;
@@ -56,7 +56,7 @@ namespace Archive_repo_tool
         /// Get corrupt file path
         /// </summary>
         /// <returns></returns>
-        public string GetCorrupt()
+        public string[] GetCorrupt()
         {
             return corrupt_file_path;
         }
@@ -64,11 +64,11 @@ namespace Archive_repo_tool
         /// Set that path into a local variable 
         /// </summary>
         /// <param name="value"></param>
-        public void SetCorrupt(string value)
+        public void SetCorrupt(string value, int i)
         {
 
             if (!string.IsNullOrEmpty(value))
-                corrupt_file_path = value;
+                corrupt_file_path[i] = value;
         }
         /// <summary>
         /// Get the destination archive/new archive file path
