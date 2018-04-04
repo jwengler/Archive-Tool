@@ -401,13 +401,18 @@ namespace Archive_repo_tool
         //ADD FILE TYPES//
         private void LoadNewFile() //www.dreamincode.net/forums/topic/241079-browsing-for-a-file-using-openfiledialog
         {
+           
             OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Multiselect = true; // Allow user to select multiple files
             ofd.Filter = "Archive Files|*.arc|Queues|*.dat|All Files|*.*";
             System.Windows.Forms.DialogResult dr = ofd.ShowDialog();
-
             if (dr == DialogResult.OK)
             {
+
                 userSelectedFilePath = ofd.FileName;
+                ListViewItem arcList = new ListViewItem();
+                arcList.SubItems.Add(userSelectedFilePath);
+                ArchiveListView.Items.Add(arcList);
             }
         }
         public string userSelectedFilePath
@@ -525,5 +530,14 @@ namespace Archive_repo_tool
             }
         }
 
+        private void ArchFilelbl_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void metroListView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
