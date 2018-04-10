@@ -306,6 +306,8 @@ namespace Archive_repo_tool
         /// <param name="e"></param>
         private void ReprecoessQueuebtn_Click(object sender, EventArgs e)
         {
+            metroLabel1.Visible = false;
+            mtrlblRepoFailed.Visible = false;
             //1 = archive
             //2 = event queue
             //3 = buffer queue
@@ -410,9 +412,9 @@ namespace Archive_repo_tool
             {
 
                 userSelectedFilePath = ofd.FileName;
-                ListViewItem arcList = new ListViewItem();
-                arcList.SubItems.Add(userSelectedFilePath);
-                ArchiveListView.Items.Add(arcList);
+                //ListViewItem arcList = new ListViewItem();
+                //arcList.SubItems.Add(userSelectedFilePath);
+                //ArchiveListView.Items.Add(arcList);
             }
         }
         public string userSelectedFilePath

@@ -58,9 +58,6 @@
             this.bufferQueueTab = new MetroFramework.Controls.MetroTabPage();
             this.piVersion = new MetroFramework.Controls.MetroLabel();
             this.myTimer = new System.Windows.Forms.Timer(this.components);
-            this.ArchiveListView = new MetroFramework.Controls.MetroListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).BeginInit();
             this.metroTabControl1.SuspendLayout();
             this.archiveTab.SuspendLayout();
@@ -88,16 +85,15 @@
             this.metroTabControl1.Location = new System.Drawing.Point(53, 91);
             this.metroTabControl1.Name = "metroTabControl1";
             this.metroTabControl1.SelectedIndex = 0;
-            this.metroTabControl1.Size = new System.Drawing.Size(816, 684);
+            this.metroTabControl1.Size = new System.Drawing.Size(798, 375);
             this.metroTabControl1.TabIndex = 17;
             this.metroTabControl1.UseSelectable = true;
             // 
             // archiveTab
             // 
-            this.archiveTab.Controls.Add(this.ArchiveListView);
             this.archiveTab.Controls.Add(this.mtrlblRepoFailed);
-            this.archiveTab.Controls.Add(this.mtrBtnOutput);
             this.archiveTab.Controls.Add(this.lblWarning);
+            this.archiveTab.Controls.Add(this.mtrBtnOutput);
             this.archiveTab.Controls.Add(this.groupBox1);
             this.archiveTab.Controls.Add(this.txtReprocessedFile);
             this.archiveTab.Controls.Add(this.metroLabel1);
@@ -113,7 +109,7 @@
             this.archiveTab.HorizontalScrollbarSize = 1;
             this.archiveTab.Location = new System.Drawing.Point(4, 38);
             this.archiveTab.Name = "archiveTab";
-            this.archiveTab.Size = new System.Drawing.Size(808, 642);
+            this.archiveTab.Size = new System.Drawing.Size(790, 333);
             this.archiveTab.TabIndex = 0;
             this.archiveTab.Text = "Corrupt Archive";
             this.archiveTab.VerticalScrollbarBarColor = true;
@@ -135,7 +131,7 @@
             // 
             // mtrBtnOutput
             // 
-            this.mtrBtnOutput.Location = new System.Drawing.Point(586, 99);
+            this.mtrBtnOutput.Location = new System.Drawing.Point(586, 97);
             this.mtrBtnOutput.Margin = new System.Windows.Forms.Padding(4);
             this.mtrBtnOutput.Name = "mtrBtnOutput";
             this.mtrBtnOutput.Size = new System.Drawing.Size(165, 34);
@@ -153,7 +149,7 @@
             this.lblWarning.BackColor = System.Drawing.Color.Transparent;
             this.lblWarning.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWarning.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblWarning.Location = new System.Drawing.Point(421, 177);
+            this.lblWarning.Location = new System.Drawing.Point(465, 9);
             this.lblWarning.Name = "lblWarning";
             this.lblWarning.Size = new System.Drawing.Size(286, 20);
             this.lblWarning.TabIndex = 33;
@@ -168,7 +164,7 @@
             this.groupBox1.Controls.Add(this.StartTimetxt);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.groupBox1.Location = new System.Drawing.Point(37, 126);
+            this.groupBox1.Location = new System.Drawing.Point(7, 164);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(344, 147);
             this.groupBox1.TabIndex = 32;
@@ -238,7 +234,7 @@
             this.txtReprocessedFile.CustomButton.Visible = false;
             this.txtReprocessedFile.Lines = new string[] {
         "Output File"};
-            this.txtReprocessedFile.Location = new System.Drawing.Point(195, 70);
+            this.txtReprocessedFile.Location = new System.Drawing.Point(213, 101);
             this.txtReprocessedFile.MaxLength = 32767;
             this.txtReprocessedFile.Name = "txtReprocessedFile";
             this.txtReprocessedFile.PasswordChar = '\0';
@@ -298,7 +294,7 @@
             // ArchFilelbl
             // 
             this.ArchFilelbl.AutoSize = true;
-            this.ArchFilelbl.Location = new System.Drawing.Point(6, 70);
+            this.ArchFilelbl.Location = new System.Drawing.Point(7, 101);
             this.ArchFilelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ArchFilelbl.Name = "ArchFilelbl";
             this.ArchFilelbl.Size = new System.Drawing.Size(186, 19);
@@ -308,7 +304,7 @@
             // 
             // Browsebtn
             // 
-            this.Browsebtn.Location = new System.Drawing.Point(586, 46);
+            this.Browsebtn.Location = new System.Drawing.Point(586, 52);
             this.Browsebtn.Margin = new System.Windows.Forms.Padding(4);
             this.Browsebtn.Name = "Browsebtn";
             this.Browsebtn.Size = new System.Drawing.Size(165, 34);
@@ -338,7 +334,7 @@
             this.txtInputFile.CustomButton.Visible = false;
             this.txtInputFile.Lines = new string[] {
         "Input File"};
-            this.txtInputFile.Location = new System.Drawing.Point(177, 25);
+            this.txtInputFile.Location = new System.Drawing.Point(213, 56);
             this.txtInputFile.Margin = new System.Windows.Forms.Padding(4);
             this.txtInputFile.MaxLength = 32767;
             this.txtInputFile.Name = "txtInputFile";
@@ -361,7 +357,7 @@
             // QueueFilelbl
             // 
             this.QueueFilelbl.AutoSize = true;
-            this.QueueFilelbl.Location = new System.Drawing.Point(6, 33);
+            this.QueueFilelbl.Location = new System.Drawing.Point(7, 64);
             this.QueueFilelbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.QueueFilelbl.Name = "QueueFilelbl";
             this.QueueFilelbl.Size = new System.Drawing.Size(126, 19);
@@ -459,47 +455,21 @@
             this.myTimer.Interval = 1000;
             this.myTimer.Tick += new System.EventHandler(this.myTimer_Tick);
             // 
-            // ArchiveListView
-            // 
-            this.ArchiveListView.AllowSorting = true;
-            this.ArchiveListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.ArchiveListView.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.ArchiveListView.FullRowSelect = true;
-            this.ArchiveListView.GridLines = true;
-            this.ArchiveListView.Location = new System.Drawing.Point(3, 346);
-            this.ArchiveListView.Name = "ArchiveListView";
-            this.ArchiveListView.OwnerDraw = true;
-            this.ArchiveListView.Size = new System.Drawing.Size(793, 293);
-            this.ArchiveListView.TabIndex = 37;
-            this.ArchiveListView.UseCompatibleStateImageBehavior = false;
-            this.ArchiveListView.UseSelectable = true;
-            this.ArchiveListView.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "File Path";
-            this.columnHeader1.Width = 237;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Archive File";
-            this.columnHeader2.Width = 552;
-            // 
             // AchiveRepoTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(881, 807);
+            this.ClientSize = new System.Drawing.Size(860, 474);
             this.Controls.Add(this.metroTabControl1);
             this.Controls.Add(this.piVersion);
             this.Controls.Add(this.Successtxt);
             this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
             this.Name = "AchiveRepoTool";
             this.Padding = new System.Windows.Forms.Padding(27, 88, 27, 29);
+            this.Resizable = false;
             this.Text = "Archive Reprocessing Tool";
             this.Load += new System.EventHandler(this.AchiveRepoTool_Load);
             ((System.ComponentModel.ISupportInitialize)(this.metroStyleManager1)).EndInit();
@@ -544,9 +514,6 @@
         private System.Windows.Forms.Timer myTimer;
         private MetroFramework.Controls.MetroButton mtrBtnOutput;
         private MetroFramework.Controls.MetroLabel mtrlblRepoFailed;
-        private MetroFramework.Controls.MetroListView ArchiveListView;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }
 
