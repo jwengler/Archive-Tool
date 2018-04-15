@@ -516,6 +516,8 @@ namespace Archive_repo_tool
 
         private void mtrBtnOutput_Click(object sender, EventArgs e)
         {
+            metroLabel1.Visible = false;
+            mtrlblRepoFailed.Visible = false;
             txtReprocessedFile.Text = getBrowerPath();
             RepoTool.SetOutputPath(txtReprocessedFile.Text);
         }
