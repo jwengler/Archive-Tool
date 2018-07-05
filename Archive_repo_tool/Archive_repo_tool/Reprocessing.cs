@@ -168,7 +168,9 @@ namespace Archive_repo_tool
             end_time = version.Substring(version.IndexOf("End Time:") + 10, version.IndexOf("Backup Time:") - version.IndexOf("End Time:") - 18);
 
             if (end_time == "Current Time")
+            {
                 end_time = "Primary";
+            }
         }
         /// <summary>
         /// Reprocess the Buffer queue file into a temporary arc file located on the C:\ drive 
