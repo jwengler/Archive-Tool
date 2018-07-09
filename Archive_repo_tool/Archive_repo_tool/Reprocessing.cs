@@ -164,10 +164,9 @@ namespace Archive_repo_tool
             string command = "pidiag -ahd " + "\"" + corrupt_file_path + "\"";
             version = runCommandadm(command);
             start_time = version.Substring(version.IndexOf("Start Time:") + 12, version.IndexOf("End Time:") - version.IndexOf("Start Time:") - 23);
-
             end_time = version.Substring(version.IndexOf("End Time:") + 10, version.IndexOf("Backup Time:") - version.IndexOf("End Time:") - 18);
 
-            if (end_time == "Current Time")
+            if (end_time == "Current Time") // target archive is the primary archive
             {
                 end_time = "Primary";
             }
@@ -241,6 +240,8 @@ namespace Archive_repo_tool
 
             return version;
         }
+
+
         public bool readLogfile()
         {
             bool bSucessfull = false;
@@ -263,7 +264,8 @@ namespace Archive_repo_tool
             }
             catch (Exception e)
             {
-
+                // TODO : write to GUI that an error occurred
+                return bSucessfull;
             }
             return bSucessfull;
         }
@@ -278,7 +280,7 @@ namespace Archive_repo_tool
             {
                 if (end_time.Equals("Primary")) //Reprocessing Primary Archive files | For PI Data Archive version 2012 and later (version 3.4.390.16 and later
                 {
-                    if (installedVer >= basePIVersion)
+                    if (installedVer >= basePIVersion) // After PI archive 2012
                     {
                         //../bin/piarchss -if /export/PI/dat/piarch.005 -of piarch.005.fix -f 0 -oet primary -noinputcheck
                         command = "piarchss -if " + "\"" + corrupt_file_path + "\"" + " -of " + "\"" + archive_file_path + "\"" + " -f" + " 0" + " -oet primary -noinputcheck" + " >" + strOutputLogFile;
@@ -333,7 +335,9 @@ namespace Archive_repo_tool
                 return "success";
             }
             else
+            {
                 return "failure";
+            }
         }
 
         /// <summary>
