@@ -320,7 +320,7 @@ namespace Archive_repo_tool
             //2 = event queue
             //3 = buffer queue
             BackgroundWorker repoThread = new BackgroundWorker();
-            repoThread.DoWork += new DoWorkEventHandler(RepoTool.Archive_Reprocess);
+            repoThread.DoWork += new DoWorkEventHandler(RepoTool.reprocessArchive);
             repoThread.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_completed);
 
             if (metroTabControl1.SelectedIndex > -1)
@@ -335,7 +335,7 @@ namespace Archive_repo_tool
                         metroLabel1.Visible = false;
                         metroProgressSpinner1.Visible = true;
                         metroProgressSpinner1.Spinning = true;
-                        //RepoTool.Archive_Reprocess();
+                        //RepoTool.reprocessArchive();
                         DisplayResults();
                     }
                     else
@@ -388,6 +388,7 @@ namespace Archive_repo_tool
             //ReprecoessQueuebtn.Enabled = false;
         }
 
+
         /// <summary>
         /// Display the success or unsuccessful operation (still needs work)
         /// </summary>
@@ -395,6 +396,7 @@ namespace Archive_repo_tool
         {
             Successtxt.Text = RepoTool.SuccessorFail();
         }
+
 
         /// <summary>
         /// Browse button to display a list of files - for input and output.
@@ -409,13 +411,17 @@ namespace Archive_repo_tool
             metroLabel1.Visible = false;
             mtrlblRepoFailed.Visible = false;
         }
+
+
         //ADD FILE TYPES//
         private void LoadNewFile() //www.dreamincode.net/forums/topic/241079-browsing-for-a-file-using-openfiledialog
         {
-           
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Multiselect = true; // Allow user to select multiple files
-            ofd.Filter = "Archive Files|*.arc|Queues|*.dat|All Files|*.*";
+
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Multiselect = true, // Allow user to select multiple files
+                Filter = "Archive Files|*.arc|Queues|*.dat|All Files|*.*"
+            };
             System.Windows.Forms.DialogResult dr = ofd.ShowDialog();
             if (dr == DialogResult.OK)
             {
@@ -465,7 +471,7 @@ namespace Archive_repo_tool
             mtrlblRepoFailed.Visible = false;
         }
 
-        private void Queuefiletxt_Click(object sender, EventArgs e)
+        private void queueFileTxt_Click(object sender, EventArgs e)
         {
             txtInputFile.SelectAll();
         }
@@ -505,7 +511,7 @@ namespace Archive_repo_tool
             txtReprocessedFile.Clear();
 
         }
-        private string getBrowerPath()
+        private string getBrowserPath()
         {
             string inputPath = RepoTool.GetCorrupt();
             inputPath = inputPath.Substring(0, inputPath.LastIndexOf('\\'));
@@ -523,7 +529,7 @@ namespace Archive_repo_tool
         {
             metroLabel1.Visible = false;
             mtrlblRepoFailed.Visible = false;
-            txtReprocessedFile.Text = getBrowerPath();
+            txtReprocessedFile.Text = getBrowserPath();
             RepoTool.SetOutputPath(txtReprocessedFile.Text);
         }
 
@@ -546,7 +552,7 @@ namespace Archive_repo_tool
 
         private void metroListView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
     }
 }

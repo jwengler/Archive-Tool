@@ -36,8 +36,8 @@
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.archiveTab = new MetroFramework.Controls.MetroTabPage();
             this.mtrlblRepoFailed = new MetroFramework.Controls.MetroLabel();
-            this.mtrBtnOutput = new MetroFramework.Controls.MetroButton();
             this.lblWarning = new System.Windows.Forms.Label();
+            this.mtrBtnOutput = new MetroFramework.Controls.MetroButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.StartTimelbl = new MetroFramework.Controls.MetroLabel();
             this.EndTimelbl = new MetroFramework.Controls.MetroLabel();
@@ -129,6 +129,18 @@
             this.mtrlblRepoFailed.UseStyleColors = true;
             this.mtrlblRepoFailed.Visible = false;
             // 
+            // lblWarning
+            // 
+            this.lblWarning.AutoSize = true;
+            this.lblWarning.BackColor = System.Drawing.Color.Transparent;
+            this.lblWarning.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWarning.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblWarning.Location = new System.Drawing.Point(465, 9);
+            this.lblWarning.Name = "lblWarning";
+            this.lblWarning.Size = new System.Drawing.Size(286, 20);
+            this.lblWarning.TabIndex = 33;
+            this.lblWarning.Text = "NOTE: REMEMBER TO TAKE A BACKUP!";
+            // 
             // mtrBtnOutput
             // 
             this.mtrBtnOutput.Location = new System.Drawing.Point(586, 97);
@@ -142,18 +154,6 @@
             this.mtrBtnOutput.UseStyleColors = true;
             this.mtrBtnOutput.Click += new System.EventHandler(this.mtrBtnOutput_Click);
             this.mtrBtnOutput.MouseUp += new System.Windows.Forms.MouseEventHandler(this.mtrBtnOutput_MouseUp);
-            // 
-            // lblWarning
-            // 
-            this.lblWarning.AutoSize = true;
-            this.lblWarning.BackColor = System.Drawing.Color.Transparent;
-            this.lblWarning.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWarning.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblWarning.Location = new System.Drawing.Point(465, 9);
-            this.lblWarning.Name = "lblWarning";
-            this.lblWarning.Size = new System.Drawing.Size(286, 20);
-            this.lblWarning.TabIndex = 33;
-            this.lblWarning.Text = "NOTE: REMEMBER TO TAKE A BACKUP!";
             // 
             // groupBox1
             // 
@@ -352,7 +352,7 @@
             this.txtInputFile.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtInputFile.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.txtInputFile.TextChanged += new System.EventHandler(this.Queuefiletxt_TextChanged);
-            this.txtInputFile.Click += new System.EventHandler(this.Queuefiletxt_Click);
+            this.txtInputFile.Click += new System.EventHandler(this.queueFileTxt_Click);
             // 
             // QueueFilelbl
             // 

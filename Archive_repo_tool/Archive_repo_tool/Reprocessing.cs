@@ -182,7 +182,7 @@ namespace Archive_repo_tool
                 if (version == 1)
                 {
                     string command = "piarchss -evq -evqpath " + "\"" + corrupt_file_path + "\"" + " -of " + userDesktopPath + "\\Temp.arc" + " >" + userDesktopPath + "\\DatToArcLog.txt";
-                    // Archive_Reprocess(); //reprocess temp archive into destination archive
+                    // reprocessArchive(); //reprocess temp archive into destination archive
                     BIGexitCode = runCommands(command);
                 }
 
@@ -206,7 +206,7 @@ namespace Archive_repo_tool
                     truncatedPath = corrupt_file_path.Substring(0, corrupt_file_path.Length - 52);
                     string command = "piarchss -evq -evqpath " + "\"" + truncatedPath + "\\" + "\"" + " -bufss " + GUID + " -of " + userDesktopPath + "\\Temp.arc" + " >" + userDesktopPath + "\\DatToArcLog.txt";
                     BIGexitCode = runCommands(command);
-                    //Archive_Reprocess();
+                    //reprocessArchive();
 
                 }
             }
@@ -270,9 +270,9 @@ namespace Archive_repo_tool
             return bSucessfull;
         }
         /// <summary>
-        /// Reprocess either the corrupted archive or the temporary archive created i the DATtoARC method 
+        /// Reprocess either the corrupted archive or the temporary archive created in the DATtoARC method 
         /// </summary>
-        public void Archive_Reprocess(object sender, DoWorkEventArgs e)
+        public void reprocessArchive(object sender, DoWorkEventArgs e)
         {
             string command = string.Empty;
             //Reprocessing Corrupt Archive
@@ -324,8 +324,10 @@ namespace Archive_repo_tool
             string command = "/ C  del /f " + userDesktopPath + "\\Temp.arc";
             BIGexitCode = runCommands(command);
         }
+
+
         /// <summary>
-        /// Print out wether the operation was successful or not
+        /// Print out whether the operation was successful or not
         /// </summary>
         /// <returns></returns>
         public string SuccessorFail()
@@ -347,7 +349,7 @@ namespace Archive_repo_tool
         /// <returns></returns>
         public int runCommands(string commandToRun) //bin folder
         {
-            string commandOutput = "Command Didnt Run";
+            string commandOutput = "Command Didn't Run";
             int exitCode = -1;
             ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd.exe");
             processStartInfo.RedirectStandardInput = true;
@@ -369,6 +371,7 @@ namespace Archive_repo_tool
             return exitCode;
 
         }
+
         public string runCommandadm(string commandToRun) //adm folder
         {
             string commandOutput = "Command Didn't Run";
