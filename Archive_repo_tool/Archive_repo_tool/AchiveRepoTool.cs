@@ -227,12 +227,15 @@ namespace Archive_repo_tool
         /// Read the start time of the input archive file
         /// </summary>
         /// <returns></returns>
+       
         private bool ReadStart()
         {
             String startTimeString = StartTimetxt.Value.ToString("dd-MMM-yyyy HH:mm:ss");
             RepoTool.SetStart(startTimeString); //send start time to the backend 
             return true;
         }
+
+
         /// <summary>
         /// Read the end time of the input archive file
         /// </summary>
@@ -244,6 +247,8 @@ namespace Archive_repo_tool
                 RepoTool.SetEnd(endTimeString); //send start time to the backend 
             return true;
         }
+
+
         /// <summary>
         /// Checks to see which radio button for version is checked
         /// </summary>
@@ -273,6 +278,8 @@ namespace Archive_repo_tool
             }
             else return false;
         }
+
+
         private void worker_completed(object sender, RunWorkerCompletedEventArgs e)
         {
             metroProgressSpinner1.Spinning = false;
@@ -299,6 +306,7 @@ namespace Archive_repo_tool
             //ReprecoessQueuebtn.Enabled = true;
             //mtrBtnBrowseRepo.Enabled = true;
         }
+
         /// <summary>
         /// Does the reprocessing in the backend after the inputs are all checked 
         /// </summary>
@@ -379,6 +387,7 @@ namespace Archive_repo_tool
 
             //ReprecoessQueuebtn.Enabled = false;
         }
+
         /// <summary>
         /// Display the success or unsuccessful operation (still needs work)
         /// </summary>
@@ -388,7 +397,7 @@ namespace Archive_repo_tool
         }
 
         /// <summary>
-        /// This is the browse button that was added
+        /// Browse button to display a list of files - for input and output.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -410,13 +419,13 @@ namespace Archive_repo_tool
             System.Windows.Forms.DialogResult dr = ofd.ShowDialog();
             if (dr == DialogResult.OK)
             {
-
                 userSelectedFilePath = ofd.FileName;
                 //ListViewItem arcList = new ListViewItem();
                 //arcList.SubItems.Add(userSelectedFilePath);
                 //ArchiveListView.Items.Add(arcList);
             }
         }
+
         public string userSelectedFilePath
         {
             get
@@ -441,7 +450,6 @@ namespace Archive_repo_tool
 
         private void Queuefiletxt_TextChanged(object sender, EventArgs e)
         {
-
             ReadCorruptQueuePath();
         }
 
@@ -481,17 +489,14 @@ namespace Archive_repo_tool
         {
             System.Diagnostics.Process.Start(openingFilePath);
         }
+
         private void Browsebtn_MouseUp(object sender, MouseEventArgs e)
         {
             if (!string.IsNullOrEmpty(txtInputFile.Text))
             {
                 mtrBtnOutput.Enabled = true;
             }
-            else
-            {
-                mtrBtnOutput.Enabled = false;
-            }
-
+            mtrBtnOutput.Enabled = false;
         }
 
         private void Browsebtn_MouseDown(object sender, MouseEventArgs e)
