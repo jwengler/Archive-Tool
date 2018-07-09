@@ -41,6 +41,8 @@ namespace Archive_repo_tool
         {
             return repoType;
         }
+
+
         /// <summary>
         /// Sets the Reprocessing Type
         /// 1 = Archive
@@ -60,16 +62,21 @@ namespace Archive_repo_tool
         {
             return corrupt_file_path;
         }
+
+
         /// <summary>
         /// Set that path into a local variable 
         /// </summary>
         /// <param name="value"></param>
         public void SetCorrupt(string value)
         {
-
             if (!string.IsNullOrEmpty(value))
+            {
                 corrupt_file_path = value;
+            }
         }
+
+
         /// <summary>
         /// Get the destination archive/new archive file path
         /// </summary>
@@ -78,6 +85,8 @@ namespace Archive_repo_tool
         {
             return archive_file_path;
         }
+
+
         /// <summary>
         /// Set the destination archive/new archive file path into a local variable 
         /// </summary>
@@ -88,6 +97,8 @@ namespace Archive_repo_tool
             if (!string.IsNullOrEmpty(value))
                 archive_file_path = value;
         }
+
+
         /// <summary>
         /// Get the start time of the archive from the GUI
         /// </summary>
@@ -96,6 +107,8 @@ namespace Archive_repo_tool
         {
             return start_time;
         }
+
+
         /// <summary>
         /// Set the start time into a local variable 
         /// </summary>
@@ -106,6 +119,8 @@ namespace Archive_repo_tool
             if (!string.IsNullOrEmpty(value))
                 start_time = value;
         }
+
+
         /// <summary>
         /// Get the end time from the GUI
         /// </summary>
@@ -114,6 +129,8 @@ namespace Archive_repo_tool
         {
             return end_time;
         }
+
+
         /// <summary>
         /// Set the end time
         /// </summary>
@@ -124,6 +141,8 @@ namespace Archive_repo_tool
             if (!string.IsNullOrEmpty(value))
                 end_time = value;
         }
+
+
         /// <summary>
         /// Get the buffer version
         /// </summary>
@@ -132,24 +151,31 @@ namespace Archive_repo_tool
         {
             return version;
         }
+
+
         /// <summary>
-        /// set the  buffer version
+        /// set the buffer version
         /// </summary>
         /// <param name="value"></param>
         public void setVersion(int value)
         {
             version = value;
         }
+
+
         public void SetOutputPath(String thisPath)
         {
             outputPath = thisPath;
         }
 
+
         public void setRepoFilename(String thisName)
         {
             RepoFilename = thisName;
-            strOutputLogFile = outputPath + "\\" + RepoFilename + ".txt";
+            strOutputLogFile = outputPath + "\\" + RepoFilename + "_LogFile.txt";
         }
+
+
         public string setLogFilePath()
         {
             return strOutputLogFile;
@@ -171,6 +197,8 @@ namespace Archive_repo_tool
                 end_time = "Primary";
             }
         }
+
+
         /// <summary>
         /// Reprocess the Buffer queue file into a temporary arc file located on the C:\ drive 
         /// </summary>
@@ -212,6 +240,7 @@ namespace Archive_repo_tool
             }
         }
 
+
         /// <summary>
         /// Get PI Server Version
         /// </summary>
@@ -233,18 +262,18 @@ namespace Archive_repo_tool
             }
             catch (Exception ex)
             {
-
                 version = "false";
-
             }
 
             return version;
         }
 
-
+        /// <summary>
+        /// Reads the log file to determine if the logs suggest a successful reprocessing.
+        /// </summary>
         public bool readLogfile()
         {
-            bool bSucessfull = false;
+            bool bSuccessful = false;
             const Int32 bufferSize = 1024;
             try
             {
@@ -256,26 +285,33 @@ namespace Archive_repo_tool
                     {
                         if (line.Contains("Archive reprocessing completed successfully"))
                         {
-                            bSucessfull = true;
+                            bSuccessful = true;
+                            break;
                         }
-
+                        else if (line.Contains("Error processing"))
+                        {
+                            bSuccessful = false;
+                            break;
+                        }
                     }
                 }
             }
             catch (Exception e)
             {
-                // TODO : write to GUI that an error occurred
-                return bSucessfull;
+                return false;
             }
-            return bSucessfull;
+            return bSuccessful;
         }
+
+
         /// <summary>
         /// Reprocess either the corrupted archive or the temporary archive created in the DATtoARC method 
         /// </summary>
         public void reprocessArchive(object sender, DoWorkEventArgs e)
         {
             string command = string.Empty;
-            //Reprocessing Corrupt Archive
+
+            // Reprocessing Corrupt Archive
             if (!string.IsNullOrEmpty(start_time))
             {
                 if (end_time.Equals("Primary")) //Reprocessing Primary Archive files | For PI Data Archive version 2012 and later (version 3.4.390.16 and later
@@ -316,6 +352,8 @@ namespace Archive_repo_tool
                 DeleteTempArc();
             }
         }
+
+
         /// <summary>
         /// Delete the temporary archive that was created in the DAT to ARC method 
         /// </summary>
@@ -341,6 +379,7 @@ namespace Archive_repo_tool
                 return "failure";
             }
         }
+
 
         /// <summary>
         /// Create a command line with the %piserver%\adm directory already navigated to
@@ -369,8 +408,8 @@ namespace Archive_repo_tool
                 exitCode = process.ExitCode;
             }
             return exitCode;
-
         }
+
 
         public string runCommandadm(string commandToRun) //adm folder
         {
@@ -393,7 +432,6 @@ namespace Archive_repo_tool
                 exitCode = process.ExitCode;
             }
             return commandOutput;
-
         }
 
     }

@@ -289,7 +289,7 @@
             this.ReprecoessQueuebtn.Text = "Reprocess";
             this.ReprecoessQueuebtn.UseSelectable = true;
             this.ReprecoessQueuebtn.UseStyleColors = true;
-            this.ReprecoessQueuebtn.Click += new System.EventHandler(this.ReprecoessQueuebtn_Click);
+            this.ReprecoessQueuebtn.Click += new System.EventHandler(this.reprocessQueueBtn_Click);
             // 
             // ArchFilelbl
             // 

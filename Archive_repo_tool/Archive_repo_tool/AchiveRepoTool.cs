@@ -20,20 +20,17 @@ namespace Archive_repo_tool
         private String openingFilePath = string.Empty;
         private bool fileStatus = false;
         private string inputPath = string.Empty;
-        //create an instane of teh GUI
+        //create an instane of the GUI
         private Reprocessing RepoTool = new Reprocessing();
 
         public AchiveRepoTool()
         {
             InitializeComponent();
-            InitializeGUI(); //My Initialization
-
-
+            InitializeGUI(); //My Initialization            
         }
 
         private void InitializeGUI()
         {
-
             this.Text = "Reprocessing Tool"; //This = the current class or MainForm
 
             //input controls
@@ -56,6 +53,8 @@ namespace Archive_repo_tool
             //output controls
             Successtxt.Text = string.Empty;
         }
+
+        
         /// <summary>
         /// Checks to see which radio button for version is checked
         /// </summary>
@@ -97,16 +96,17 @@ namespace Archive_repo_tool
                 return success;
             }
         }
+
+
         /// <summary>
         /// Send the Corrupte file path on to the Reprocessing.cs
         /// </summary>
-        /// <returns></returns>
+        /// <returns> Whether the reading of the path completed successfully. </returns>
         private bool ReadCorruptQueuePath()
         {
             string path = string.Empty;
-            //Get the contents of the textbox
-
-            path = txtInputFile.Text;
+            
+            path = txtInputFile.Text; //Get the contents of the textbox
 
             if (string.IsNullOrEmpty(path))
             {
@@ -137,11 +137,13 @@ namespace Archive_repo_tool
                 return true;
             }
         }
+
+
         /// <summary>
         /// Send the destination path/new archive path on to the backend
         /// </summary>
         /// <returns></returns>
-        private bool ReadDestinationArchvePath()
+        private bool ReadDestinationArchivePath()
         {
             bool okay;
             string inputArcName = string.Empty;
@@ -171,6 +173,7 @@ namespace Archive_repo_tool
                 ouputAnnoFile = inputArcName + "_reprocessed.ann";
                 ouputArcFile = inputArcName + "_reprocessed";
             }
+
             openingFilePath = inputPath; // delete this later
             inputPath = inputPath.Substring(0, inputPath.LastIndexOf('\\'));
             inputAnnoFile = inputPath + "\\" + inputAnnoFile;
@@ -178,7 +181,8 @@ namespace Archive_repo_tool
             RepoTool.setRepoFilename(inputArcName.Substring(0, inputArcName.LastIndexOf(".arc")));
             outputArcPath = outputPath + "\\" + ouputArcFile;
             outputAnnoPath = outputPath + "\\" + ouputAnnoFile;
-            //Checking whether the reprocessing annotation and archive file existing
+
+            //Checking whether the reprocessing annotation and archive file exists
             if (!File.Exists(inputAnnoFile))
             {
                 MetroFramework.MetroMessageBox.Show(this, "Missing Annotation file!", "Reprocessing Tool | Warning");
@@ -286,7 +290,7 @@ namespace Archive_repo_tool
             metroProgressSpinner1.Visible = false;
             if ((e.Error != null) || !(RepoTool.readLogfile()))
             {
-                //MetroFramework.MetroMessageBox.Show(this, "Faile Reprocessing - Check logs");
+                //MetroFramework.MetroMessageBox.Show(this, "Failed Reprocessing - Check logs");
                 //metroLabel1.Style = MetroFramework.MetroColorStyle.Red;
                 //metroLabel1.Text = "Failed Reprocessing - Check Logs";
                 mtrlblRepoFailed.Visible = true;
@@ -312,7 +316,7 @@ namespace Archive_repo_tool
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ReprecoessQueuebtn_Click(object sender, EventArgs e)
+        private void reprocessQueueBtn_Click(object sender, EventArgs e)
         {
             metroLabel1.Visible = false;
             mtrlblRepoFailed.Visible = false;
@@ -327,7 +331,7 @@ namespace Archive_repo_tool
             {
                 if (metroTabControl1.SelectedIndex == 0)
                 {
-                    if (ReadCorruptQueuePath() && ReadDestinationArchvePath() && ReadStart() && ReadEnd())
+                    if (ReadCorruptQueuePath() && ReadDestinationArchivePath() && ReadStart() && ReadEnd())
                     {
                         RepoTool.setVersion(0); //Not a buffer queue
                         repoThread.RunWorkerAsync();
@@ -348,7 +352,7 @@ namespace Archive_repo_tool
                 }
                 else if (metroTabControl1.SelectedIndex == 1)
                 {
-                    if (ReadCorruptQueuePath() && ReadDestinationArchvePath() && ReadStart() && ReadEnd())
+                    if (ReadCorruptQueuePath() && ReadDestinationArchivePath() && ReadStart() && ReadEnd())
                     {
                         RepoTool.setVersion(0); //Not a buffer queue
                         RepoTool.DatToArc();
@@ -356,7 +360,7 @@ namespace Archive_repo_tool
                     }
                     else
                     {
-                        if (ReadDestinationArchvePath() == true)
+                        if (ReadDestinationArchivePath() == true)
                         {
                             MetroFramework.MetroMessageBox.Show(this, "Please ensure fields are filled in correctly.");
                         }
@@ -365,7 +369,7 @@ namespace Archive_repo_tool
                 }
                 else //buffer queue selected
                 {
-                    if (ReadCorruptQueuePath() && ReadDestinationArchvePath() && ReadStart() && ReadEnd() && ReadVersion())
+                    if (ReadCorruptQueuePath() && ReadDestinationArchivePath() && ReadStart() && ReadEnd() && ReadVersion())
                     {
                         RepoTool.DatToArc();
 
@@ -373,7 +377,7 @@ namespace Archive_repo_tool
                     }
                     else
                     {
-                        if (ReadDestinationArchvePath() == true)
+                        if (ReadDestinationArchivePath() == true)
                         {
                             MetroFramework.MetroMessageBox.Show(this, "Please ensure fields are filled in correctly.");
                         }
