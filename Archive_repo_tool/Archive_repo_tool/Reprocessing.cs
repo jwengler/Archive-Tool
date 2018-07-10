@@ -73,7 +73,7 @@ namespace Archive_repo_tool
             if (!string.IsNullOrEmpty(value))
             {
                 corrupt_file_path = value;
-            }
+            }            
         }
 
 
@@ -189,6 +189,7 @@ namespace Archive_repo_tool
         public void parseArchiveStartEnd()
         {
             string version;
+            string msg;
             string command = "pidiag -ahd " + "\"" + corrupt_file_path + "\"";
             try
             {
@@ -204,6 +205,8 @@ namespace Archive_repo_tool
                 {
                     end_time = "Primary";
                 }
+                //TODO: Figure out how to display this message near "Target Archive File"
+                msg = "Start & End Times Automatically Parsed";
             }
             catch (FileNotFoundException f)
             {
@@ -213,7 +216,6 @@ namespace Archive_repo_tool
             {
                 MessageBox.Show("Error parsing the start and end time", "Error"); //if there is an error generate this message box
             }
-            
         }
 
 
@@ -329,7 +331,7 @@ namespace Archive_repo_tool
         {
             string command = string.Empty;
 
-            // Reprocessing Corrupt Archive
+            // Reprocessing/Recover Data from Corrupt Archive
             if (!string.IsNullOrEmpty(start_time))
             {
                 if (end_time.Equals("Primary")) //Reprocessing Primary Archive files | For PI Data Archive version 2012 and later (version 3.4.390.16 and later
@@ -400,7 +402,7 @@ namespace Archive_repo_tool
 
 
         /// <summary>
-        /// Create a command line with the %piserver%\adm directory already navigated to
+        /// Create a command line with the %piserver%\bin directory already navigated to
         /// </summary>
         /// <param name="commandToRun"></param>
         /// <returns></returns>
@@ -428,7 +430,9 @@ namespace Archive_repo_tool
             return exitCode;
         }
 
-
+        /// <summary>
+        /// Create a command line with the %piserver%\adm directory already navigated to
+        /// </summary>
         public string runCommandadm(string commandToRun) //adm folder
         {
             string commandOutput = "Command Didn't Run";
