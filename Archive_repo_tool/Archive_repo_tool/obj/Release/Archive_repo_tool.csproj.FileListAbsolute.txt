@@ -19,3 +19,14 @@ C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\
 C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Release\Archive_repo_tool.exe
 C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Release\Archive_repo_tool.pdb
 C:\Users\nifernando\Desktop\Visual Studio\GitHub\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Release\Archive_repo_tool.csprojResolveAssemblyReference.cache
+C:\Users\nbourlier\Desktop\Archive_Repo\Archive-Tool\Archive_repo_tool\Archive_repo_tool\bin\Release\Resources\osisoftLogo.png
+C:\Users\nbourlier\Desktop\Archive_Repo\Archive-Tool\Archive_repo_tool\Archive_repo_tool\bin\Release\Archive_repo_tool.exe.config
+C:\Users\nbourlier\Desktop\Archive_Repo\Archive-Tool\Archive_repo_tool\Archive_repo_tool\bin\Release\Archive_repo_tool.exe
+C:\Users\nbourlier\Desktop\Archive_Repo\Archive-Tool\Archive_repo_tool\Archive_repo_tool\bin\Release\Archive_repo_tool.pdb
+C:\Users\nbourlier\Desktop\Archive_Repo\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Release\Archive_repo_tool.csprojAssemblyReference.cache
+C:\Users\nbourlier\Desktop\Archive_Repo\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Release\Archive_repo_tool.AchiveRepoTool.resources
+C:\Users\nbourlier\Desktop\Archive_Repo\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Release\Archive_repo_tool.Properties.Resources.resources
+C:\Users\nbourlier\Desktop\Archive_Repo\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Release\Archive_repo_tool.csproj.GenerateResource.cache
+C:\Users\nbourlier\Desktop\Archive_Repo\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Release\Archive_repo_tool.csproj.CoreCompileInputs.cache
+C:\Users\nbourlier\Desktop\Archive_Repo\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Release\Archive_repo_tool.exe
+C:\Users\nbourlier\Desktop\Archive_Repo\Archive-Tool\Archive_repo_tool\Archive_repo_tool\obj\Release\Archive_repo_tool.pdb

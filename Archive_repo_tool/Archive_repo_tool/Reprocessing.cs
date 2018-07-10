@@ -181,21 +181,39 @@ namespace Archive_repo_tool
             return strOutputLogFile;
         }
 
+
         /// <summary>
         /// Get Archive Start and End Time 
         /// </summary>
+        /// <exception cref="System.FileNotFoundException">Thrown when the system cannot find the path specified.</exception>
         public void parseArchiveStartEnd()
         {
             string version;
             string command = "pidiag -ahd " + "\"" + corrupt_file_path + "\"";
-            version = runCommandadm(command);
-            start_time = version.Substring(version.IndexOf("Start Time:") + 12, version.IndexOf("End Time:") - version.IndexOf("Start Time:") - 23);
-            end_time = version.Substring(version.IndexOf("End Time:") + 10, version.IndexOf("Backup Time:") - version.IndexOf("End Time:") - 18);
-
-            if (end_time == "Current Time") // target archive is the primary archive
+            try
             {
-                end_time = "Primary";
+                version = runCommandadm(command);
+                if (version.Contains("[3] The system cannot find the path specified.")
+                {
+                    throw new FileNotFoundException("Invalid archive file name");
+                }
+                start_time = version.Substring(version.IndexOf("Start Time:") + 12, version.IndexOf("End Time:") - version.IndexOf("Start Time:") - 23);
+                end_time = version.Substring(version.IndexOf("End Time:") + 10, version.IndexOf("Backup Time:") - version.IndexOf("End Time:") - 18);
+
+                if (end_time == "Current Time") // target archive is the primary archive
+                {
+                    end_time = "Primary";
+                }
             }
+            catch (FileNotFoundException f)
+            {
+                MessageBox.Show("Invalid archive file name", "Error"); //if there is an error generate this message box
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error parsing the start and end time", "Error"); //if there is an error generate this message box
+            }
+            
         }
 
 

@@ -34,7 +34,7 @@ namespace Archive_repo_tool
             this.Text = "Reprocessing Tool"; //This = the current class or MainForm
 
             //input controls
-            //could have a button for different PI Server versions 
+            //TODO: could have a button for different PI Server versions 
             //clear inputs
             //ArchFiletxt.Text = string.Empty;
             txtInputFile.Text = string.Empty;
@@ -43,13 +43,15 @@ namespace Archive_repo_tool
             ReprecoessQueuebtn.Enabled = false;
             StartTimetxt.Format = DateTimePickerFormat.Custom;
             EndTimetxt.Format = DateTimePickerFormat.Custom;
-            if (RepoTool.piVersion() == "false")
+            if (RepoTool.piVersion() == "false") // PI Data Archive is not installed.
             {
-                MetroFramework.MetroMessageBox.Show(this, "Data Archive is NOT Installed.", "OSISoft Reprocessing Tool", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MetroFramework.MetroMessageBox.Show(this, "Data Archive is NOT Installed.", "OSIsoft Reprocessing Tool", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             else
+            {
                 piVersion.Text = RepoTool.piVersion();
+            }
             //output controls
             Successtxt.Text = string.Empty;
         }
@@ -64,42 +66,38 @@ namespace Archive_repo_tool
             bool success;
             if (metroTabControl1.SelectedIndex > -1)
             {
-                //1 = archive
-                //2 = event queue
-                //3 = buffer queue
-                if (metroTabControl1.SelectedIndex == 0)
+                switch (metroTabControl1.SelectedIndex)
                 {
-                    RepoTool.SetRepoType(1);
-                    StartTimetxt.Enabled = false;
-                    EndTimetxt.Enabled = false;
-                    success = true;
+                    case 0: // Archive
+                        RepoTool.SetRepoType(1);
+                        StartTimetxt.Enabled = false;
+                        EndTimetxt.Enabled = false;
+                        success = true;
+                        break;
+                    case 1: // Event queue
+                        RepoTool.SetRepoType(2);
+                        StartTimetxt.Enabled = true;
+                        EndTimetxt.Enabled = true;
+                        success = true;
+                        break;
+                    default: // Buffer queue
+                        RepoTool.SetRepoType(3);
+                        StartTimetxt.Enabled = true;
+                        EndTimetxt.Enabled = true;
+                        success = true;
+                        break;
                 }
-                else if (metroTabControl1.SelectedIndex == 1)
-                {
-                    RepoTool.SetRepoType(2);
-                    StartTimetxt.Enabled = true;
-                    EndTimetxt.Enabled = true;
-                    success = true;
-                }
-                else //buffer queue selected
-                {
-                    RepoTool.SetRepoType(3);
-                    StartTimetxt.Enabled = true;
-                    EndTimetxt.Enabled = true;
-                    success = true;
-                }
-                return success;
             }
             else
             {
                 success = false;
-                return success;
-            }
+            }                
+            return success;        
         }
 
 
         /// <summary>
-        /// Send the Corrupte file path on to the Reprocessing.cs
+        /// Send the Corrupt file path on to the Reprocessing.cs
         /// </summary>
         /// <returns> Whether the reading of the path completed successfully. </returns>
         private bool ReadCorruptQueuePath()
@@ -227,11 +225,11 @@ namespace Archive_repo_tool
             //return okay;
         }
 
+
         /// <summary>
         /// Read the start time of the input archive file
         /// </summary>
-        /// <returns></returns>
-       
+        /// <returns></returns>       
         private bool ReadStart()
         {
             String startTimeString = StartTimetxt.Value.ToString("dd-MMM-yyyy HH:mm:ss");
@@ -248,7 +246,9 @@ namespace Archive_repo_tool
         {
             String endTimeString = EndTimetxt.Value.ToString("dd-MMM-yyyy HH:mm:ss");
             if (RepoTool.GetEnd() != "Primary")
+            {
                 RepoTool.SetEnd(endTimeString); //send start time to the backend 
+            }
             return true;
         }
 
@@ -436,6 +436,7 @@ namespace Archive_repo_tool
             }
         }
 
+
         public string userSelectedFilePath
         {
             get
@@ -448,20 +449,24 @@ namespace Archive_repo_tool
             }
         }
 
+
         private void repoTypeBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ReadRepoType();
         }
+
 
         private void NewVersionBtn_CheckedChanged(object sender, EventArgs e)
         {
             ReadVersion();
         }
 
+
         private void Queuefiletxt_TextChanged(object sender, EventArgs e)
         {
             ReadCorruptQueuePath();
         }
+
 
         private void AchiveRepoTool_Load(object sender, EventArgs e)
         {
@@ -475,15 +480,18 @@ namespace Archive_repo_tool
             mtrlblRepoFailed.Visible = false;
         }
 
+
         private void queueFileTxt_Click(object sender, EventArgs e)
         {
             txtInputFile.SelectAll();
         }
 
+
         private void txtReprocessedFile_Click(object sender, EventArgs e)
         {
             txtReprocessedFile.SelectAll();
         }
+
 
         private void myTimer_Tick(object sender, EventArgs e)
         {
@@ -495,10 +503,12 @@ namespace Archive_repo_tool
             lblWarning.ForeColor = Color.FromArgb(A, B, C, D);
         }
 
+
         private void MtrBtn_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(openingFilePath);
         }
+
 
         private void Browsebtn_MouseUp(object sender, MouseEventArgs e)
         {
@@ -509,12 +519,15 @@ namespace Archive_repo_tool
             mtrBtnOutput.Enabled = false;
         }
 
+
         private void Browsebtn_MouseDown(object sender, MouseEventArgs e)
         {
             txtInputFile.Clear();
             txtReprocessedFile.Clear();
 
         }
+
+
         private string getBrowserPath()
         {
             string inputPath = RepoTool.GetCorrupt();
@@ -529,6 +542,7 @@ namespace Archive_repo_tool
             return repoPath;
         }
 
+
         private void mtrBtnOutput_Click(object sender, EventArgs e)
         {
             metroLabel1.Visible = false;
@@ -536,6 +550,7 @@ namespace Archive_repo_tool
             txtReprocessedFile.Text = getBrowserPath();
             RepoTool.SetOutputPath(txtReprocessedFile.Text);
         }
+
 
         private void mtrBtnOutput_MouseUp(object sender, MouseEventArgs e)
         {
@@ -549,10 +564,12 @@ namespace Archive_repo_tool
             }
         }
 
+
         private void ArchFilelbl_Click(object sender, EventArgs e)
         {
 
         }
+
 
         private void metroListView1_SelectedIndexChanged(object sender, EventArgs e)
         {
