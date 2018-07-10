@@ -193,7 +193,7 @@ namespace Archive_repo_tool
             try
             {
                 version = runCommandadm(command);
-                if (version.Contains("[3] The system cannot find the path specified.")
+                if (version.Contains("[3] The system cannot find the path specified."))
                 {
                     throw new FileNotFoundException("Invalid archive file name");
                 }
