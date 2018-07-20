@@ -9,9 +9,10 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//TODO: Implement Symptom Checker for reprocessing to see if the file should actually be reprocessed
 namespace Archive_repo_tool
 {
-    class Reprocessing
+    partial class Reprocessing
     {
         private string corrupt_file_path = string.Empty;
         private string archive_file_path = string.Empty;
@@ -42,7 +43,7 @@ namespace Archive_repo_tool
             return repoType;
         }
 
-
+       
         /// <summary>
         /// Sets the Reprocessing Type
         /// 1 = Archive
